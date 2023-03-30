@@ -520,8 +520,11 @@ padding-bottom:30px;
   }
   .main_ListEmployees .box_table .buttonToggleRowPerPage, .main_ListEmployees .box_table .dropdownMenuTable {
     background-color: #eff2e9;
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
   }
-  
+  .main_ListEmployees .btn_Reset {
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.3);
+  }
   /* styles pour le bouton de déclenchement du dropdown */
   .main_newEmployee .dropdownToggle {
     padding: 8px 12px;
