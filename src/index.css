@@ -1,13 +1,577 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: 'Roboto',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  color: #0d0d0d;
+  padding: 0;
+  height:100vh;
+  box-sizing: border-box;
+  background-color: #eff2e9;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*{
+  box-sizing: border-box;
 }
+
+ul, li{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.sr-only {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* masque le contenu, mais le rend accessible pour les lecteurs d'écran */
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+a{
+  text-decoration: none;
+}
+
+button{
+  cursor: pointer;
+}
+
+.box_app{
+  display: flex;
+  text-align: center;
+}
+@media (max-width: 500px) {
+  .box_app{
+    flex-direction: column;
+  }
+}
+
+.box_home, .main_newEmployee {
+  text-align:center;
+  margin : 0 auto;
+}
+
+h1, h2{
+  font-size:3rem;
+  color: #0d0d0d;
+}
+
+@media (max-width: 1200px) {
+    h1, h2{
+    font-size: 2rem;
+    }
+}
+/* 
+.errorEntree{
+  color: red;
+  font-size: 0.8rem;
+  margin-top : 0;
+} */
+.linkNewEmployee, .linkListEmployee{
+  margin: 20px 20px 20px 50px;
+  border:none;
+  color: black;
+  display:inline-block;
+  text-align:center;
+  width:300px;
+  padding: 10px 20px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #546a03;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 800px) {
+  .header_ListEmployees .linkNewEmployee,.header_ListEmployees .linkListEmployee{
+    margin: 20px auto;
+  }
+}
+@media (max-width: 500px) {
+ .box_navHome .linkNewEmployee,.box_navHome .linkListEmployee{
+    margin: 20px 0 20px 0;
+  }
+}
+
+.linkNewEmployee:hover, .linkListEmployee:hover{
+  background-color: #677e11;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+}
+
+.box_home{
+  min-height: 100vh;
+  background-color: #eff2e9;
+}
+
+.main_newEmployee {
+  min-height: 100vh;
+  min-width: 100%;
+  display: flex;
+}
+
+@media (max-width: 900px) {
+  .main_newEmployee {
+    flex-direction: column;
+  }
+
+}
+
+.main_newEmployee input{
+  background: #ecf0f3;
+  padding: 10px;
+  padding-left: 20px;
+  border: none;
+  height: 40px;
+  font-size: 14px;
+  border-radius: 50px;
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+  outline:1px solid rgb(220, 239, 232);
+}
+
+@media (max-width: 1000px) {
+  img{
+    margin:20px auto 0;
+    width: 300px;
+    height: 300px;
+  }
+
+  .main_newEmployee header{
+    width: 400px;
+  }
+}
+@media (max-width: 900px) {
+  img{
+    margin:20px auto 0;
+    width: 100px;
+    height: 100px;
+  }
+  .main_newEmployee{
+    flex-direction: column;
+  }
+
+  .main_newEmployee header{
+    width: 100%;
+  }
+}
+
+.boxName{
+  display: flex;
+  justify-content: center;
+}
+
+.boxName .box_input{
+  margin-bottom: 20px;
+}
+
+.box_formEntree{
+  position: relative;
+}
+
+.boxDate{
+  display: flex;
+  justify-content: center;
+}
+
+.box_dateOfBirth{
+  margin-right: 20px;
+}
+
+.box_startDate, .box_dateOfBirth{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.box_startDate p ,.box_dateOfBirth p{
+  margin-right: 10px;
+
+}
+.box_startDate p{
+  margin-left: 20px;
+}
+
+.box_startDate .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root, .box_dateOfBirth .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root{
+  padding-left: 20px;
+  padding-top:10px;
+}
+
+.box_startDate .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input, .box_dateOfBirth .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+  margin:10px;
+  /* padding:10px; */
+  height:20px;
+}
+
+.box_startDate .css-1ralhbl-MuiFormControl-root-MuiTextField-root,.box_dateOfBirth .css-1ralhbl-MuiFormControl-root-MuiTextField-root{
+  vertical-align: middle;
+}
+
+.box_startDate .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root,.box_dateOfBirth .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root{
+  padding:5px 5px 5px 5px;
+}
+
+.box_startDate .css-1ralhbl-MuiFormControl-root-MuiTextField-root .MuiInputBase-input,.box_dateOfBirth .css-1ralhbl-MuiFormControl-root-MuiTextField-root .MuiInputBase-input{
+  height: 20px;
+}
+
+@media (max-width: 1000px) {
+  .boxDate{
+    flex-direction: column;
+  }
+  .box_startDate, .box_dateOfBirth{
+    margin-top:20px;
+  }
+  .boxDate .box_startDate p{
+    margin-left:0;
+  }
+
+  .box_dateOfBirth{
+    margin-right:0;
+    margin-top:10px;
+  }
+}
+
+.errorMessage{
+  position: absolute;
+  margin:0;
+  bottom: -20px;
+  left:0;
+  color:red;
+}
+
+.errorBorder{
+  border: 1px solid red;
+}
+
+.address{
+  margin:10px auto;
+} 
+
+fieldset, select {
+  border: 1px solid #57810b;
+}
+
+.box_state, .box_department{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.box_state .p_label, .box_department .p_label {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.box_state li:hover, .box_department li:hover{
+  background-color: #d8e3b3;
+}
+
+.box_state li.selectedOption:hover, .box_department li.selectedOption:hover {
+  background-color:  #b1c46c;
+}
+
+.box_state li.selectedOption, .box_department li.selectedOption{
+  background-color:  #b1c46c;
+}
+
+@media (max-width: 650px), (min-width: 900px) and (max-width: 1000px){
+  .boxName, .address{
+    display: flex;
+    flex-direction: column;
+  }
+
+    .address{
+      margin:20px auto 20px;
+    } 
+    #zip-code{
+      margin-bottom:20px;
+    }
+  
+  .boxName{
+    display: flex;
+    justify-content: center;
+  }
+
+  .address label{ 
+    margin-top:10px;
+  }
+}
+
+.confirmationModal{
+  width: 100%;
+  height: 100%;
+  background-color:  #c4da78 ;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  padding: 20px 20px 20px 20px;
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right: 0;
+  z-index: 9999;
+}
+
+.confirmationModal h2{
+  font-size: 2.5rem;
+}
+
+.confirmationModal p{
+  font-size: 2rem;
+}
+
+@media (max-width: 900px){
+  .confirmationModal{
+    bottom:inherit;
+    height: auto;
+  }
+  .confirmationModal h2{
+    font-size: 2rem;
+  }
+  .confirmationModal p{
+    font-size: 1.6rem;
+  }
+}
+
+.btn_closeModal{
+  align-self: flex-end;
+  background-color: #677e11;
+  border: none;
+  color: #fff;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+}
+
+.btn_closeModal_icon{
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 1200px) {
+  a{
+  font-size: 1.2rem;
+  }
+
+  /* .confirmationModal{
+    width: 400px;
+  } */
+}
+
+@media (max-width: 550px) {
+  a{
+  font-size: 1.2rem;
+  }
+  /* .confirmationModal{
+    width: 90%;
+  } */
+}
+
+.containerNewEmployee{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #f6f8f2;
+}
+
+.containerNewEmployee h1{
+  margin-top:20px;
+  margin-bottom: 10px;
+  font-size: 2.4rem;
+  color :#3f3f3f;
+}
+.main_ListEmployees h1 { 
+  margin-top:20px;
+  margin-bottom: 30px;
+  font-size: 2.4rem;
+  color :#2d2d2d;
+  text-align: center;
+}
+.containerNewEmployee select{
+  background-color: #f6f8f2;
+  text-align: center;
+}
+
+.containerNewEmployee input{
+  background-color: #f6f8f2;
+}
+
+.titleService{
+  font-size: 2rem;
+  font-weight: bold;
+  margin:10px 0;
+}
+
+.header_ListEmployees{
+  background-color: #9dba37;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.box_logoService{
+  display: flex;
+  width:350px;
+}
+@media (max-width: 1000px) {
+  .box_logoService{
+    display: flex;
+    width:150px;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.header_ListEmployees img{
+  width: 80px;
+  height: 70px;
+  margin-left:20px;
+}
+
+form{
+  padding: 0 20px 20px 20px;
+}
+
+form input{
+  margin: 10px 10px 0;
+}
+
+form select {
+  margin: 20px 10px 10px;
+}
+
+select{
+  height: 30px;
+}
+
+.btnFormSave{
+  text-align:center;
+  width:300px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #546a03;
+  border-radius: 25px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  border: none;
+  font-size: 1.2rem;
+  margin: 20px auto 30px;
+}
+
+.btnFormSave:hover{
+  background-color: #677e11;
+  box-shadow: 2px 2px 4px rgb(0 0 0 / 30%);
+}
+
+input::placeholder {
+  color: gray;
+}
+
+.title_newEmployee{
+  font-size: 2rem;
+  padding-top:40px;
+  padding-bottom:40px;
+  margin-top:0;
+  margin-bottom:0;
+}
+
+.box_startDate .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input, .box_dateOfBirth .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+  margin: 10px; 
+  padding:10px;
+}
+
+.logoHome{
+  width: 330px;
+  height: 300px;
+}
+
+@media (max-width: 800px) {
+  .header_ListEmployees{
+    flex-direction: column;
+  }
+}
+
+.main_ListEmployees .box_searchGlobal input{
+  height: 45px;
+}
+
+.main_ListEmployees{
+padding-bottom:30px;
+} 
+
+.MuiInputBase-input .MuiOutlinedInput-input .css-1x5jdmq{
+  margin:10px;
+}
+
+
+  .main_newEmployee  .box_state
+    .dropdown {
+      z-index: 10;
+    }
+  
+    .main_newEmployee .dropdown {
+    position: relative;
+    display: inline-block;
+    /* z-index: 999; */
+    background-color: #f6f8f2;
+  }
+  .main_ListEmployees .box_table .buttonToggleRowPerPage, .main_ListEmployees .box_table .dropdownMenuTable {
+    background-color: #eff2e9;
+  }
+  
+  /* styles pour le bouton de déclenchement du dropdown */
+  .main_newEmployee .dropdownToggle {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border: 1px solid #adca76;
+    background-color: #f6f8f2;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+  }
+  
+  /* styles pour la flèche du dropdown */
+  .main_newEmployee .arrow {
+    margin-left: 8px;
+  }
+  
+  /* styles pour le menu déroulant */
+  .main_newEmployee .dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f6f8f2;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* styles pour les options du menu déroulant */
+  .main_newEmployee .dropdownOption {
+    padding: 8px 12px;
+    cursor: pointer;
+    /* z-index: 999; */
+  }
+  
+  .main_newEmployee .dropdownOption:hover {
+    background-color: #f2f2f2;
+  }
+  
+  /* styles pour l'option sélectionnée */
+  .main_newEmployee .selected {
+    background-color: #b1c46c;
+    color: #fff;
+  }
+
+
+
+
