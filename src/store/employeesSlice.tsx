@@ -15,7 +15,7 @@ interface Employee {
 
 const employeesSlice = createSlice({
   name: 'employees',
-  initialState: dataEmployeesMock as Employee[],
+  initialState: dataEmployeesMock as Array<Employee>,
   reducers: {
     addEmployee: (state, action: PayloadAction<Employee>) => {
       state.push(action.payload);

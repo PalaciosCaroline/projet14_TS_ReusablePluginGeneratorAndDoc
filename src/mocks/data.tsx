@@ -1,3 +1,9 @@
+
+interface Columns {
+  label: string;
+  property: string;
+}
+
 interface Employee {
   firstname: string;
   lastname: string;
@@ -10,7 +16,7 @@ interface Employee {
   zipCode: string;
 }
 
-export const columns = [
+export const dataColumnsMock: Columns[] = [
     { label: 'First Name', property: 'firstname' },
     { label: 'Last Name', property: 'lastname' },
     { label: 'Start Date', property: 'startDate' },

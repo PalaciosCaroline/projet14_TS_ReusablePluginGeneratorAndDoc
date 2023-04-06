@@ -265,16 +265,16 @@ fieldset, select {
   margin-right: 10px;
 }
 
-.box_state li:hover, .box_department li:hover{
-  background-color: #d8e3b3;
-}
-
 .box_state li.selectedOption:hover, .box_department li.selectedOption:hover {
-  background-color:  #b1c46c;
+  background-color: #b1c46c;
 }
 
 .box_state li.selectedOption, .box_department li.selectedOption{
   background-color:  #b1c46c;
+}
+
+.box_state  .dropdownMenu li:hover, .box_department  .dropdownMenu li:hover{
+  background-color: #cee389;
 }
 
 @media (max-width: 650px), (min-width: 900px) and (max-width: 1000px){
@@ -528,7 +528,6 @@ padding-bottom:30px;
   /* styles pour le bouton de déclenchement du dropdown */
   .main_newEmployee .dropdownToggle {
     padding: 8px 12px;
-    border: 1px solid #ccc;
     border: 1px solid #adca76;
     background-color: #f6f8f2;
     border-radius: 4px;
