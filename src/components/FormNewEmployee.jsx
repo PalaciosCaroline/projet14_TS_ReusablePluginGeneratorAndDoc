@@ -39,8 +39,8 @@ export default function FormNewEmployee() {
     } else {
     const newEmployee = {firstname, lastname,startDate,department,dateOfBirth,street,city,state,zipCode};
     dispatch(addEmployee(newEmployee))
-        dispatch(videInput());
         setIsModalOpen(true);
+        dispatch(videInput());
       e.target.reset();
     };
   };

@@ -10,6 +10,8 @@ const initialState = {
   city: '',
   state: '',
   zipCode: '',
+  errorfirstname: '',
+  errorlastname: '',
 };
 
 const newEmployeeEntreeSlice = createSlice({
