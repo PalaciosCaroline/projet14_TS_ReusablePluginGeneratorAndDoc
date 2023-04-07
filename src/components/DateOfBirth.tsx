@@ -5,16 +5,20 @@ import dayjs from 'dayjs';
 import {
     setField,
     setError
-  } from './../store/newEmployeeEntreeSlice';
+  } from '../store/newEmployeeEntreeSlice';
 
-export default function DateOfBirth({errordateOfBirth}) {
+  interface DateOfBirthProps {
+    errordateOfBirth: string;
+  }
+
+export default function DateOfBirth({ errordateOfBirth }: DateOfBirthProps): JSX.Element {
     const dispatch = useDispatch();
     const noBeforeDay = dayjs().subtract(90, 'year');
     const noAfterDay = dayjs().subtract(12, 'year');
 
-    const handleDateChange = (date) => {
+    const handleDateChange = (date: Date | null): void => {
         dispatch(setError({name:'dateOfBirth', message:'' }))
-        const isInvalid = noBeforeDay > date || date > noAfterDay;
+        const isInvalid = dayjs(noBeforeDay).isAfter(date) || dayjs(noAfterDay).isBefore(date);
         if(isInvalid){
             dispatch(setError({name:'dateOfBirth', message:'Please select a valid date ' }))
             return;
@@ -30,13 +34,10 @@ export default function DateOfBirth({errordateOfBirth}) {
         <div className='box_Input ' style={{display:'flex', position:'relative'}}>
         <DatePicker 
         label="Date of Birth Select" 
-        minDate={noBeforeDay}
-        maxDate={noAfterDay}
+        minDate={noBeforeDay.toDate()}
+        maxDate={noAfterDay.toDate()}
         views={['year', 'month', 'day']}
         onChange={handleDateChange}
-        InputLabelProps={{
-          shrink: true,
-        }}
         sx={{
           '& .MuiInputBase-input': {
             height: '25px',// réduit la hauteur de l'entrée
