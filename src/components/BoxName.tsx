@@ -9,7 +9,7 @@ export default function BoxName() {
   const errorlastname = useSelector((state: RootState) => state.newEmployeeEntree.errorlastname);
   function handleInputNameChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
-    const formattedValue = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+    const formattedValue = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().toString();
     dispatch(setField({ name, value: formattedValue }));
     dispatch(setError({ name, message:'' }))
   }

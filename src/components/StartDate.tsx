@@ -16,18 +16,17 @@ export default function StartDate({ errorstartDate }: StartDateProps): JSX.Eleme
   const noBeforeDay = dayjs().subtract(1, 'year');
   const noAfterDay = dayjs().add(1, 'year');
 
-   const handleDateChange = (date: Date | null): void => {
-    dispatch(setError({ name: 'startDate', message: '' }));
-    if (!date) return;
-    const isInvalid = dayjs(noBeforeDay).isAfter(date) || dayjs(noAfterDay).isBefore(date);
-    if (isInvalid) {
-      dispatch(setError({ name: 'startDate', message: 'Please select a valid date' }));
-      return;
-    } else {
-      dispatch(setError({ name: 'startDate', message: '' }));
-      dispatch(setField({ name: 'startDate', value: dayjs(date).format('DD/MM/YYYY') }));
-    }
-  };
+   const handleDateChange = (date: any): void => {
+    dispatch(setError({name:'startDate', message:'' }))
+      const isInvalid = noBeforeDay > date || date > noAfterDay;
+      if(isInvalid){
+        dispatch(setError({name:'startDate', message:'Please select a valid date ' }))
+        return;
+      }else {
+        dispatch(setError({name:'startDate', message:'' }))
+        dispatch(setField({ name:'startDate', value: dayjs(date).format('DD/MM/YYYY') }));        
+      }
+    };
 
   return (
     <>
@@ -36,8 +35,8 @@ export default function StartDate({ errorstartDate }: StartDateProps): JSX.Eleme
         <div className='box_Input' style={{ display: 'flex', position: 'relative' }}>
           <DatePicker
             label='Start Date Select'
-            minDate={noBeforeDay.toDate()}
-            maxDate={noAfterDay.toDate()}
+            minDate={noBeforeDay}
+            maxDate={noAfterDay}
             views={['year', 'month', 'day']}
             // value={startDate}
             onChange={handleDateChange}

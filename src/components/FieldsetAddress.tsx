@@ -8,7 +8,7 @@ export default function FieldsetAddress(): JSX.Element {
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
     const { name, value } = event.target;
-    const newValue = name === 'city' ? value.toUpperCase() : value;
+    const newValue = name === 'city' ? value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().toString() : value;
     dispatch(setField({ name, value: newValue }));
   }
 
