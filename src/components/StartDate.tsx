@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Dispatch,SetStateAction } from 'react';
 import { useDispatch } from 'react-redux';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -8,15 +8,22 @@ import {
 } from '../store/newEmployeeEntreeSlice';
 
 interface StartDateProps {
-  errorstartDate: string;
+  errorstartDate: string | null;
+  initialValues: {
+    startDateInput: dayjs.Dayjs | null;
+  };
+  setInitialValues: Dispatch<SetStateAction<{
+    startDateInput: dayjs.Dayjs | null;
+  }>>;
 }
 
-export default function StartDate({ errorstartDate }: StartDateProps): JSX.Element {
+export default function StartDate({ errorstartDate, initialValues, setInitialValues}: StartDateProps): JSX.Element {
   const dispatch = useDispatch();
   const noBeforeDay = dayjs().subtract(1, 'year');
   const noAfterDay = dayjs().add(1, 'year');
 
    const handleDateChange = (date: any): void => {
+    setInitialValues({ ...initialValues, startDateInput: date }); 
     dispatch(setError({name:'startDate', message:'' }))
       const isInvalid = noBeforeDay > date || date > noAfterDay;
       if(isInvalid){
@@ -38,7 +45,7 @@ export default function StartDate({ errorstartDate }: StartDateProps): JSX.Eleme
             minDate={noBeforeDay}
             maxDate={noAfterDay}
             views={['year', 'month', 'day']}
-            // value={startDate}
+            value={initialValues.startDateInput}
             onChange={handleDateChange}
             sx={{
               '& .MuiInputBase-input': {

@@ -1,4 +1,5 @@
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
+import Spinner from "./pages/Spinner";
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -9,20 +10,14 @@ export default function App() {
   document.title = 'HRnet';
 
   return (
-    <BrowserRouter>
-        <Routes>
-          <Route index path="/" element={<Home />} />
-            <Route path="/newemployee" element={
-          <Suspense fallback={<div>Loading...</div>}>
-            <NewEmployee />
-          </Suspense>
-        } />
-        <Route path="/listemployees" element={
-          <Suspense fallback={<div>Loading...</div>}>
-            <ListEmployees />
-          </Suspense>
-        } />
-        </Routes>
-    </BrowserRouter>
+    <Suspense fallback={<Spinner></Spinner>}>
+      <BrowserRouter>
+          <Routes>
+            <Route index path="/" element={<Home />} />
+            <Route path="/newemployee" element={<NewEmployee />} />
+            <Route path="/listemployees" element={<ListEmployees />} />
+          </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 }

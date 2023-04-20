@@ -64,6 +64,35 @@ h1, h2{
     font-size: 2rem;
     }
 }
+
+/* spinner */
+#containerSpinner {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner {
+  margin-top: -400px;
+  margin-left: -75px;
+}
+
+.spinner{
+  height: 120px;
+  width: 120px;
+  border: 6px solid;
+  border-color: #546a03 transparent #546a03 transparent;
+  border-radius: 50%;
+  animation: spin 1.4s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 /* 
 .errorEntree{
   color: red;

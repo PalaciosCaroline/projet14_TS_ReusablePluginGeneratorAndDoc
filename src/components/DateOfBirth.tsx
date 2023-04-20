@@ -53,7 +53,7 @@
 // }
 
 
-import React from 'react'
+import React, {Dispatch,SetStateAction } from 'react';
 import { useDispatch} from 'react-redux';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -63,10 +63,16 @@ import {
   } from './../store/newEmployeeEntreeSlice';
 
   interface DateOfBirthProps {
-    errordateOfBirth: string;
+    errordateOfBirth: string | null;
+    initialValues: {
+      dateOfBirthInput: dayjs.Dayjs | null;
+    };
+    setInitialValues: Dispatch<SetStateAction<{
+      dateOfBirthInput: dayjs.Dayjs | null;
+    }>>;
   }
 
-export default function DateOfBirth({ errordateOfBirth }: DateOfBirthProps): JSX.Element {
+export default function DateOfBirth({errordateOfBirth,initialValues, setInitialValues}: DateOfBirthProps): JSX.Element {
 // export default function DateOfBirth({errordateOfBirth}) {
     const dispatch = useDispatch();
     const noBeforeDay = dayjs().subtract(90, 'year');
@@ -74,6 +80,7 @@ export default function DateOfBirth({ errordateOfBirth }: DateOfBirthProps): JSX
 
     const handleDateChange = (date : any): void => {
         dispatch(setError({name:'dateOfBirth', message:'' }))
+        setInitialValues({ ...initialValues, dateOfBirthInput: date }); 
         const isInvalid = noBeforeDay > date || date > noAfterDay;
         if(isInvalid){
             dispatch(setError({name:'dateOfBirth', message:'Please select a valid date ' }))
@@ -92,6 +99,7 @@ export default function DateOfBirth({ errordateOfBirth }: DateOfBirthProps): JSX
         label="Date of Birth Select" 
         minDate={noBeforeDay}
         maxDate={noAfterDay}
+        value={initialValues.dateOfBirthInput}
         views={['year', 'month', 'day']}
         onChange={handleDateChange}
         sx={{

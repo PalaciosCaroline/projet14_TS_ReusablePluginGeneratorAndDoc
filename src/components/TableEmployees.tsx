@@ -4,8 +4,9 @@ import {Table} from 'table-component-library';
 
 interface Props {
   employees: any[];
-  styles: any;
+  styles?: any;
 }
+
 
 const EmployeeTable: FC<Props> = memo(({ employees }) => {
 

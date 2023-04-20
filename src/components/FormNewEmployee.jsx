@@ -26,6 +26,10 @@ export default function FormNewEmployee() {
   const city = useSelector((state) => state.newEmployeeEntree.city);
   const state = useSelector((state) => state.newEmployeeEntree.state);
   const zipCode = useSelector((state) => state.newEmployeeEntree.zipCode);
+  const [initialValues, setInitialValues] = useState({ 
+    startDateInput: null,
+    dateOfBirthInput: null,
+  });
 
   const handleFormSubmit = (e) => {
     console.log(firstname)
@@ -35,10 +39,11 @@ export default function FormNewEmployee() {
       setError({ firstname, lastname });
       return;
     } else if(errordateOfBirth || errorstartDate){ 
-      return;
+        return;
     } else {
-    const newEmployee = {firstname, lastname,startDate,department,dateOfBirth,street,city,state,zipCode};
-    dispatch(addEmployee(newEmployee))
+        const newEmployee = {firstname, lastname,startDate,department,dateOfBirth,street,city,state,zipCode};
+        dispatch(addEmployee(newEmployee));
+        setInitialValues({ startDateInput: null, dateOfBirthInput: null });
         setIsModalOpen(true);
         dispatch(videInput());
       e.target.reset();
@@ -52,8 +57,14 @@ export default function FormNewEmployee() {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <div className='boxDate'>
             <DateOfBirth className="form-group box-input" 
-              errordateOfBirth={errordateOfBirth}/>
-            <StartDate className='box-input' errorstartDate={errorstartDate} /> 
+              errordateOfBirth={errordateOfBirth}
+              setInitialValues={setInitialValues}
+              initialValues={initialValues}
+              />
+            <StartDate className='box-input' errorstartDate={errorstartDate} 
+            setInitialValues={setInitialValues}
+            initialValues={initialValues}
+            /> 
           </div>
         </LocalizationProvider>
         <FieldsetAddress/>
