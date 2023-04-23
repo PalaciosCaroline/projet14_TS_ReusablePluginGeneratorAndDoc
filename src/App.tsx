@@ -11,13 +11,13 @@ export default function App() {
 
   return (
     <Suspense fallback={<Spinner></Spinner>}>
-      <BrowserRouter>
+      {/* <BrowserRouter> */}
           <Routes>
             <Route index path="/" element={<Home />} />
             <Route path="/newemployee" element={<NewEmployee />} />
             <Route path="/listemployees" element={<ListEmployees />} />
           </Routes>
-      </BrowserRouter>
+      {/* </BrowserRouter> */}
     </Suspense>
   );
 }
