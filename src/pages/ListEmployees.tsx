@@ -9,19 +9,19 @@ export default function ListEmployees(): JSX.Element {
 const employees = useSelector((state: any) => state.employees);
 
 return (
-<>
-<header className='header_ListEmployees' data-testid="header_ListEmployees">
-<div className='box_logoService'>
-<img src={logoHRnet} alt="HRnet Logo" />
-<p className="titleService">HRnet</p>
-</div>
-<NavLink to="/newemployee" className="linkNewEmployee">Add New Employee</NavLink>
-</header>
-<main className='main_ListEmployees'>
-<TableEmployees employees={employees}/>
-</main>
-</>
-);
+    <>
+        <header className='header_ListEmployees' data-testid="header_ListEmployees">
+            <div className='box_logoService'>
+                <img src={logoHRnet} alt="HRnet Logo" />
+                <p className="titleService">HRnet</p>
+            </div>
+            <NavLink to="/newemployee" className="linkNewEmployee">Add New Employee</NavLink>
+        </header>
+        <main className='main_ListEmployees'>
+            <TableEmployees employees={employees}/>
+        </main>
+    </>
+    );
 }
 
 

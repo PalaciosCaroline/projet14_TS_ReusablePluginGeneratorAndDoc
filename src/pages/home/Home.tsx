@@ -5,7 +5,7 @@ import logoHRnet from './../../assets/logoHRnet_bg.png'
 export default function Home(): JSX.Element {
 
     return (
-        <main className='box_home'>
+        <main className='box_home' data-testid="home">
             <img src={logoHRnet} alt="" className="logoHome"/>
             <h1>Welcome to HRnet Service !</h1><br/>
             <nav className='box_navHome'>
