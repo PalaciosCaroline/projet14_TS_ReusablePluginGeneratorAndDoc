@@ -110,7 +110,6 @@ h1, h2{
   padding: 10px 20px;
   color: #fff;
   font-weight: bold;
-  /* background-color: #546a03; */
   background-color: #677e11;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
 }
@@ -490,17 +489,17 @@ select{
   width:300px;
   padding: 10px 20px;
   color: #fff;
-  background-color: #546a03;
   border-radius: 25px;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
   border: none;
   font-size: 1.2rem;
   margin: 20px auto 30px;
+  background-color: #677e11;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
 }
 
 .btnFormSave:hover{
-  background-color: #677e11;
-  box-shadow: 2px 2px 4px rgb(0 0 0 / 30%);
+  background-color: #7e9b16;
+  box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
 }
 
 input::placeholder {
