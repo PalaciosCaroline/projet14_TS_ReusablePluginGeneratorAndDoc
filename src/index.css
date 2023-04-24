@@ -110,7 +110,8 @@ h1, h2{
   padding: 10px 20px;
   color: #fff;
   font-weight: bold;
-  background-color: #546a03;
+  /* background-color: #546a03; */
+  background-color: #677e11;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
 }
 
@@ -126,8 +127,8 @@ h1, h2{
 }
 
 .linkNewEmployee:hover, .linkListEmployee:hover{
-  background-color: #677e11;
-  box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+  background-color: #7e9b16;
+  box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
 }
 
 .box_home{
@@ -408,7 +409,7 @@ fieldset, select {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: #fbfbfb;
+  /* background-color: #fbfbfb; */
 }
 
 .containerNewEmployee h1{
@@ -442,7 +443,9 @@ fieldset, select {
 }
 
 .header_ListEmployees{
-  background-color: #9dba37;
+  /* background-color: #9dba37; */
+  background-color: #e6e6e6; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -553,8 +556,7 @@ padding-bottom:30px;
     background-color: #f6f8f2;
   }
   .main_ListEmployees .box_table .buttonToggleRowPerPage, .main_ListEmployees .box_table .dropdownMenuTable {
-    /* background-color: #eff2e9; */
-    background-color: #fff; 
+    background-color: #fbfbfb; 
     box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
   }
   .main_ListEmployees .btn_Reset {
@@ -587,7 +589,7 @@ padding-bottom:30px;
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: #f6f8f2;
+    background-color: #fbfbfb;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
