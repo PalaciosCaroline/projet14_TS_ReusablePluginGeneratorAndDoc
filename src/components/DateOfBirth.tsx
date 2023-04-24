@@ -104,7 +104,7 @@ export default function DateOfBirth({errordateOfBirth,initialValues, setInitialV
         onChange={handleDateChange}
         sx={{
           '& .MuiInputBase-input': {
-            height: '25px',
+            height: '20px',
             width: '160px', 
             margin:'10px',
           },

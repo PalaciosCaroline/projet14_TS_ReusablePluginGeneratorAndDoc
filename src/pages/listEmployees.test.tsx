@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import ListEmployees from './ListEmployees';
 
-jest.mock('table-component-library', () => ({
+jest.mock('typescript-table', () => ({
   Table: () => <table />,
 }));
 
@@ -48,6 +48,8 @@ describe('ListEmployees component', () => {
     expect(header).toHaveClass('header_ListEmployees');
     });
 });
+
+
 
 
 

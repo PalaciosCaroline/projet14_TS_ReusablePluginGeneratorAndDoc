@@ -1,7 +1,7 @@
 import Home from "./pages/home/Home";
 import Spinner from "./pages/Spinner";
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {Routes, Route } from 'react-router-dom';
 
 const NewEmployee = lazy(() => import('./pages/NewEmployee'));
 const ListEmployees = lazy(() => import('./pages/ListEmployees'));

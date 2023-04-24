@@ -52,16 +52,15 @@ dispatch(setField({ name: 'state', value: state.abbreviation }));
 const stateOptions: string[] = states.map((state: State) => state.name);
 
 return (
-<div className='box_state'>
-<p className='p_label'>State</p>
-<Dropdown
-dropdownLabel='dropdownLabelState'
-placeholder='select a state'
-options={stateOptions}
-onOptionClick={(option: string) => handleStateSelect(option)}
-
-style={{ margin: '8px', width: '100%' }}
-/>
-</div>
-);
+    <div className='box_state'>
+        <p className='p_label'>State</p>
+        <Dropdown
+            dropdownLabel='dropdownLabelState'
+            placeholder='select a state'
+            options={stateOptions}
+            onOptionClick={(option: string) => handleStateSelect(option)}
+            style={{ margin: '8px', width: '100%' }}
+        />
+    </div>
+    );
 }

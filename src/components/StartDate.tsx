@@ -49,7 +49,7 @@ export default function StartDate({ errorstartDate, initialValues, setInitialVal
             onChange={handleDateChange}
             sx={{
               '& .MuiInputBase-input': {
-                height: '25px',
+                height: '20px',
                 width: '160px',
                 margin: '10px',
               },

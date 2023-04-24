@@ -7,7 +7,8 @@ body {
   padding: 0;
   height:100vh;
   box-sizing: border-box;
-  background-color: #eff2e9;
+  /* background-color: #eff2e9; */
+  background-color: #fbfbfb;
 }
 
 *{
@@ -131,7 +132,8 @@ h1, h2{
 
 .box_home{
   min-height: 100vh;
-  background-color: #eff2e9;
+  /* background-color: #eff2e9; */
+  background-color: #fff;
 }
 
 .main_newEmployee {
@@ -148,7 +150,7 @@ h1, h2{
 }
 
 .main_newEmployee input{
-  background: #ecf0f3;
+  background: #fff;
   padding: 10px;
   padding-left: 20px;
   border: none;
@@ -223,7 +225,8 @@ h1, h2{
 
 .box_startDate .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root, .box_dateOfBirth .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root{
   padding-left: 20px;
-  padding-top:10px;
+  /* padding-top:10px; */
+  padding-top:2px;
 }
 
 .box_startDate .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input, .box_dateOfBirth .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
@@ -405,7 +408,7 @@ fieldset, select {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: #f6f8f2;
+  background-color: #fbfbfb;
 }
 
 .containerNewEmployee h1{
@@ -422,12 +425,14 @@ fieldset, select {
   text-align: center;
 }
 .containerNewEmployee select{
-  background-color: #f6f8f2;
+  /* background-color: #f6f8f2; */
+  background-color: #fbfbfb;
   text-align: center;
 }
 
 .containerNewEmployee input{
-  background-color: #f6f8f2;
+  /* background-color: #f6f8f2; */
+  background-color: #fbfbfb;
 }
 
 .titleService{
@@ -548,7 +553,8 @@ padding-bottom:30px;
     background-color: #f6f8f2;
   }
   .main_ListEmployees .box_table .buttonToggleRowPerPage, .main_ListEmployees .box_table .dropdownMenuTable {
-    background-color: #eff2e9;
+    /* background-color: #eff2e9; */
+    background-color: #fff; 
     box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
   }
   .main_ListEmployees .btn_Reset {
@@ -558,7 +564,7 @@ padding-bottom:30px;
   .main_newEmployee .dropdownToggle {
     padding: 8px 12px;
     border: 1px solid #adca76;
-    background-color: #f6f8f2;
+    background-color: #fbfbfb;
     border-radius: 4px;
     cursor: pointer;
     display: flex;
