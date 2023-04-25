@@ -6,10 +6,13 @@
 ```diff	
 @@ Travail sur la programmation en React @@
 ```
+```diff	
+@@ composant typescript-table sur npm @@
+```
 
--------------------------------------------------------------
+----------------------------------------------------------------------
 
-***<h1 align="center">Travail sur la publication d'un composant react et typescript Table dans npm et son utilisation en import dans une application, et sur redux</h1>***
+***<h1 align="center">Travail sur la publication d'un composant react et typescript Table dans npm et son utilisation en import dans une application</h1>***
 
 <h2 align="center">Projet dans le cadre de la formation développeur d'application JavaScript React</h2> 
 
