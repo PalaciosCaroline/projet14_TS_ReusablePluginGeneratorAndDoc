@@ -335,7 +335,7 @@ fieldset, select {
 .confirmationModal{
   width: 100%;
   height: 100%;
-  background-color:  #c4da78 ;
+  background-color: #b9d851 ;
   display: flex;
   flex-direction: column;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
@@ -398,9 +398,6 @@ fieldset, select {
   a{
   font-size: 1.2rem;
   }
-  /* .confirmationModal{
-    width: 90%;
-  } */
 }
 
 .containerNewEmployee{
