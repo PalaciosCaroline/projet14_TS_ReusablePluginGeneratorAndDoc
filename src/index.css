@@ -514,6 +514,7 @@ input::placeholder {
 .box_startDate .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input, .box_dateOfBirth .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
   margin: 10px; 
   padding:10px;
+  height: 20px;
 }
 
 .logoHome{
