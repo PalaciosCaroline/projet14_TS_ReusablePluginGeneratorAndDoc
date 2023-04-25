@@ -1,6 +1,7 @@
-import React, {Dispatch,SetStateAction } from 'react';
-import { useDispatch } from 'react-redux';
+import React, {Dispatch,SetStateAction, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { RootState } from './../store/index';
 import dayjs from 'dayjs';
 import {
   setField,
@@ -19,8 +20,15 @@ interface StartDateProps {
 
 export default function StartDate({ errorstartDate, initialValues, setInitialValues}: StartDateProps): JSX.Element {
   const dispatch = useDispatch();
+  const startDate = useSelector((state: RootState) => state.newEmployeeEntree.startDate);
   const noBeforeDay = dayjs().subtract(1, 'year');
   const noAfterDay = dayjs().add(1, 'year');
+
+  useEffect(() => {
+    if (!startDate || !initialValues.startDateInput) {
+      dispatch(setError({ name: 'startDate' , message: '' }))
+      }
+  }, []);
 
    const handleDateChange = (date: any): void => {
     setInitialValues({ ...initialValues, startDateInput: date }); 

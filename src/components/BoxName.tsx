@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setError, setField } from '../store/newEmployeeEntreeSlice';
 import { RootState } from './../store/index';
@@ -7,6 +7,18 @@ export default function BoxName() {
   const dispatch = useDispatch();
   const errorfirstname = useSelector((state: RootState) => state.newEmployeeEntree.errorfirstname);
   const errorlastname = useSelector((state: RootState) => state.newEmployeeEntree.errorlastname);
+  const firstname = useSelector((state: RootState) => state.newEmployeeEntree.firstname);
+  const lastname = useSelector((state: RootState) => state.newEmployeeEntree.lastname);
+
+  useEffect(() => {
+    if (!firstname) {
+      dispatch(setError({ name: 'firstname' , message: '' }))
+      }
+    if (!lastname) {
+      dispatch(setError({ name: 'lastname' , message: '' }))
+      }
+  }, []);
+  
   function handleInputNameChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     const formattedValue = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase().toString();
