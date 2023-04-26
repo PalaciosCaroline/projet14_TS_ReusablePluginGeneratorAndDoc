@@ -571,6 +571,10 @@ padding-bottom:30px;
     align-items: center;
     width: 200px;
   }
+
+  .main_newEmployee .address .dropdownToggle {
+    background-color: #f1f1f1;
+  }
   
   /* styles pour la flèche du dropdown */
   .main_newEmployee .arrow {
