@@ -9,10 +9,10 @@ interface Props {
 }
 
 
-const EmployeeTable: FC<Props> = memo(({ employees }) => {
+const TableEmployees: FC<Props> = memo(({ employees }) => {
 
   return (
-    <div className='box_table'>
+    <div className='box_table' data-testid="employee-table">
       <h1>List of employees</h1>
       <Table data={employees} columns={dataColumnsMock}/>
     </div>
@@ -21,5 +21,5 @@ const EmployeeTable: FC<Props> = memo(({ employees }) => {
   return prevProps.employees === nextProps.employees ;
 });
 
-export default EmployeeTable;
+export default TableEmployees;
 
