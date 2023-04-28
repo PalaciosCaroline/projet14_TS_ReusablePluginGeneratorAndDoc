@@ -1,6 +1,5 @@
 import React, { FC, memo } from 'react';
 import { dataColumnsMock } from '../mocks/data';
-//import {Table} from 'table-component-library';
 import {Table} from 'typescript-table'
 
 interface Props {

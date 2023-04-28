@@ -12,4 +12,9 @@ module.exports = {
       '@babel/preset-typescript',
     ],
     plugins: ['@babel/plugin-transform-modules-commonjs'],
+    "env": {
+        "test": {
+          "plugins": ["transform-modules-commonjs"]
+        }
+      }
   };
