@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom'; // Import the Router component
+import { BrowserRouter as Router } from 'react-router-dom'; 
 import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
