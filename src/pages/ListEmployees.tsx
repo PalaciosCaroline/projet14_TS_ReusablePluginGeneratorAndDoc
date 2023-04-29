@@ -8,7 +8,7 @@ export default function ListEmployees(): JSX.Element {
 
 const employees = useSelector((state: any) => state.employees);
 
-return (
+    return (
     <>
         <header className='header_ListEmployees' data-testid="header_ListEmployees">
             <div className='box_logoService'>
@@ -17,7 +17,7 @@ return (
             </div>
             <NavLink to="/newemployee" className="linkNewEmployee">Add New Employee</NavLink>
         </header>
-        <main className='main_ListEmployees'>
+        <main className='main_ListEmployees' data-testid="listEmployees">
             <TableEmployees employees={employees}/>
         </main>
     </>

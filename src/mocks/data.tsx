@@ -1,10 +1,10 @@
 
-interface Columns {
+export interface Columns {
   label: string;
   property: string;
 }
 
-interface Employee {
+export interface Employee {
   firstname: string;
   lastname: string;
   dateOfBirth: string;

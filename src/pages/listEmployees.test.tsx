@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-node-access */
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'; 
 import { Provider } from 'react-redux';
@@ -5,6 +6,7 @@ import { render, screen,  fireEvent } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import ListEmployees from './ListEmployees';
 import { dataEmployeesMock, dataColumnsMock } from '../mocks/data';
+import { Columns, Employee } from "../mocks/data";
 // import { Table } from 'typescript-table';
 // jest.mock('typescript-table', () => ({
 //   Table: () => <table data-testid="mocked-table" data={dataEmployeesMock} columns={dataColumnsMock} />,
@@ -155,155 +157,146 @@ describe('Table', () => {
     expect(firstNameCell).toBeInTheDocument();
   });
 
-  // it('renders a table with the correct data and columns', () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <Router>
-  //         <ListEmployees />
-  //       </Router>
-  //     </Provider>,
-  //   );
-  //   const table = screen.getByRole('table');
+  it('renders a table with the correct data and columns', () => {
+    render(
+      <Provider store={store}>
+        <Router>
+          <ListEmployees />
+        </Router>
+      </Provider>,
+    );
+    const table = screen.getByRole('table');
 
-  //   // eslint-disable-next-line testing-library/no-node-access
-  //   const headers = table.querySelectorAll('th');
-  //   expect(headers).toHaveLength(dataColumnsMock.length);
-  //   headers.forEach((header: any, index:any) => {
-  //     expect(header).toHaveTextContent(dataColumnsMock[index].label);
-  //   });
+    // eslint-disable-next-line testing-library/no-node-access
+    const headers = table.querySelectorAll('th');
+    expect(headers).toHaveLength(dataColumnsMock.length);
+    headers.forEach((header: any, index:any) => {
+      expect(header).toHaveTextContent(dataColumnsMock[index].label);
+    });
 
-  //   // eslint-disable-next-line testing-library/no-node-access
-  //   const rows = table.querySelectorAll('tbody > tr');
-  //   expect(rows).toHaveLength(10);
+    // eslint-disable-next-line testing-library/no-node-access
+    const rows = table.querySelectorAll('tbody > tr');
+    expect(rows).toHaveLength(10);
 
-  //   rows.forEach((row, rowIndex) => {
-  //     const cells = row.querySelectorAll('td');
-  //     expect(cells).toHaveLength(columnsExample.length);
-  //     cells.forEach((cell, cellIndex) => {
-  //       expect(cell).toHaveTextContent(datasExample[rowIndex][columnsExample[cellIndex].property]);
-  //     });
-  //   });
-  // });
+    rows.forEach((row, rowIndex) => {
+      // eslint-disable-next-line testing-library/no-node-access
+      const cells = row.querySelectorAll('td');
+      expect(cells).toHaveLength(dataColumnsMock.length);
+      cells.forEach((cell:any, cellIndex:number) => {
+        const employeeProperty : string = dataColumnsMock[cellIndex].property;
+        expect(cell).toHaveTextContent(dataEmployeesMock[rowIndex][employeeProperty as keyof Employee]);
+      });
+    });
+  });
 
-  // test('sorts the table by the ascendant firstName column', () => {
-  //   render(<Table data={datasExample} columns={columnsExample} />);
+  test('sorts the table by the ascendant firstName column', () => {
+    render(
+      <Provider store={store}>
+        <Router>
+          <ListEmployees />
+        </Router>
+      </Provider>,
+    );
+    const firstNameHeader = screen.getByTestId('btnSortByAsc-firstname');
+    fireEvent.click(firstNameHeader);
+  
+    const sortedData = dataEmployeesMock.slice().sort((a, b) => a.firstname.localeCompare(b.firstname));
+    const table = screen.getByRole('table');
+    const rows = table.querySelectorAll('tbody > tr');
+    rows.forEach((row, rowIndex) => {
+      const cells = row.querySelectorAll('td');
+      expect(cells[0]).toHaveTextContent(sortedData[rowIndex].firstname.toString());
+    });
+  });
+
+  test('sorts the table by descendant the firstName column', () => {
+    render(
+      <Provider store={store}>
+        <Router>
+          <ListEmployees />
+        </Router>
+      </Provider>,
+    );
+    const firstNameAscHeader = screen.getByTestId('btnSortByAsc-firstname');
+    fireEvent.click(firstNameAscHeader);
+    const firstNameDescHeader = screen.getByTestId('btnSortbyDesc-firstname');
+    fireEvent.click(firstNameDescHeader);
+  
+    const sortedData = dataEmployeesMock.slice().sort((a, b) => b.firstname.localeCompare(a.firstname));
+    const table = screen.getByRole('table');
+    const rows = table.querySelectorAll('tbody > tr');
+    rows.forEach((row, rowIndex) => {
+      const cells = row.querySelectorAll('td');
     
-  //   const firstNameHeader = screen.getByTestId('btnSortByAsc-firstName');
-  //   fireEvent.click(firstNameHeader);
-  
-  //   const sortedData = datasExample.slice().sort((a, b) => a.firstName.localeCompare(b.firstName));
-  //   const table = screen.getByRole('table');
-  //   const rows = table.querySelectorAll('tbody > tr');
-  //   rows.forEach((row, rowIndex) => {
-  //     const cells = row.querySelectorAll('td');
-  //     expect(cells[0]).toHaveTextContent(sortedData[rowIndex].firstName.toString());
-  //   });
-  // });
+      expect(cells[0]).toHaveTextContent(sortedData[rowIndex].firstname.toString());
+    });
+  });
 
-  // test('sorts the table by descendant the firstName column', () => {
-  //   render(<Table data={datasExample} columns={columnsExample} />);
-
-  //   const firstNameAscHeader = screen.getByTestId('btnSortByAsc-firstName');
-  //   fireEvent.click(firstNameAscHeader);
-  //   const firstNameDescHeader = screen.getByTestId('btnSortbyDesc-firstName');
-  //   fireEvent.click(firstNameDescHeader);
-  
-  //   const sortedData = datasExample.slice().sort((a, b) => b.firstName.localeCompare(a.firstName));
-  //   const table = screen.getByRole('table');
-  //   const rows = table.querySelectorAll('tbody > tr');
-  //   rows.forEach((row, rowIndex) => {
-  //     const cells = row.querySelectorAll('td');
+  test('sorts the table by the dateOfBirth column', () => {
+    render(
+      <Provider store={store}>
+        <Router>
+          <ListEmployees />
+        </Router>
+      </Provider>,
+    );
     
-  //     expect(cells[0]).toHaveTextContent(sortedData[rowIndex].firstName.toString());
-  //   });
-  // });
-
-  // test('sorts the table by the dateOfBirth column', () => {
-  //   render(<Table data={datasExample} columns={columnsExample} />);
-    
-  //   const dateOfBirthHeader = screen.getByTestId('btnSortByAsc-dateOfBirth');
-  //   fireEvent.click(dateOfBirthHeader);
+    const dateOfBirthHeader = screen.getByTestId('btnSortByAsc-dateOfBirth');
+    fireEvent.click(dateOfBirthHeader);
   
-  //   const sortedData = datasExample.slice().sort((a, b) => {
-  //     const datePartsA = a.dateOfBirth.split('/').map(Number);
-  //     const datePartsB = b.dateOfBirth.split('/').map(Number);
-  //     const dateA = new Date(datePartsA[2], datePartsA[1] - 1, datePartsA[0]);
-  //     const dateB = new Date(datePartsB[2], datePartsB[1] - 1, datePartsB[0]);
-  //     return dateA.valueOf() - dateB.valueOf();
-  //   });
+    const sortedData = dataEmployeesMock.slice().sort((a, b) => {
+      const datePartsA = a.dateOfBirth.split('/').map(Number);
+      const datePartsB = b.dateOfBirth.split('/').map(Number);
+      const dateA = new Date(datePartsA[2], datePartsA[1] - 1, datePartsA[0]);
+      const dateB = new Date(datePartsB[2], datePartsB[1] - 1, datePartsB[0]);
+      return dateA.valueOf() - dateB.valueOf();
+    });
   
-  //   const table = screen.getByRole('table');
-  //   const rows = table.querySelectorAll('tbody > tr');
-  //   rows.forEach((row, rowIndex) => {
-  //     const cells = row.querySelectorAll('td');
-  //     expect(cells[4]).toHaveTextContent(sortedData[rowIndex].dateOfBirth.toString());
-  //   });
-  // });
+    const table = screen.getByRole('table');
+    const rows = table.querySelectorAll('tbody > tr');
+    rows.forEach((row, rowIndex) => {
+      const cells = row.querySelectorAll('td');
+      expect(cells[4]).toHaveTextContent(sortedData[rowIndex].dateOfBirth.toString());
+    });
+  });
+})
 
-  // test('sorts the table by the dateOfBirth with YYYY/MM/DD column', () => {
+describe('table feature component', () => { 
+  let store: any;
+
+  beforeEach(() => {
+    store = mockStore({
+      employees: dataEmployeesMock
+    });
+  });
+  test('Search by property functionality works correctly', () => {
+    render(
+      <Provider store={store}>
+        <Router>
+          <ListEmployees />
+        </Router>
+      </Provider>,
+    );
    
-  //   // Provide example data and columns for testing
-  //   const datasForJest = [
-  //     { name: 'Alice', dateOfBirth : '1977/05/31' },
-  //     { name: 'Bob', dateOfBirth: '1980/01/30' },
-  //     { name: 'Charlie', dateOfBirth: '2000/09/12' },
-  //   ];
-  //   const columnsForJest = [
-  //     { label: 'Name', property: 'name' },
-  //     { label: 'Date Of Birth', property: 'dateOfBirth' },
-  //   ];
-  //   render(<Table data={datasForJest} columns={columnsForJest} />);
-    
-  //   const dateOfBirthHeader = screen.getByTestId('btnSortByAsc-dateOfBirth');
-  //   fireEvent.click(dateOfBirthHeader);
-  
-  //   const sortedData = datasForJest.slice().sort((a, b) => {
-  //     const dateA = new Date(a.dateOfBirth).toLocaleDateString('en-CA');
-  //     const dateB = new Date(b.dateOfBirth).toLocaleDateString('en-CA');
-  //     return dateA.localeCompare(dateB);
-  //   });
-  
-  //   const table = screen.getByRole('table');
-  //   const rows = table.querySelectorAll('tbody > tr');
-  //   rows.forEach((row, rowIndex) => {
-  //     const cells = row.querySelectorAll('td');
-  //     expect(cells[1]).toHaveTextContent(sortedData[rowIndex].dateOfBirth.toString());
-  //   });
-  // });
 
-  // test('Search by property functionality works correctly', () => {
-  //   // Provide example data and columns for testing
-  //   const datasExample = [
-  //     { name: 'Alice', age: 30 },
-  //     { name: 'Bob', age: 25 },
-  //     { name: 'Charlie', age: 35 },
-  //   ];
-  //   const columnsExample = [
-  //     { label: 'Name', property: 'name' },
-  //     { label: 'Age', property: 'age' },
-  //   ];
+    // Trigger the onChange event on the general search input with a search term
+    const searchByFirstname = screen.getByTestId('btnOpenSearch-firstname');
+    fireEvent.click(searchByFirstname);
+    fireEvent.change(screen.getByTestId('btnSearch-firstname'), { target: { value: 'Bob' } });
 
-  //   // Render the Table component with example data and columns
-  //   render(<Table data={datasExample} columns={columnsExample} />);
+    // Check that expected elements are present and unexpected elements are absent
+    expect(screen.getByText('Bob')).toBeInTheDocument();
+    expect(screen.getByText('30/09/1978')).toBeInTheDocument();
+    expect(screen.queryByText('Jane')).not.toBeInTheDocument();
+    expect(screen.queryByText('17/05/1985')).not.toBeInTheDocument();
+    // expect(screen.queryByText('')).not.toBeInTheDocument();
+    // expect(screen.queryByText('35')).not.toBeInTheDocument();
 
-  //   // Trigger the onChange event on the general search input with a search term
-  //   const searchByAge = screen.getByTestId('btnOpenSearch-age');
-  //   fireEvent.click(searchByAge);
-  //   fireEvent.change(screen.getByTestId('btnSearch-age'), { target: { value: '25' } });
+    const resetButton = screen.getByTestId('btnResetClose-firstname');
+    fireEvent.click(resetButton);
 
-  //   // Check that expected elements are present and unexpected elements are absent
-  //   expect(screen.getByText('Bob')).toBeInTheDocument();
-  //   expect(screen.getByText('25')).toBeInTheDocument();
-  //   expect(screen.queryByText('Alice')).not.toBeInTheDocument();
-  //   expect(screen.queryByText('30')).not.toBeInTheDocument();
-  //   expect(screen.queryByText('Charlie')).not.toBeInTheDocument();
-  //   expect(screen.queryByText('35')).not.toBeInTheDocument();
-
-  //   const resetButton = screen.getByTestId('btnResetClose-age');
-  //   fireEvent.click(resetButton);
-
-  //   expect(screen.queryByText('Charlie')).toBeInTheDocument();
-  // });
+    expect(screen.queryByText('Jane')).toBeInTheDocument();
+  });
 
   // test('general search functionality works correctly', () => {
   //   // Provide example data and columns for testing
