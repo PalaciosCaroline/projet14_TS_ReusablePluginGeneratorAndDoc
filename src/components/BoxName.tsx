@@ -17,7 +17,7 @@ export default function BoxName() {
     if (!lastname) {
       dispatch(setError({ name: 'lastname' , message: '' }))
       }
-  }, []);
+  }, [dispatch,firstname,lastname]);
   
   function handleInputNameChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
