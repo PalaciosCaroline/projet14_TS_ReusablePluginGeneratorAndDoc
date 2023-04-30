@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from "react-redux";
-import TableEmployees from '../components/TableEmployees';
+import TableEmployees from '../../components/TableEmployees';
 import { NavLink } from 'react-router-dom'
-import logoHRnet from './../assets/logoHRnet_bg.png'
+import logoHRnet from './../../assets/logoHRnet_bg.png'
 
 export default function ListEmployees(): JSX.Element {
 

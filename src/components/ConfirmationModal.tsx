@@ -44,8 +44,8 @@ export default function ConfirmationModal({ setIsModalOpen }: ConfirmationModalP
   return (
     <div className='confirmationModal' role="dialog" aria-modal="true" aria-labelledby="modal-title" onKeyDown={handleKeyDown} ref={modalRef}>
       <button className='btn_closeModal' onClick={closeModal} aria-label="Fermer la fenêtre" tabIndex={0}><FaTimes className='btn_closeModal_icon' /></button>
-      <h2 id="modal-title">Confirmation de l'enregistrement</h2>
-      <p tabIndex={0}>Le nouvel employé {firstname} {lastname} a été enregistré avec succès</p>
+      <h2 id="modal-title">Confirmation of registration</h2>
+      <p tabIndex={0}>New employee {firstname} {lastname} has been registered successfully</p>
     </div>
   );
 }

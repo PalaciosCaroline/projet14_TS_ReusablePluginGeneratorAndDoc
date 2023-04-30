@@ -1,7 +1,7 @@
 import React from 'react';
-import FormNewEmployee from '../components/FormNewEmployee';
+import FormNewEmployee from '../../components/FormNewEmployee';
 import { NavLink } from 'react-router-dom';
-import logoHRnet from './../assets/logoHRnet_bg.png';
+import logoHRnet from './../../assets/logoHRnet_bg.png';
 
 export default function NewEmployee(): JSX.Element {
   return (

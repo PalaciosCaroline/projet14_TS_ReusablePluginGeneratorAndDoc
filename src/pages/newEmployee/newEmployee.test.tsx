@@ -1,14 +1,15 @@
 
 import NewEmployee from './NewEmployee';
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'; 
 import { Provider } from 'react-redux';
 import { render, screen,  fireEvent, waitFor } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
-import ListEmployees from './ListEmployees';
-import { dataEmployeesMock, dataColumnsMock } from '../mocks/data';
-import { Employee } from "../mocks/data";
-import newEmployeeEntreeInitialState from '../store/newEmployeeEntreeSlice';
+import ListEmployees from '../listEmployees/ListEmployees';
+import { dataEmployeesMock, dataColumnsMock } from '../../mocks/data';
+import { Employee } from "../../mocks/data";
+import newEmployeeEntreeInitialState from '../../store/newEmployeeEntreeSlice';
+import { setError, setField } from '../../store/newEmployeeEntreeSlice';
 
 const mockStore = configureStore([]);
 
@@ -22,6 +23,7 @@ describe('NewEmployee', () => {
     });
 
   test('renders NewEmployee component', () => {
+
     render(
         <Provider store={store}>
             <Router>
@@ -36,6 +38,7 @@ describe('NewEmployee', () => {
   });
 
   test('should render a header with a logo and a link to add List of employees', () => {
+
     render(
         <Provider store={store}>
             <Router>
@@ -60,4 +63,50 @@ describe('NewEmployee', () => {
     expect(header).toHaveClass('header_ListEmployees');
     expect(screen.getByText(/List of current employees/i).closest('a')).toHaveAttribute('href', '/listemployees');
   });
+});
+
+describe('FormNewEmployee', () => {
+    let store: any;
+  
+    beforeEach(() => {
+      store = mockStore({
+        employees: dataEmployeesMock,
+        newEmployeeEntree: newEmployeeEntreeInitialState,
+      });
+  
+      store.dispatch = jest.fn();
+
+      render(
+        <Provider store={store}>
+          <Router>
+            <NewEmployee />
+          </Router>
+        </Provider>
+      );
+    });
+  
+    
+    test('should display required error when input fields are empty and form is submitted', async () => {
+        fireEvent.submit(screen.getByTestId('form'));
+  
+        expect(store.dispatch).toHaveBeenCalledWith(setError({ name: 'firstname', message: 'The firstname is required' }));
+        expect(store.dispatch).toHaveBeenCalledWith(setError({ name: 'lastname', message: 'The lastname is required' }));
+
+    }); 
+
+    test('should fill out the form and submit it', async () => {
+        
+      fireEvent.input(screen.getByLabelText(/First Name/i), {
+        target: { value: 'David' },
+      });
+      fireEvent.input(screen.getByLabelText(/Last Name/i), {
+        target: { value: 'Forde' },
+      });
+    
+      fireEvent.submit(screen.getByTestId('form'));
+  
+        expect(store.dispatch).toHaveBeenCalledWith(setField({ name: 'firstname', value: 'David' }));
+        expect(store.dispatch).toHaveBeenCalledWith(setField({ name: 'lastname', value: 'Forde' }));
+  
+    });
 });

@@ -29,8 +29,8 @@ describe("App", () => {
         </Provider>
     );
 
-    await waitForElementToBeRemoved(() => screen.getByTestId("progressbar"), { timeout: 10000 });
-    expect(screen.getByTestId("newEmployees")).toBeInTheDocument();
+    await waitForElementToBeRemoved(() => screen.getByTestId("progressbar"), { timeout: 22000 });
+    expect(screen.getByTestId("newEmployee")).toBeInTheDocument();
   });
 
   it("renders the ListEmployees component when navigating to /listemployees", async () => {

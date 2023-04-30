@@ -75,7 +75,7 @@ export default function FormNewEmployee() {
         </LocalizationProvider>
         <FieldsetAddress/>
         <DropdownDepartment/>
-        <button className='btnFormSave' type="submit">Save the new employee</button>
+        <button className='btnFormSave' type="submit" data-testid='btn_form'>Save the new employee</button>
       </form>
       {isModalOpen && (<ConfirmationModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen}/>)}
     </div>

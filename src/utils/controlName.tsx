@@ -1,10 +1,10 @@
-function isValidName(value: string, setError:  (error: Error) => void, errorName: string, dispatch: (action: any) => void): boolean {
+function isValidName(value: string | null, setError:  (error: Error) => void, errorName: string, dispatch: (action: any) => void): boolean {
   dispatch(setError({ name: errorName, message: '' }));
   const regex = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ'\s-]{0,40}$/;
-    if (value.length < 2) {
+    if (!value || value.length < 2) {
       dispatch(setError({ name: errorName, message: `The ${errorName} is required` }));
       return false;
-    } else if (!regex.test(value)) {
+    } else if (value.length > 2 && !regex.test(value)) {
       dispatch(setError({ name: errorName, message: `Invalid ${errorName}     format` }));
       return false;
     } else if (regex.test(value) && value.length > 1) {
