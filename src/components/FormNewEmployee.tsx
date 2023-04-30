@@ -58,7 +58,7 @@ export default function FormNewEmployee() {
   
   return (
     <div className='box_formEntree'>
-      <form action="#" id="create-employee" onSubmit={handleFormSubmit}>
+      <form action="#" id="create-employee" onSubmit={handleFormSubmit} data-testid='form'>
         <BoxName />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <div className='boxDate'>

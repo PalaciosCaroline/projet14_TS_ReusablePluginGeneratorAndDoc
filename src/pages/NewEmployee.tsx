@@ -8,7 +8,7 @@ export default function NewEmployee(): JSX.Element {
     <>
       <header className='header_ListEmployees' data-testid="header_newEmployee">
         <div className='box_logoService'>
-        <img src={logoHRnet} alt='' />
+        <img src={logoHRnet} alt="HRnet Logo" />
         <p className='titleService'>HRnet</p>
         </div>
         <NavLink
@@ -18,7 +18,7 @@ export default function NewEmployee(): JSX.Element {
           List of current employees
         </NavLink>
       </header>
-      <main className='main_newEmployee containerNewEmployee' data-testid="newEmployees" >
+      <main className='main_newEmployee containerNewEmployee' data-testid="newEmployee" >
         <h1>Create Employee</h1>
         <FormNewEmployee />
       </main>

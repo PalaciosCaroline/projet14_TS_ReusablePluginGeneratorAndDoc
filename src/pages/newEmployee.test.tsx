@@ -8,6 +8,7 @@ import configureStore from 'redux-mock-store';
 import ListEmployees from './ListEmployees';
 import { dataEmployeesMock, dataColumnsMock } from '../mocks/data';
 import { Employee } from "../mocks/data";
+import newEmployeeEntreeInitialState from '../store/newEmployeeEntreeSlice';
 
 const mockStore = configureStore([]);
 
@@ -16,7 +17,7 @@ describe('NewEmployee', () => {
 
     beforeEach(() => {
       store = mockStore({
-        employees: dataEmployeesMock
+        newEmployeeEntree: newEmployeeEntreeInitialState,
       });
     });
 
@@ -29,7 +30,7 @@ describe('NewEmployee', () => {
         </Provider>,
     );
 
-    expect(screen.getByTestId('newEmployee')).toBeInTheDocument();
+    expect(screen.getByTestId('header_newEmployee')).toBeInTheDocument();
     expect(screen.getByText(/Create Employee/i)).toBeInTheDocument();
     expect(screen.getByText(/List of current employees/i)).toBeInTheDocument();
   });
@@ -46,13 +47,13 @@ describe('NewEmployee', () => {
     const logo = screen.getByAltText('HRnet Logo');
     const title = screen.getByText('HRnet');
     const link = screen.getByText('List of current employees');
-    const form = screen.getByRole('form');
+    const form = screen.getByTestId('form');
 
     expect(logo).toBeInTheDocument();
     expect(title).toBeInTheDocument();
     expect(form).toBeInTheDocument();
     expect(link).toBeInTheDocument();
-    expect(link.getAttribute('href')).toBe('/listEmployees');
+    expect(link.getAttribute('href')).toBe('/listemployees');
 
     const header = screen.getByTestId('header_newEmployee');
 
