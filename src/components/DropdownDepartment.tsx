@@ -51,15 +51,15 @@ const departmentOptions: string[] = [
 ];
 
 return (
-<div className='box_department'>
-<p className='p_label'>Department</p>
-<Dropdown
-dropdownLabel='dropdownLabelDepartment'
-placeholder='select a department'
-options={departmentOptions}
-onOptionClick={(option: string) => handleDepartmentSelect(option)}
-style={{ margin: '8px', width: '100%' }}
-/>
-</div>
+    <div className='box_department'>
+        <p className='p_label'>Department</p>
+        <Dropdown
+            dropdownLabel='dropdownLabelDepartment'
+            placeholder='select a department'
+            options={departmentOptions}
+            onOptionClick={(option: string) => handleDepartmentSelect(option)}
+            style={{ margin: '8px', width: '100%' }}
+        />
+    </div>
 );
 }

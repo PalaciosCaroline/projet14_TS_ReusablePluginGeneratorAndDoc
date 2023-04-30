@@ -9,13 +9,16 @@ import {
   } from './../store/newEmployeeEntreeSlice';
 
   interface DateOfBirthProps {
+    className: string;
     errordateOfBirth: string | null;
-    initialValues: {
-      dateOfBirthInput: dayjs.Dayjs | null;
-    };
-    setInitialValues: Dispatch<SetStateAction<{
+    setInitialValues: React.Dispatch<React.SetStateAction<{
+      startDateInput: null | dayjs.Dayjs;
       dateOfBirthInput: dayjs.Dayjs | null;
     }>>;
+    initialValues: {
+      startDateInput: dayjs.Dayjs | null;
+      dateOfBirthInput: dayjs.Dayjs | null;
+    };
   }
 
 export default function DateOfBirth({errordateOfBirth,initialValues, setInitialValues}: DateOfBirthProps): JSX.Element {

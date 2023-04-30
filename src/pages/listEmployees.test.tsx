@@ -6,7 +6,7 @@ import { render, screen,  fireEvent, waitFor } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import ListEmployees from './ListEmployees';
 import { dataEmployeesMock, dataColumnsMock } from '../mocks/data';
-import { Columns, Employee } from "../mocks/data";
+import { Employee } from "../mocks/data";
 // import { Table } from 'typescript-table';
 // jest.mock('typescript-table', () => ({
 //   Table: () => <table data-testid="mocked-table" data={dataEmployeesMock} columns={dataColumnsMock} />,

@@ -11,41 +11,48 @@ import StartDate from './StartDate';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DateOfBirth from './DateOfBirth';
+import { RootState } from '../store/index';
+import { Employee } from '../mocks/data';
+import dayjs from 'dayjs';
 
 export default function FormNewEmployee() {
   const [isModalOpen, setIsModalOpen] = useState(false); 
   const dispatch = useDispatch();
-  const firstname = useSelector((state) => state.newEmployeeEntree.firstname);
-  const lastname = useSelector((state) => state.newEmployeeEntree.lastname);
-  const startDate = useSelector((state) => state.newEmployeeEntree.startDate);
-  const department = useSelector((state) => state.newEmployeeEntree.department);
-  const dateOfBirth = useSelector((state) => state.newEmployeeEntree.dateOfBirth);
-  const errordateOfBirth = useSelector((state) => state.newEmployeeEntree.errordateOfBirth);
-  const errorstartDate = useSelector((state) => state.newEmployeeEntree.errorstartDate);
-  const street = useSelector((state) => state.newEmployeeEntree.street);
-  const city = useSelector((state) => state.newEmployeeEntree.city);
-  const state = useSelector((state) => state.newEmployeeEntree.state);
-  const zipCode = useSelector((state) => state.newEmployeeEntree.zipCode);
-  const [initialValues, setInitialValues] = useState({ 
+  const firstname = useSelector((state: RootState) => state.newEmployeeEntree.firstname);
+  const lastname = useSelector((state: RootState) => state.newEmployeeEntree.lastname);
+  const startDate = useSelector((state: RootState) => state.newEmployeeEntree.startDate);
+  const department = useSelector((state: RootState) => state.newEmployeeEntree.department);
+  const dateOfBirth = useSelector((state: RootState) => state.newEmployeeEntree.dateOfBirth);
+  const errordateOfBirth = useSelector((state: RootState) => state.newEmployeeEntree.errordateOfBirth);
+  const errorstartDate = useSelector((state: RootState) => state.newEmployeeEntree.errorstartDate);
+  const street = useSelector((state: RootState) => state.newEmployeeEntree.street);
+  const city = useSelector((state: RootState) => state.newEmployeeEntree.city);
+  const state = useSelector((state: RootState) => state.newEmployeeEntree.state);
+  const zipCode = useSelector((state: RootState) => state.newEmployeeEntree.zipCode);
+  const [initialValues, setInitialValues] = useState<{ 
+    startDateInput: dayjs.Dayjs | null;
+    dateOfBirthInput: dayjs.Dayjs | null;
+  }>({ 
     startDateInput: null,
     dateOfBirthInput: null,
-  });
+});
 
-  const handleFormSubmit = (e) => {
+  // const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: any) => {
     e.preventDefault();
     const isNameValid = validateNames(firstname, lastname, setError, dispatch);
     if (!isNameValid) {
-      setError({ firstname, lastname });
+      // setError({ firstname, lastname });
       return;
     } else if(errordateOfBirth || errorstartDate){ 
         return;
     } else {
-        const newEmployee = {firstname, lastname,startDate,department,dateOfBirth,street,city,state,zipCode};
+        const newEmployee: Employee = {firstname, lastname,startDate,department,dateOfBirth,street,city,state,zipCode};
         dispatch(addEmployee(newEmployee));
         setInitialValues({ startDateInput: null, dateOfBirthInput: null });
         setIsModalOpen(true);
         dispatch(videInput());
-      e.target.reset();
+        e.target.reset();
     };
   };
   

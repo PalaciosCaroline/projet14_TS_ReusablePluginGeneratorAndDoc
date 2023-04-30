@@ -5,6 +5,7 @@ import { RootState } from './../store/index';
 
 interface ConfirmationModalProps {
     setIsModalOpen: (value: boolean) => void;
+    isModalOpen: boolean;
 }
 
 export default function ConfirmationModal({ setIsModalOpen }: ConfirmationModalProps) {

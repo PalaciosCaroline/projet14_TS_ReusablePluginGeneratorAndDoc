@@ -9,13 +9,19 @@ import {
 } from '../store/newEmployeeEntreeSlice';
 
 interface StartDateProps {
+  className: string;
   errorstartDate: string | null;
+  setInitialValues: React.Dispatch<React.SetStateAction<{
+    startDateInput: null | dayjs.Dayjs;
+    dateOfBirthInput: dayjs.Dayjs | null;
+  }>>;
   initialValues: {
     startDateInput: dayjs.Dayjs | null;
+    dateOfBirthInput: dayjs.Dayjs | null;
   };
-  setInitialValues: Dispatch<SetStateAction<{
-    startDateInput: dayjs.Dayjs | null;
-  }>>;
+  // setInitialValues: Dispatch<SetStateAction<{
+  //   startDateInput: dayjs.Dayjs | null;
+  // }>>;
 }
 
 export default function StartDate({ errorstartDate, initialValues, setInitialValues}: StartDateProps): JSX.Element {

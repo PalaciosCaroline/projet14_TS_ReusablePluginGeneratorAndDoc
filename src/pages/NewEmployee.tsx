@@ -6,7 +6,7 @@ import logoHRnet from './../assets/logoHRnet_bg.png';
 export default function NewEmployee(): JSX.Element {
   return (
     <>
-      <header className='header_ListEmployees' >
+      <header className='header_ListEmployees' data-testid="header_newEmployee">
         <div className='box_logoService'>
         <img src={logoHRnet} alt='' />
         <p className='titleService'>HRnet</p>

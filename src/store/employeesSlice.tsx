@@ -1,16 +1,16 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { dataEmployeesMock } from '../mocks/data';
 
-interface Employee {
-  firstname: string;
-  lastname: string;
-  dateOfBirth: string;
-  startDate: string;
-  department: string;
-  street: string;
-  city: string;
-  state: string;
-  zipCode: string;
+export interface Employee {
+  firstname: string | null;
+  lastname: string | null;
+  dateOfBirth: string | null;
+  startDate: string | null;
+  department: string | null;
+  street: string| null;
+  city: string| null;
+  state: string| null;
+  zipCode: string| null;
 }
 
 const employeesSlice = createSlice({

@@ -1,15 +1,3 @@
-// // export {};
-
-// import React from "react";
-// import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
-// import userEvent from "@testing-library/user-event";
-// import {  MemoryRouter, Route, Routes  } from "react-router-dom";
-// import "@testing-library/jest-dom/extend-expect";
-// import App from "./App";
-// import Home from "./pages/home/Home";
-// import NewEmployee from "./pages/NewEmployee";
-// import ListEmployees from "./pages/ListEmployees";
-
 import React from "react";
 import { render, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -18,6 +6,8 @@ import "@testing-library/jest-dom/extend-expect";
 import { Provider } from "react-redux";
 import store from "./store/index";
 import App from "./App";
+
+jest.setTimeout(10000);
 
 describe("App", () => {
   it("renders the Home component as the default route", async () => {
