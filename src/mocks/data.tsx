@@ -75,7 +75,7 @@ export const dataEmployeesMock: Employee[] = [
     },
     {
       firstname: "Sarah",
-      lastname: "Johnson",
+      lastname: "Taylor",
       dateOfBirth: "12/12/1985",
       startDate: "01/07/2022",
       department: "Engineering",
@@ -219,7 +219,7 @@ export const dataEmployeesMock: Employee[] = [
       },
       {
       firstname: "Landon",
-      lastname: "Johnson",
+      lastname: "margot",
       dateOfBirth: "14/07/1981",
       startDate: "01/06/2023",
       department: "Marketing",

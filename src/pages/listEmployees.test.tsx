@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'; 
 import { Provider } from 'react-redux';
-import { render, screen,  fireEvent } from '@testing-library/react';
+import { render, screen,  fireEvent, waitFor } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import ListEmployees from './ListEmployees';
 import { dataEmployeesMock, dataColumnsMock } from '../mocks/data';
@@ -51,8 +51,6 @@ describe('ListEmployees component', () => {
     });
 });
 
-
-
 describe('table component', () => { 
     let store: any;
 
@@ -89,7 +87,7 @@ describe('table component', () => {
 })
 
 
-describe('Table', () => {
+describe('Table features', () => {
   let store: any;
 
   beforeEach(() => {
@@ -97,6 +95,7 @@ describe('Table', () => {
       employees: dataEmployeesMock
     });
   });
+
   test('hides column when isVisible is set to false', async () => {
     render(
       <Provider store={store}>
@@ -189,7 +188,7 @@ describe('Table', () => {
     });
   });
 
-  test('sorts the table by the ascendant firstName column', () => {
+  test('sorts the table by the ascendant firstname column', () => {
     render(
       <Provider store={store}>
         <Router>
@@ -209,7 +208,7 @@ describe('Table', () => {
     });
   });
 
-  test('sorts the table by descendant the firstName column', () => {
+  test('sorts the table by descendant the firstname column', () => {
     render(
       <Provider store={store}>
         <Router>
@@ -259,16 +258,37 @@ describe('Table', () => {
       expect(cells[4]).toHaveTextContent(sortedData[rowIndex].dateOfBirth.toString());
     });
   });
-})
 
-describe('table feature component', () => { 
-  let store: any;
-
-  beforeEach(() => {
-    store = mockStore({
-      employees: dataEmployeesMock
+  test('sorts the table by the ascendant dateOfBirth column', async () => {
+      render(
+        <Provider store={store}>
+          <Router>
+            <ListEmployees />
+          </Router>
+        </Provider>,
+      );
+    const dateOfBirthHeader = screen.getByTestId('btnSortByAsc-dateOfBirth');
+    fireEvent.click(dateOfBirthHeader);
+    await waitFor(() => {
+      const dateOfBirthHeaderDesc = screen.getByTestId('btnSortbyDesc-dateOfBirth');
+      fireEvent.click(dateOfBirthHeaderDesc);
+    });
+  
+    const sortedDataDesc = dataEmployeesMock.slice().sort((a, b) => {
+      const datePartsA = a.dateOfBirth.split('/').map(Number);
+      const datePartsB = b.dateOfBirth.split('/').map(Number);
+      const dateA = new Date(datePartsA[2], datePartsA[1] - 1, datePartsA[0]);
+      const dateB = new Date(datePartsB[2], datePartsB[1] - 1, datePartsB[0]);
+      return dateB.valueOf() - dateA.valueOf();
+    });
+    const table = screen.getByRole('table');
+    const rows = table.querySelectorAll('tbody > tr');
+    rows.forEach((row, rowIndex) => {
+      const cells = row.querySelectorAll('td');
+      expect(cells[4]).toHaveTextContent(sortedDataDesc[rowIndex].dateOfBirth.toString());
     });
   });
+
   test('Search by property functionality works correctly', () => {
     render(
       <Provider store={store}>
@@ -282,50 +302,53 @@ describe('table feature component', () => {
     // Trigger the onChange event on the general search input with a search term
     const searchByFirstname = screen.getByTestId('btnOpenSearch-firstname');
     fireEvent.click(searchByFirstname);
-    fireEvent.change(screen.getByTestId('btnSearch-firstname'), { target: { value: 'Bob' } });
+    fireEvent.change(screen.getByTestId('btnSearch-firstname'), { target: { value: 'Jo' } });
 
     // Check that expected elements are present and unexpected elements are absent
-    expect(screen.getByText('Bob')).toBeInTheDocument();
-    expect(screen.getByText('30/09/1978')).toBeInTheDocument();
+    expect(screen.getByText('John')).toBeInTheDocument();
+    expect(screen.getByText('15/01/1975')).toBeInTheDocument();
+    expect(screen.queryByText('Joce')).toBeInTheDocument();
+    expect(screen.queryByText('30/04/1983')).toBeInTheDocument();
     expect(screen.queryByText('Jane')).not.toBeInTheDocument();
-    expect(screen.queryByText('17/05/1985')).not.toBeInTheDocument();
-    // expect(screen.queryByText('')).not.toBeInTheDocument();
-    // expect(screen.queryByText('35')).not.toBeInTheDocument();
 
+    fireEvent.change(screen.getByTestId('btnSearch-firstname'), { target: { value: 'Joh' } });
+    expect(screen.queryByText('John')).toBeInTheDocument();
+    expect(screen.queryByText('Johnson')).not.toBeInTheDocument();
+    expect(screen.queryByText('Joce')).not.toBeInTheDocument();
+   
     const resetButton = screen.getByTestId('btnResetClose-firstname');
     fireEvent.click(resetButton);
 
     expect(screen.queryByText('Jane')).toBeInTheDocument();
   });
 
-  // test('general search functionality works correctly', () => {
-  //   // Provide example data and columns for testing
-  //   const datasExample = [
-  //     { name: 'Alice', age: 30 },
-  //     { name: 'Bob', age: 25 },
-  //     { name: 'Charlie', age: 35 },
-  //   ];
-  //   const columnsExample = [
-  //     { label: 'Name', property: 'name' },
-  //     { label: 'Age', property: 'age' },
-  //   ];
+  test('general search functionality works correctly', async () => {
+    render(
+      <Provider store={store}>
+        <Router>
+          <ListEmployees />
+        </Router>
+      </Provider>,
+    ); 
 
-  //   // Render the Table component with example data and columns
-  //   render(<Table data={datasExample} columns={columnsExample} />);
+    expect(screen.getByText('Sarah')).toBeInTheDocument();
+   
+    fireEvent.change(screen.getByPlaceholderText('Search...'), { target: { value: 'J' } });
 
-  //   // Trigger the onChange event on the general search input with a search term
-  //   fireEvent.change(screen.getByPlaceholderText('Search...'), { target: { value: 'Alice' } });
+    expect(screen.getByText('John')).toBeInTheDocument();
+    expect(screen.getByText('Jane')).toBeInTheDocument();
+    await waitFor(() => {
+    expect(screen.queryByText('Sarah')).not.toBeInTheDocument();
+    });
 
-  //   // Check that expected elements are present and unexpected elements are absent
-  //   expect(screen.getByText('Alice')).toBeInTheDocument();
-  //   expect(screen.getByText('30')).toBeInTheDocument();
-  //   expect(screen.queryByText('Bob')).not.toBeInTheDocument();
-  //   expect(screen.queryByText('25')).not.toBeInTheDocument();
-  //   expect(screen.queryByText('Charlie')).not.toBeInTheDocument();
-  //   expect(screen.queryByText('35')).not.toBeInTheDocument();
-  // });
+    fireEvent.change(screen.getByPlaceholderText('Search...'), { target: { value: 'John' } });
+
+    expect(screen.getByText('John')).toBeInTheDocument();
+    expect(screen.getByText('15/01/1975')).toBeInTheDocument();
+    expect(screen.getByText('Johnson')).toBeInTheDocument();
+    expect(screen.queryByText('Jane')).not.toBeInTheDocument();
+  });
 });
-
-
+ 
 
 
