@@ -34,7 +34,7 @@ describe('NewEmployee', () => {
 
     expect(screen.getByTestId('header_newEmployee')).toBeInTheDocument();
     expect(screen.getByText(/Create Employee/i)).toBeInTheDocument();
-    expect(screen.getByText(/List of current employees/i)).toBeInTheDocument();
+    expect(screen.getByText(/View Current Employees/i)).toBeInTheDocument();
   });
 
   test('should render a header with a logo and a link to add List of employees', () => {
@@ -49,7 +49,7 @@ describe('NewEmployee', () => {
 
     const logo = screen.getByAltText('HRnet Logo');
     const title = screen.getByText('HRnet');
-    const link = screen.getByText('List of current employees');
+    const link = screen.getByText('View Current Employees');
     const form = screen.getByTestId('form');
 
     expect(logo).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe('NewEmployee', () => {
     const header = screen.getByTestId('header_newEmployee');
 
     expect(header).toHaveClass('header_ListEmployees');
-    expect(screen.getByText(/List of current employees/i).closest('a')).toHaveAttribute('href', '/listemployees');
+    expect(screen.getByText(/View Current Employees/i).closest('a')).toHaveAttribute('href', '/listemployees');
   });
 });
 
