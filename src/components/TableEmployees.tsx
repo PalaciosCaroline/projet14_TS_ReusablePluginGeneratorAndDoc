@@ -7,12 +7,11 @@ interface Props {
   styles?: any;
 }
 
-
 const TableEmployees: FC<Props> = memo(({ employees }) => {
 
   return (
     <div className='box_table' data-testid="employee-table">
-      <h1>List of employees</h1>
+      <h1>List of current employees</h1>
       <Table data={employees} columns={dataColumnsMock}/>
     </div>
   );

@@ -15,7 +15,7 @@ export default function NewEmployee(): JSX.Element {
           to='/listemployees'
           className='linkNewEmployee linkListEmployee'
         >
-          List of current employees
+          View Current Employees
         </NavLink>
       </header>
       <main className='main_newEmployee containerNewEmployee' data-testid="newEmployee" >

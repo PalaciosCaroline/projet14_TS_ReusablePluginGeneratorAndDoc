@@ -9,8 +9,8 @@ export default function Home(): JSX.Element {
             <img src={logoHRnet} alt="" className="logoHome"/>
             <h1>Welcome to HRnet Service !</h1><br/>
             <nav className='box_navHome'>
-                <NavLink to="/newemployee" className="linkNewEmployee">Add a new employee</NavLink>
-                <NavLink to="/listemployees" className="linkNewEmployee linkListEmployee">View the employees's list</NavLink>
+                <NavLink to="/newemployee" className="linkNewEmployee">Add New Employee</NavLink>
+                <NavLink to="/listemployees" className="linkNewEmployee linkListEmployee">View Current Employees</NavLink>
             </nav>
         </main>
     );
