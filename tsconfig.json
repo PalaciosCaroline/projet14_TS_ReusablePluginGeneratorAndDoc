@@ -31,6 +31,7 @@
     "src",
     "typescript-table.js",
     "typescript-table.d.ts",
-    "mui-x-date-pickers.d.ts"
+    "mui-x-date-pickers.d.ts",
+    "typings.d.ts"
   ],
 }

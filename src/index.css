@@ -545,16 +545,13 @@ padding-bottom:30px;
       z-index: 10;
     }
   
-    .main_newEmployee .dropdown {
+  .main_newEmployee .dropdown {
     position: relative;
     display: inline-block;
     /* z-index: 999; */
     background-color: #f6f8f2;
   }
-  .main_ListEmployees .box_table .buttonToggleRowPerPage, .main_ListEmployees .box_table .dropdownMenuTable {
-    background-color: #fbfbfb; 
-    box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
-  }
+  
   .main_ListEmployees .btn_Reset {
     box-shadow: 0px 5px 5px rgba(0,0,0,0.3);
   }
@@ -615,6 +612,22 @@ padding-bottom:30px;
     background-color: #f1f1f1;
   }
 
+ .box_table .manageTable-dropdownLi{
+  height: 51px;
+}
+
+.box_table .box_ChoiceEntries{
+  width: 195px;
+}
+
+.buttonToggleRowPerPage > svg{
+  padding-top:2px;
+}
+
+.manageTable-dropdownLi > svg{
+  width: 18px;
+
+}
 
 
 
