@@ -1,5 +1,5 @@
 
-# Application en react et TypeScript : Projet 14 HRnet site de gestion des employés: enregistrement d'un nouvel employé et tableaux des employés
+# Application en react et TypeScript : Projet 14 HRnet site de gestion des employés: enregistrement d'un nouvel employé et tableau des employés
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -8,6 +8,9 @@
 ```
 ```diff	
 @@ composant typescript-table sur npm @@
+```
+```diff	
+@@ composant typescript-exportdata sur npm @@
 ```
 
 ----------------------------------------------------------------------
