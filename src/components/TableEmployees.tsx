@@ -1,34 +1,52 @@
 import React, { FC, memo } from 'react';
 import { dataColumnsMock } from '../mocks/data';
-import {Table} from 'typescript-table'
+import { Table } from 'typescript-table';
 import { ExportDataComponent } from 'typescript-exportdata';
 
-interface Props {
-  employees: any[];
-  styles?: any;
+interface DataItem<T> {
+  [key: string]: T | undefined;
 }
 
-const TableEmployees: FC<Props> = memo(({ employees }) => {
+interface Props<T> {
+  employees: DataItem<T | undefined>[];
+}
 
-  return (
-    <div className='box_table' data-testid="employee-table">
-      <h1>List of current employees</h1>
-      <Table data={employees} columns={dataColumnsMock}
-         renderExportDataComponent={(filteredData, columnsManaged) => (
-          <ExportDataComponent
-            filteredData={filteredData}
-            columnsManaged={columnsManaged}
-            csvExport={true}
-            excelExport={true}
-            pdfExport={true}
-          />
-        )}
-      />
-    </div>
-  );
-}, (prevProps, nextProps) => {
-  return prevProps.employees === nextProps.employees ;
-});
+interface ColumnManaged {
+  label: string;
+  property: string;
+  isVisible?: boolean;
+  dateFormat?: string;
+  disableSort?: boolean;
+  disableFilter?: boolean;
+}
+
+const TableEmployees: FC<Props<any>> = memo<Props<any>>(
+  ({ employees }) => {
+    return (
+      <div className="box_table" data-testid="employee-table">
+        <h1>List of current employees</h1>
+        <Table
+          data={employees}
+          columns={dataColumnsMock}
+          renderExportDataComponent={(
+            filteredData: DataItem<any | undefined>[],
+            columnsManaged: ColumnManaged[],
+          ) => (
+            <ExportDataComponent
+              filteredData={filteredData}
+              columnsManaged={columnsManaged}
+              csvExport={true}
+              excelExport={true}
+              pdfExport={true}
+            />
+          )}
+        />
+      </div>
+    );
+  },
+  (prevProps, nextProps) => {
+    return prevProps.employees === nextProps.employees;
+  },
+);
 
 export default TableEmployees;
-

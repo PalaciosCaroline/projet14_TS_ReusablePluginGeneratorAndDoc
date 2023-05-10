@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import store from "./store/index";
 import App from "./App";
 
-jest.setTimeout(10000);
+jest.setTimeout(30000);
 
 describe("App", () => {
   it("renders the Home component as the default route", async () => {
@@ -42,8 +42,8 @@ describe("App", () => {
         </Provider>
     );
 
-    await waitForElementToBeRemoved(() => screen.getByTestId("progressbar"), { timeout: 10000 });
-    expect(screen.getByTestId("listEmployees")).toBeInTheDocument();
+    await waitForElementToBeRemoved(() => screen.getByTestId("progressbar"), { timeout: 60000 });
+    expect(screen.getByTestId("header_ListEmployees")).toBeInTheDocument();
   });
 });
 

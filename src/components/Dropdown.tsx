@@ -26,7 +26,7 @@
 //     setIsOpen(false);
 //     }
 //   }
-    
+
 //   useEffect(() => {
 //     document.addEventListener("click", handleClickOutside);
 //     return () => {
@@ -70,7 +70,6 @@
 
 // export default Dropdown;
 
-
 // import React, { useState, useEffect, useRef, FC } from 'react';
 // import { FaChevronUp,FaChevronDown } from 'react-icons/fa';
 
@@ -106,7 +105,7 @@
 //       setIsOpen(false);
 //     }
 //   }
-    
+
 //   useEffect(() => {
 //     document.addEventListener("click", handleClickOutside);
 //     return () => {
@@ -115,7 +114,7 @@
 //   }, []);
 
 //   return (
-//     <div className='dropdown ' ref={dropdownRef} 
+//     <div className='dropdown ' ref={dropdownRef}
 //     style={{ margin: '8px', width: '100%' }}>
 //       <button
 //         type="button"
@@ -152,7 +151,7 @@
 // export default Dropdown;
 
 import React, { useState, useEffect, useRef, FC } from 'react';
-import { FaChevronUp,FaChevronDown } from 'react-icons/fa';
+import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
 interface DropdownProps {
   options: string[];
@@ -162,7 +161,12 @@ interface DropdownProps {
   style?: React.CSSProperties;
 }
 
-const Dropdown: FC<DropdownProps> = ({ options, placeholder, onOptionClick, dropdownLabel  }) => {
+const Dropdown: FC<DropdownProps> = ({
+  options,
+  placeholder,
+  onOptionClick,
+  dropdownLabel,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -171,50 +175,59 @@ const Dropdown: FC<DropdownProps> = ({ options, placeholder, onOptionClick, drop
     setSelectedOption(option);
     setIsOpen(false);
     onOptionClick(option);
-  }
+  };
 
   const toggleDropdown = (): void => {
     setIsOpen(!isOpen);
-  }
+  };
 
-  const handleChevronClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>): void => {
+  const handleChevronClick = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+  ): void => {
     event.stopPropagation(); // Arrêter la propagation de l'événement pour éviter que le clic ne soit transmis au bouton parent
     toggleDropdown();
-  }
+  };
 
   const handleClickOutside = (event: MouseEvent): void => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
     }
-  }
-    
+  };
+
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, []);
 
   return (
-    <div className='dropdown ' ref={dropdownRef} >
+    <div className="dropdown " ref={dropdownRef}>
       <button
         type="button"
-        className='dropdownToggle'
+        className="dropdownToggle"
         onClick={toggleDropdown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-labelledby={dropdownLabel}
         aria-label="Options de la liste déroulante"
       >
-         {selectedOption || placeholder}
-        <span className='arrow' onClick={handleChevronClick}>{isOpen ? <FaChevronUp/> : <FaChevronDown/>}</span>
+        {selectedOption || placeholder}
+        <span className="arrow" onClick={handleChevronClick}>
+          {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+        </span>
       </button>
       {isOpen && (
-        <ul className='dropdownMenu' role="listbox">
+        <ul className="dropdownMenu" role="listbox">
           {options.map((option) => (
             <li
               key={option}
-              className={`dropdownOption ${option === selectedOption ? 'selected selectedOption' : ''}`}
+              className={`dropdownOption ${
+                option === selectedOption ? 'selected selectedOption' : ''
+              }`}
               onClick={() => handleOptionClick(option)}
               role="option"
               aria-selected={option === selectedOption}
@@ -224,9 +237,11 @@ const Dropdown: FC<DropdownProps> = ({ options, placeholder, onOptionClick, drop
           ))}
         </ul>
       )}
-      <span id={dropdownLabel} className="sr-only">Options de la liste déroulante</span>
+      <span id={dropdownLabel} className="sr-only">
+        Options de la liste déroulante
+      </span>
     </div>
   );
-}
+};
 
 export default Dropdown;

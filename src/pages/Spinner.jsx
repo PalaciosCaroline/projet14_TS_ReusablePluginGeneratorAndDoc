@@ -1,10 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 export default function Spinner() {
   return (
-    <div id='containerSpinner'>
-        <div className="spinner"  data-testid="progressbar"></div>
+    <div id="containerSpinner" data-testid="progressbar">
+      <div className="spinner"></div>
     </div>
-
-  )
+  );
 }

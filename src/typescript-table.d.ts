@@ -1,1 +1,1 @@
-declare module 'table-component-library';
+declare module 'typescript-table';

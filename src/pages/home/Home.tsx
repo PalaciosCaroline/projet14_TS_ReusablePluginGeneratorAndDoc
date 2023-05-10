@@ -1,17 +1,24 @@
-import React from "react";
-import { NavLink } from 'react-router-dom'
-import logoHRnet from './../../assets/logoHRnet_bg.png'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import logoHRnet from './../../assets/logoHRnet_bg.png';
 
 export default function Home(): JSX.Element {
-
-    return (
-        <main className='box_home' data-testid="home">
-            <img src={logoHRnet} alt="" className="logoHome"/>
-            <h1>Welcome to HRnet Service !</h1><br/>
-            <nav className='box_navHome'>
-                <NavLink to="/newemployee" className="linkNewEmployee">Add New Employee</NavLink>
-                <NavLink to="/listemployees" className="linkNewEmployee linkListEmployee">View Current Employees</NavLink>
-            </nav>
-        </main>
-    );
+  return (
+    <main className="box_home" data-testid="home">
+      <img src={logoHRnet} alt="" className="logoHome" />
+      <h1 data-testid="title_home">Welcome to HRnet Service !</h1>
+      <br />
+      <nav className="box_navHome">
+        <NavLink to="/newemployee" className="linkNewEmployee">
+          Add New Employee
+        </NavLink>
+        <NavLink
+          to="/listemployees"
+          className="linkNewEmployee linkListEmployee"
+        >
+          View Current Employees
+        </NavLink>
+      </nav>
+    </main>
+  );
 }

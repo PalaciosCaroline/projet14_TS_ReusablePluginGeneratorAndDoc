@@ -50,8 +50,6 @@
 
 // export default newEmployeeEntreeSlice;
 
-
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Employee {
@@ -64,10 +62,10 @@ interface Employee {
   city: string;
   state: string;
   zipCode: string;
-  errorfirstname:string;
-  errorlastname:string;
-  errordateOfBirth:string;
-  errorstartDate:string;
+  errorfirstname: string;
+  errorlastname: string;
+  errordateOfBirth: string;
+  errorstartDate: string;
   isLoadingNewEntree: boolean;
 }
 
@@ -85,10 +83,10 @@ const initialState: Employee = {
   city: '',
   state: '',
   zipCode: '',
-  errorfirstname:'',
-  errorlastname:'',
-  errordateOfBirth:'',
-  errorstartDate:'',
+  errorfirstname: '',
+  errorlastname: '',
+  errordateOfBirth: '',
+  errorstartDate: '',
   isLoadingNewEntree: false,
 };
 
@@ -96,7 +94,10 @@ const newEmployeeEntreeSlice = createSlice({
   name: 'newEmployeeEntree',
   initialState,
   reducers: {
-    setField: (state: Employee, action: PayloadAction<{ name: string; value: string }>) => {
+    setField: (
+      state: Employee,
+      action: PayloadAction<{ name: string; value: string }>,
+    ) => {
       return {
         ...state,
         [action.payload.name]: action.payload.value,
@@ -107,21 +108,23 @@ const newEmployeeEntreeSlice = createSlice({
         state[key] = '';
       });
     },
-    setError: (state: WritableDraft<Employee>, action: PayloadAction<{ name: string; message: string }>) => {
+    setError: (
+      state: WritableDraft<Employee>,
+      action: PayloadAction<{ name: string; message: string }>,
+    ) => {
       const { name, message } = action.payload;
       state[`error${name}`] = message;
     },
-    setIsLoadingNewEntree: (state: Employee, action: PayloadAction<boolean>) => {
+    setIsLoadingNewEntree: (
+      state: Employee,
+      action: PayloadAction<boolean>,
+    ) => {
       state.isLoadingNewEntree = action.payload;
     },
   },
 });
 
-export const {
-  setField,
-  videInput,
-  setError,
-  setIsLoadingNewEntree,
-} = newEmployeeEntreeSlice.actions;
+export const { setField, videInput, setError, setIsLoadingNewEntree } =
+  newEmployeeEntreeSlice.actions;
 
 export default newEmployeeEntreeSlice;
