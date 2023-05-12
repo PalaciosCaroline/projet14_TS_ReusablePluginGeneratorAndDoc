@@ -4,7 +4,7 @@ import FieldsetAddress from './FieldsetAddress';
 import DropdownDepartment from './DropdownDepartment';
 import { videInput, setError } from '../store/newEmployeeEntreeSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { addEmployee } from '../store/employeesSlice';
+import { Employee, addEmployee } from '../store/employeesSlice';
 import BoxName from './BoxName';
 import { validateNames } from '../utils/controlName';
 import StartDate from './StartDate';
@@ -12,7 +12,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DateOfBirth from './DateOfBirth';
 import { RootState } from '../store/index';
-import { Employee } from '../mocks/data';
+// import { Employee } from '../mocks/data';
 import dayjs from 'dayjs';
 
 export default function FormNewEmployee() {
@@ -65,7 +65,7 @@ export default function FormNewEmployee() {
     } else if (errordateOfBirth || errorstartDate) {
       return;
     } else {
-      const newEmployee: Employee = {
+      const newEmployee = {
         firstname,
         lastname,
         startDate,

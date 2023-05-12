@@ -22,6 +22,7 @@ interface ColumnManaged {
 
 const TableEmployees: FC<Props<any>> = memo<Props<any>>(
   ({ employees }) => {
+    console.log
     return (
       <div className="box_table" data-testid="employee-table">
         <h1>List of current employees</h1>
@@ -35,6 +36,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
             <ExportDataComponent
               filteredData={filteredData}
               columnsManaged={columnsManaged}
+              headerProperty='label' 
               csvExport={true}
               excelExport={true}
               pdfExport={true}

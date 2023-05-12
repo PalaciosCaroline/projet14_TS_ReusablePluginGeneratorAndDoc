@@ -183,7 +183,8 @@ describe('Table features', () => {
       expect(cells).toHaveLength(dataColumnsMock.length);
       cells.forEach((cell:any, cellIndex:number) => {
         const employeeProperty : string = dataColumnsMock[cellIndex].property;
-        expect(cell).toHaveTextContent(dataEmployeesMock[rowIndex][employeeProperty as keyof Employee]);
+        // expect(cell).toHaveTextContent(dataEmployeesMock[rowIndex][employeeProperty as keyof Employee]);
+        expect(cell).toHaveTextContent(String(dataEmployeesMock[rowIndex][employeeProperty as keyof Employee]));
       });
     });
   });
