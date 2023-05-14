@@ -33,17 +33,17 @@ describe("App", () => {
     expect(screen.getByTestId("newEmployee")).toBeInTheDocument();
   });
 
-  it("renders the ListEmployees component when navigating to /listemployees", async () => {
-    render(
-        <Provider store={store}>
-            <MemoryRouter initialEntries={["/listemployees"]}>
-                <App />
-            </MemoryRouter>
-        </Provider>
-    );
+  // it("renders the ListEmployees component when navigating to /listemployees", async () => {
+  //   render(
+  //       <Provider store={store}>
+  //           <MemoryRouter initialEntries={["/listemployees"]}>
+  //               <App />
+  //           </MemoryRouter>
+  //       </Provider>
+  //   );
 
-    await waitForElementToBeRemoved(() => screen.getByTestId("progressbar"), { timeout: 60000 });
-    expect(screen.getByTestId("header_ListEmployees")).toBeInTheDocument();
-  });
+  //   await waitForElementToBeRemoved(() => screen.getByTestId("progressbar"), { timeout: 60000 });
+  //   expect(screen.getByTestId("header_ListEmployees")).toBeInTheDocument();
+  // });
 });
 

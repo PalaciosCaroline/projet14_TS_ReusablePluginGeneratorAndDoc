@@ -79,10 +79,10 @@ describe('table component', () => {
       const rows = table.querySelectorAll('tbody > tr');
       // eslint-disable-next-line testing-library/no-node-access
       const cells = rows[0].querySelectorAll('td');
-      expect(cells).toHaveLength(dataColumnsMock.length); 
-      expect(cells[0]).toHaveTextContent('John');
-      expect(cells[1]).toHaveTextContent('Doe'); 
-      expect(cells[2]).toHaveTextContent('01/04/2022'); 
+      expect(cells).toHaveLength(dataColumnsMock.length + 1); 
+      expect(cells[1]).toHaveTextContent('John');
+      expect(cells[2]).toHaveTextContent('Doe'); 
+      expect(cells[3]).toHaveTextContent('01/04/2022'); 
     });
 })
 
@@ -107,7 +107,8 @@ describe('Table features', () => {
 
     expect(screen.getByText('Department')).toBeInTheDocument();
     expect(screen.getByText('Street')).toBeInTheDocument();
-
+    const btnManageTable = screen.getByTestId('manageTable');
+    fireEvent.click(btnManageTable);
     fireEvent.click(screen.getByText('Manage Columns'));
 
     const listItem = screen.getByTestId('inputManaged-department');
@@ -132,6 +133,8 @@ describe('Table features', () => {
     let displayedRows = screen.getAllByRole('row');
     expect(displayedRows.length).toBe(11); 
     // Ouvrir le menu déroulant
+    const btnManageTable = screen.getByTestId('manageTable');
+    fireEvent.click(btnManageTable);
     const btnPerPage = screen.getByTestId('btnPerPage');
     fireEvent.click(btnPerPage);
 
@@ -168,9 +171,10 @@ describe('Table features', () => {
 
     // eslint-disable-next-line testing-library/no-node-access
     const headers = table.querySelectorAll('th');
-    expect(headers).toHaveLength(dataColumnsMock.length);
-    headers.forEach((header: any, index:any) => {
-      expect(header).toHaveTextContent(dataColumnsMock[index].label);
+    expect(headers).toHaveLength(dataColumnsMock.length + 1);
+    headers.forEach((header: any, index: number) => {
+      if(index === 0) return;
+      expect(header).toHaveTextContent(dataColumnsMock[index-1].label);
     });
 
     // eslint-disable-next-line testing-library/no-node-access
@@ -180,12 +184,12 @@ describe('Table features', () => {
     rows.forEach((row, rowIndex) => {
       // eslint-disable-next-line testing-library/no-node-access
       const cells = row.querySelectorAll('td');
-      expect(cells).toHaveLength(dataColumnsMock.length);
-      cells.forEach((cell:any, cellIndex:number) => {
-        const employeeProperty : string = dataColumnsMock[cellIndex].property;
-        // expect(cell).toHaveTextContent(dataEmployeesMock[rowIndex][employeeProperty as keyof Employee]);
-        expect(cell).toHaveTextContent(String(dataEmployeesMock[rowIndex][employeeProperty as keyof Employee]));
-      });
+      expect(cells).toHaveLength(dataColumnsMock.length + 1);
+        cells.forEach((cell:any, cellIndex:number) => {
+          if(cellIndex === 0) return;
+          const employeeProperty : string = dataColumnsMock[cellIndex-1].property;
+          expect(cell).toHaveTextContent(String(dataEmployeesMock[rowIndex][employeeProperty as keyof Employee]));
+        });
     });
   });
 
@@ -205,7 +209,7 @@ describe('Table features', () => {
     const rows = table.querySelectorAll('tbody > tr');
     rows.forEach((row, rowIndex) => {
       const cells = row.querySelectorAll('td');
-      expect(cells[0]).toHaveTextContent(sortedData[rowIndex].firstname.toString());
+      expect(cells[1]).toHaveTextContent(sortedData[rowIndex].firstname.toString());
     });
   });
 
@@ -228,7 +232,7 @@ describe('Table features', () => {
     rows.forEach((row, rowIndex) => {
       const cells = row.querySelectorAll('td');
     
-      expect(cells[0]).toHaveTextContent(sortedData[rowIndex].firstname.toString());
+      expect(cells[1]).toHaveTextContent(sortedData[rowIndex].firstname.toString());
     });
   });
 
@@ -256,7 +260,7 @@ describe('Table features', () => {
     const rows = table.querySelectorAll('tbody > tr');
     rows.forEach((row, rowIndex) => {
       const cells = row.querySelectorAll('td');
-      expect(cells[4]).toHaveTextContent(sortedData[rowIndex].dateOfBirth.toString());
+      expect(cells[5]).toHaveTextContent(sortedData[rowIndex].dateOfBirth.toString());
     });
   });
 
@@ -286,7 +290,7 @@ describe('Table features', () => {
     const rows = table.querySelectorAll('tbody > tr');
     rows.forEach((row, rowIndex) => {
       const cells = row.querySelectorAll('td');
-      expect(cells[4]).toHaveTextContent(sortedDataDesc[rowIndex].dateOfBirth.toString());
+      expect(cells[5]).toHaveTextContent(sortedDataDesc[rowIndex].dateOfBirth.toString());
     });
   });
 

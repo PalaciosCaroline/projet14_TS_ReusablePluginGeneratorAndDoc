@@ -1,6 +1,9 @@
 export interface Columns {
   label: string;
   property: string;
+  dateFormat?:string;
+  disableSort?:boolean;
+  disableFilter?:boolean;
 }
 
 export interface Employee {
@@ -19,9 +22,9 @@ export interface Employee {
 export const dataColumnsMock: Columns[] = [
   { label: 'First Name', property: 'firstname' },
   { label: 'Last Name', property: 'lastname' },
-  { label: 'Start Date', property: 'startDate' },
+  { label: 'Start Date', property: 'startDate', dateFormat:'DD/MM/YYYY' },
   { label: 'Department', property: 'department' },
-  { label: 'Date of Birth', property: 'dateOfBirth' },
+  { label: 'Date of Birth', property: 'dateOfBirth', dateFormat:'DD/MM/YYYY' },
   { label: 'Street', property: 'street' },
   { label: 'City', property: 'city' },
   { label: 'State', property: 'state' },
