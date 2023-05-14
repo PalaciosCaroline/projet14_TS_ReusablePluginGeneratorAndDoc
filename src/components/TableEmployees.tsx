@@ -2,7 +2,6 @@ import React, { FC, memo } from 'react';
 import { dataColumnsMock } from '../mocks/data';
 import { Table } from 'typescript-table';
 import { ExportDataComponent } from 'typescript-exportdata';
-// const ExportDataComponent = React.lazy(() => import('typescript-exportdata'));
 
 interface DataItem<T> {
   [key: string]: T | undefined;
