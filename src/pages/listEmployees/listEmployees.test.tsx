@@ -355,5 +355,3 @@ describe('Table features', () => {
   });
 });
  
-
-

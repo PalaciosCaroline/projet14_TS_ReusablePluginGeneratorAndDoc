@@ -6,7 +6,6 @@ import { ExportDataComponent } from 'typescript-exportdata';
 interface DataItem<T> {
   [key: string]: T | undefined;
 }
-
 interface Props<T> {
   employees: DataItem<T | undefined>[];
 }

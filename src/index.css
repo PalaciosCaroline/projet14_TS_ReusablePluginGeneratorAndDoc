@@ -250,10 +250,12 @@ h1, h2{
 @media (max-width: 1000px) {
   .boxDate{
     flex-direction: column;
+    
   }
   .box_startDate, .box_dateOfBirth{
     margin-top:20px;
   }
+
   .boxDate .box_startDate p{
     margin-left:0;
   }
@@ -261,6 +263,12 @@ h1, h2{
   .box_dateOfBirth{
     margin-right:0;
     margin-top:10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .box_startDate, .box_dateOfBirth{
+    justify-content: space-between;
   }
 }
 
@@ -464,19 +472,19 @@ fieldset, select {
   margin-left:20px;
 }
 
-form{
+#create-employee{
   padding: 0 20px 20px 20px;
 }
 
-form input{
-  margin: 10px 10px 0;
+#create-employee input{
+  margin: 10px 10px 10px;
 }
 
-form select {
+#create-employee select {
   margin: 20px 10px 10px;
 }
 
-select{
+#create-employee select{
   height: 30px;
 }
 
