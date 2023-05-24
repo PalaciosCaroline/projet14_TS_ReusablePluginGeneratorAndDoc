@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import logoHRnet from './../../assets/logoHRnet_bg.png';
+import { FaUserPlus, FaUsers} from 'react-icons/fa';
 
 export default function Home(): JSX.Element {
   return (
@@ -10,13 +11,13 @@ export default function Home(): JSX.Element {
       <br />
       <nav className="box_navHome">
         <NavLink to="/newemployee" className="linkNewEmployee">
-          Add New Employee
+        <FaUserPlus className='iconLink'/><span className='textLink'>Add New Employee</span>
         </NavLink>
         <NavLink
           to="/listemployees"
           className="linkNewEmployee linkListEmployee"
         >
-          View Current Employees
+          <FaUsers className='iconLink'/><span className='textLink'>View Current Employees</span>
         </NavLink>
       </nav>
     </main>

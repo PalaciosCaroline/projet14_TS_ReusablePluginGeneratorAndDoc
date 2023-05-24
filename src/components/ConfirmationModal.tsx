@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { RootState } from './../store/index';
+import { FaUserCheck } from 'react-icons/fa';
 
 interface ConfirmationModalProps {
   setIsModalOpen: (value: boolean) => void;
@@ -9,7 +10,7 @@ interface ConfirmationModalProps {
 }
 
 export default function ConfirmationModal({
-  setIsModalOpen,
+  setIsModalOpen, isModalOpen
 }: ConfirmationModalProps) {
   const employees = useSelector((state: RootState) => state.employees);
   const lastEmployee = employees.slice(-1)[0];
@@ -23,10 +24,11 @@ export default function ConfirmationModal({
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (modalRef.current) {
+    if (isModalOpen && modalRef.current) {
       modalRef.current.focus();
+      modalRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, []);
+  }, [isModalOpen]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Tab') {
@@ -55,11 +57,16 @@ export default function ConfirmationModal({
   };
 
   return (
+    <>
+    {isModalOpen && (
+      <div className='bg_modalConfirm' />
+    )}
     <div
       className="confirmationModal"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
+      aria-describedby="confirmation-text"
       onKeyDown={handleKeyDown}
       ref={modalRef}
     >
@@ -71,10 +78,14 @@ export default function ConfirmationModal({
       >
         <FaTimes className="btn_closeModal_icon" />
       </button>
-      <h2 id="modal-title">Confirmation of registration</h2>
-      <p tabIndex={0}>
-        New employee {firstname} {lastname} has been registered successfully
+      <div className='box_titleModal'>
+      <FaUserCheck className='iconCheckedModal'/>
+      <h2 id="modal-title">Confirmation</h2>
+      </div>
+      <p tabIndex={0}  id="confirmation-text">
+      The new employee, {firstname} {lastname}, has been registered successfully.
       </p>
     </div>
+    </>
   );
 }
