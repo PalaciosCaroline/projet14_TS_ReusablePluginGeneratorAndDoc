@@ -21,7 +21,7 @@ interface ColumnManaged {
 
 const TableEmployees: FC<Props<any>> = memo<Props<any>>(
   ({ employees }) => {
-    console.log
+    console.log(employees)
     return (
       <div className="box_table" data-testid="employee-table">
         <h1>List of current employees</h1>

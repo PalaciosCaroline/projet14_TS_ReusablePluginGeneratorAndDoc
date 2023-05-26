@@ -16,16 +16,6 @@ export interface Employee {
 
 let nextId = 22;
 
-// const employeesSlice = createSlice({
-//   name: 'employees',
-//   initialState: dataEmployeesMock as Array<Employee>,
-//   reducers: {
-//     addEmployee: (state, action: PayloadAction<Employee>) => {
-//       state.push(action.payload);
-//     },
-//   },
-// });
-
 const employeesSlice = createSlice({
   name: 'employees',
   initialState: dataEmployeesMock as Array<Employee>,

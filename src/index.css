@@ -58,6 +58,12 @@ button{
   margin : 0 auto;
 }
 
+@media (min-width: 500px) {
+  .br{
+    display: none;
+  }
+}
+
 h1, h2{
   font-size:3rem;
   color: #0d0d0d;
@@ -97,12 +103,7 @@ h1, h2{
     transform: rotate(360deg);
   }
 }
-/* 
-.errorEntree{
-  color: red;
-  font-size: 0.8rem;
-  margin-top : 0;
-} */
+
 .linkNewEmployee, .linkListEmployee{
   margin: 20px 20px 20px 50px;
   border:none;
@@ -156,8 +157,11 @@ h1, h2{
 
 .box_home{
   min-height: 100vh;
-  /* background-color: #eff2e9; */
   background-color: #fff;
+}
+
+.box_home img{
+  margin-top: 20px;
 }
 
 .main_newEmployee {
