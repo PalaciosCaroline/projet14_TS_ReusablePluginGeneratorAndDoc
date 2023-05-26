@@ -31,5 +31,6 @@ const employeesSlice = createSlice({
   },
 });
 
-export const addEmployee = createAction<Employee>('employees/addEmployee');
+// export const addEmployee = createAction<Employee>('employees/addEmployee');
+export const { addEmployee } = employeesSlice.actions; 
 export default employeesSlice;
