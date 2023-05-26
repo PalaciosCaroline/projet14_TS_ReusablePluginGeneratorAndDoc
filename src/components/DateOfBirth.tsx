@@ -63,7 +63,7 @@ export default function DateOfBirth({
 
   return (
     <div className="form-group box_dateOfBirth">
-      <p>Date of Birth</p>
+      <p className='text_dateOfBirth'>Date of Birth</p>
       <div
         className="box_Input "
         style={{ display: 'flex', position: 'relative' }}

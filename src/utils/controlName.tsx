@@ -12,7 +12,7 @@ function isValidName(
       setError({ name: errorName, message: `The ${errorName} is required` }),
     );
     return false;
-  } else if (value.length > 2 && !regex.test(value)) {
+  } else if (value.length >= 2 && !regex.test(value)) {
     dispatch(
       setError({ name: errorName, message: `Invalid ${errorName}     format` }),
     );

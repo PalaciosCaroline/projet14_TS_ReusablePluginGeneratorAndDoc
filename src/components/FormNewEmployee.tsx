@@ -17,38 +17,10 @@ import dayjs from 'dayjs';
 export default function FormNewEmployee() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const employees = useSelector((state: any) => state.employees);
-  const firstname = useSelector(
-    (state: RootState) => state.newEmployeeEntree.firstname,
+  const newEmployeeEntree = useSelector(
+    (state: RootState) => state.newEmployeeEntree
   );
-  const lastname = useSelector(
-    (state: RootState) => state.newEmployeeEntree.lastname,
-  );
-  const startDate = useSelector(
-    (state: RootState) => state.newEmployeeEntree.startDate,
-  );
-  const department = useSelector(
-    (state: RootState) => state.newEmployeeEntree.department,
-  );
-  const dateOfBirth = useSelector(
-    (state: RootState) => state.newEmployeeEntree.dateOfBirth,
-  );
-  const errordateOfBirth = useSelector(
-    (state: RootState) => state.newEmployeeEntree.errordateOfBirth,
-  );
-  const errorstartDate = useSelector(
-    (state: RootState) => state.newEmployeeEntree.errorstartDate,
-  );
-  const street = useSelector(
-    (state: RootState) => state.newEmployeeEntree.street,
-  );
-  const city = useSelector((state: RootState) => state.newEmployeeEntree.city);
-  const state = useSelector(
-    (state: RootState) => state.newEmployeeEntree.state,
-  );
-  const zipCode = useSelector(
-    (state: RootState) => state.newEmployeeEntree.zipCode,
-  );
+  const {firstname,lastname,startDate,department,dateOfBirth,street,city,state,zipCode,errordateOfBirth, errorstartDate} = newEmployeeEntree;
   const [initialValues, setInitialValues] = useState<{
     startDateInput: dayjs.Dayjs | null;
     dateOfBirthInput: dayjs.Dayjs | null;
@@ -59,7 +31,7 @@ export default function FormNewEmployee() {
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
-    const isNameValid = validateNames(firstname, lastname, setError, dispatch);
+    const isNameValid = validateNames(newEmployeeEntree.firstname, newEmployeeEntree.lastname, setError, dispatch);
     if (!isNameValid) {
       return;
     } else if (errordateOfBirth || errorstartDate) {

@@ -5,18 +5,10 @@ import { RootState } from './../store/index';
 
 export default function BoxName() {
   const dispatch = useDispatch();
-  const errorfirstname = useSelector(
-    (state: RootState) => state.newEmployeeEntree.errorfirstname,
+  const newEmployeeEntree = useSelector(
+    (state: RootState) => state.newEmployeeEntree
   );
-  const errorlastname = useSelector(
-    (state: RootState) => state.newEmployeeEntree.errorlastname,
-  );
-  const firstname = useSelector(
-    (state: RootState) => state.newEmployeeEntree.firstname,
-  );
-  const lastname = useSelector(
-    (state: RootState) => state.newEmployeeEntree.lastname,
-  );
+  const {errorfirstname, errorlastname,firstname,lastname} = newEmployeeEntree;
 
   useEffect(() => {
     if (!firstname) {

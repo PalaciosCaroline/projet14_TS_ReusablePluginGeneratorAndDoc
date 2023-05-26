@@ -34,7 +34,7 @@ export default function ConfirmationModal({
     if (event.key === 'Tab') {
       const focusableElements =
         modalRef.current?.querySelectorAll<HTMLButtonElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+          'button, [href], input, [tabindex]:not([tabindex="-1"])',
         );
       const firstFocusableElement = focusableElements && focusableElements[0];
       const lastFocusableElement =

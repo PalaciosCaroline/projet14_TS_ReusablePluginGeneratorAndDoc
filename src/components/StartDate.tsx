@@ -61,7 +61,7 @@ export default function StartDate({
   return (
     <>
       <div className="form-group box_startDate">
-        <p>Start Date</p>
+        <p className='text_startDate'>Start Date</p>
         <div
           className="box_Input"
           style={{ display: 'flex', position: 'relative' }}
