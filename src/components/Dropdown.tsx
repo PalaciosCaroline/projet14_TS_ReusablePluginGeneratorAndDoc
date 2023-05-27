@@ -51,12 +51,12 @@ const Dropdown: FC<DropdownProps> = ({
     }
   };
 
-  function handleKeyDown(event: React.KeyboardEvent): void {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      toggleDropdown();
-    }
-  }
+  // function handleKeyDown(event: React.KeyboardEvent): void {
+  //   if (event.key === 'Enter' || event.key === ' ') {
+  //     event.preventDefault();
+  //     toggleDropdown();
+  //   }
+  // }
 
   const handleTriggerKeyDown = (event: React.KeyboardEvent): void => {
     switch (event.key) {
