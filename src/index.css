@@ -229,6 +229,8 @@ h2 {
 
 .boxName .box_input {
   margin-bottom: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .box_formEntree {
@@ -325,6 +327,10 @@ h2 {
   }
   .box_input input {
     margin-right: 0;
+  }
+  .boxName .box_input {
+  margin-right: 0;
+  margin-left: 0;
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
+import { InputField } from './InputField';
 import DropdownState from './DropdownState';
 import { setField } from '../store/newEmployeeEntreeSlice';
 
@@ -19,12 +20,18 @@ export default function FieldsetAddress(): JSX.Element {
   return (
     <fieldset className="address">
       <legend>Address</legend>
-      <label htmlFor="street">Street</label>
+      {/* <label htmlFor="street">Street</label>
       <input
         id="street"
         type="text"
         name="street"
         onChange={handleInputChange}
+      /> */}
+
+      <InputField 
+        id="street" 
+        name="street" 
+        onChange={handleInputChange} 
       />
 
       <label htmlFor="city">City</label>
