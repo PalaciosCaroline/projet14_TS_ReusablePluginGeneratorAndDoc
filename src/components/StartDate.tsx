@@ -10,7 +10,7 @@ interface StartDateProps {
   errorstartDate: string | null;
   setInitialValues: React.Dispatch<
     React.SetStateAction<{
-      startDateInput: null | dayjs.Dayjs;
+      startDateInput:dayjs.Dayjs | null;
       dateOfBirthInput: dayjs.Dayjs | null;
     }>
   >;

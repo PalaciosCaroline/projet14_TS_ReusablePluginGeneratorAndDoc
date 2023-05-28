@@ -1,72 +1,54 @@
-// import React, {ChangeEvent} from 'react';
-
-// interface InputFieldProps {
-//     id: string;
-//     name: string;
-//     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-//     error?: string;
-//   }
-  
-// export const InputField: React.FC<InputFieldProps> = ({ id, name, onChange, error }) => {
-//     const capitalizeFirstLetter = (event: ChangeEvent<HTMLInputElement>) => {
-//       const { value } = event.target;
-//       event.target.value = value.charAt(0).toUpperCase() + value.slice(1);
-//       onChange(event);
-//     };
-  
-//     return (
-//       <>
-//         <label htmlFor={id}>{name.charAt(0).toUpperCase() + name.slice(1)}</label>
-//         <div style={{ position: 'relative' }}>
-//           <input
-//             type="text"
-//             id={id}
-//             name={name}
-//             onInput={capitalizeFirstLetter}
-//             className={error ? 'errorBorder' : ''}
-//           />
-//           {error ? (
-//             <p className="errorMessage" data-testid={`error-${name}`}>
-//               {error}
-//             </p>
-//           ) : (
-//             ''
-//           )}
-//         </div>
-//         </>
-//     );
-//   };
-
-import React, { ChangeEvent } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from './../store/index';
+import { setField, setError } from '../store/newEmployeeEntreeSlice';
+import { useInputChange } from '../utils/useInputChange';
 
 interface InputFieldProps {
-  id: string;
   name: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  type?: 'text' | 'number';
   error?: string;
   isWrapped?: boolean;
 }
 
-export const InputField: React.FC<InputFieldProps> = ({ id, name, onChange, error, isWrapped = false }) => {
-  const capitalizeFirstLetter = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    event.target.value = value.charAt(0).toUpperCase() + value.slice(1);
-    onChange(event);
+export const InputField: React.FC<InputFieldProps> = ({
+  name,
+  error,
+  type = 'text',
+  isWrapped = false,
+}) => {
+  const dispatch = useDispatch();
+  const inputValue = useSelector((state: RootState) =>
+    state.newEmployeeEntree[name]?.toString(),
+  );
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let value = event.target.value;
+
+    if (type === 'text') {
+      value = value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    dispatch(setField({ name, value }));
+    dispatch(setError({ name, message: '' }));
   };
 
   const inputField = (
     <input
-      type="text"
-      id={id}
+      id={name}
       name={name}
-      onInput={capitalizeFirstLetter}
+      type={type}
+      value={inputValue}
+      onChange={handleInputChange}
       className={error ? 'errorBorder' : ''}
     />
   );
 
   return (
     <>
-      <label htmlFor={id}>{name.charAt(0).toUpperCase() + name.slice(1)}</label>
+      <label htmlFor={name}>
+        {name.charAt(0).toUpperCase() + name.slice(1)}
+      </label>
       {isWrapped ? (
         <div style={{ position: 'relative' }}>
           {inputField}

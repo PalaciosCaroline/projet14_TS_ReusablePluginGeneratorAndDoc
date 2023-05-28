@@ -7,15 +7,16 @@ import { FaUserCheck } from 'react-icons/fa';
 interface ConfirmationModalProps {
   setIsModalOpen: (value: boolean) => void;
   isModalOpen: boolean;
+  firstname: string;
+  lastname: string;
 }
 
 export default function ConfirmationModal({
-  setIsModalOpen, isModalOpen
+  setIsModalOpen,
+  isModalOpen,
+  firstname,
+  lastname
 }: ConfirmationModalProps) {
-  const employees = useSelector((state: RootState) => state.employees);
-  const lastEmployee = employees.slice(-1)[0];
-  const firstname = lastEmployee.firstname;
-  const lastname = lastEmployee.lastname;
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -58,34 +59,33 @@ export default function ConfirmationModal({
 
   return (
     <>
-    {isModalOpen && (
-      <div className='bg_modalConfirm' />
-    )}
-    <div
-      className="confirmationModal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-      aria-describedby="confirmation-text"
-      onKeyDown={handleKeyDown}
-      ref={modalRef}
-    >
-      <button
-        className="btn_closeModal"
-        onClick={closeModal}
-        aria-label="Fermer la fenêtre"
-        tabIndex={0}
+      {isModalOpen && <div className="bg_modalConfirm" />}
+      <div
+        className="confirmationModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        aria-describedby="confirmation-text"
+        onKeyDown={handleKeyDown}
+        ref={modalRef}
       >
-        <FaTimes className="btn_closeModal_icon" />
-      </button>
-      <div className='box_titleModal'>
-      <FaUserCheck className='iconCheckedModal'/>
-      <h2 id="modal-title">Confirmation</h2>
+        <button
+          className="btn_closeModal"
+          onClick={closeModal}
+          aria-label="Fermer la fenêtre"
+          tabIndex={0}
+        >
+          <FaTimes className="btn_closeModal_icon" />
+        </button>
+        <div className="box_titleModal">
+          <FaUserCheck className="iconCheckedModal" />
+          <h2 id="modal-title">Confirmation</h2>
+        </div>
+        <p tabIndex={0} id="confirmation-text">
+          The new employee, {firstname} {lastname}, has been registered
+          successfully.
+        </p>
       </div>
-      <p tabIndex={0}  id="confirmation-text">
-      The new employee, {firstname} {lastname}, has been registered successfully.
-      </p>
-    </div>
     </>
   );
 }

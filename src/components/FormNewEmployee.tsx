@@ -28,6 +28,10 @@ export default function FormNewEmployee() {
     startDateInput: null,
     dateOfBirthInput: null,
   });
+  const [employeeName, setEmployeeName] = useState<{ firstname: string; lastname: string }>({
+    firstname: '',
+    lastname: '',
+  });
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
@@ -49,8 +53,9 @@ export default function FormNewEmployee() {
         zipCode,
       };
       dispatch(addEmployee(newEmployee));
-      setInitialValues({ startDateInput: null, dateOfBirthInput: null });
+      setEmployeeName({ firstname, lastname });
       setIsModalOpen(true);
+      setInitialValues({ startDateInput: null, dateOfBirthInput: null });
       dispatch(videInput());
       e.target.reset();
     }
@@ -91,6 +96,8 @@ export default function FormNewEmployee() {
         <ConfirmationModal
           setIsModalOpen={setIsModalOpen}
           isModalOpen={isModalOpen}
+          firstname={employeeName.firstname}
+          lastname={employeeName.lastname}
         />
       )}
     </div>

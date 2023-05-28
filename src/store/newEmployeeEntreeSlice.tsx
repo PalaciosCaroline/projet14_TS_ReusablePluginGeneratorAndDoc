@@ -53,11 +53,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Employee {
+  [key: string]: string | boolean | null;
   firstname: string;
   lastname: string;
-  startDate: string;
+  startDate: string | null;
   department: string;
-  dateOfBirth: string;
+  dateOfBirth: string | null;
   street: string;
   city: string;
   state: string;
@@ -76,9 +77,9 @@ interface WritableDraft<T> {
 const initialState: Employee = {
   firstname: '',
   lastname: '',
-  startDate: '',
+  startDate: null,
   department: '',
-  dateOfBirth: '',
+  dateOfBirth: null,
   street: '',
   city: '',
   state: '',
