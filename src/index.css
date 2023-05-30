@@ -243,8 +243,9 @@ h2 {
   justify-content: center;
 }
 
-.box_dateOfBirth {
-  margin-right: 20px;
+.box_dateOfBirth,.box_startDate  {
+  margin-right: 10px;
+  margin-left:10px;
 }
 
 .box_startDate,
@@ -265,7 +266,6 @@ h2 {
 .box_startDate .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root,
 .box_dateOfBirth .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
   padding-left: 20px;
-  /* padding-top:10px; */
   padding-top: 2px;
 }
 
@@ -319,6 +319,11 @@ h2 {
   .box_startDate,
   .box_dateOfBirth {
     justify-content: space-between;
+  }
+
+  .box_dateOfBirth,.box_startDate  {
+    margin-right: 0;
+    margin-left:0;
   }
 }
 
