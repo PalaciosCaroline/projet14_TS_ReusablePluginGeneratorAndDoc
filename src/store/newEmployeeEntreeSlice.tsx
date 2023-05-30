@@ -65,8 +65,8 @@ interface Employee {
   zipCode: string;
   errorfirstname: string;
   errorlastname: string;
-  errordateOfBirth: string;
-  errorstartDate: string;
+  errordateOfBirth: string | null;
+  errorstartDate: string | null;
   isLoadingNewEntree: boolean;
 }
 

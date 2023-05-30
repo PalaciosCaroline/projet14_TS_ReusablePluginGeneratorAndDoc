@@ -5,6 +5,7 @@ import { setField, setError } from '../store/newEmployeeEntreeSlice';
 import { useInputChange } from '../utils/useInputChange';
 
 interface InputFieldProps {
+  label?: string;
   name: string;
   type?: 'text' | 'number';
   error?: string;
@@ -12,6 +13,7 @@ interface InputFieldProps {
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
+  label,
   name,
   error,
   type = 'text',
@@ -33,25 +35,26 @@ export const InputField: React.FC<InputFieldProps> = ({
     dispatch(setError({ name, message: '' }));
   };
 
-  const inputField = (
-    <input
-      id={name}
-      name={name}
-      type={type}
-      value={inputValue}
-      onChange={handleInputChange}
-      className={error ? 'errorBorder' : ''}
-    />
-  );
+  const isFirstNameOrLastName = name === 'firstname' || name === 'lastname';
 
-  return (
+  const inputComponent = (
+    <input
+            id={name}
+            name={name}
+            type={type}
+            value={inputValue}
+            onChange={handleInputChange}
+            className={error ? 'errorBorder' : ''}
+          />
+    )
+  const inputElement = (
     <>
       <label htmlFor={name}>
-        {name.charAt(0).toUpperCase() + name.slice(1)}
+        {label ? label : name.charAt(0).toUpperCase() + name.slice(1)}
       </label>
       {isWrapped ? (
         <div style={{ position: 'relative' }}>
-          {inputField}
+          {inputComponent}
           {error ? (
             <p className="errorMessage" data-testid={`error-${name}`}>
               {error}
@@ -61,8 +64,20 @@ export const InputField: React.FC<InputFieldProps> = ({
           )}
         </div>
       ) : (
-        inputField
+        inputComponent
       )}
     </>
+  );
+
+  return isFirstNameOrLastName ? (
+    <div
+      key={name}
+      className="box_input"
+      style={{ display: 'flex', alignItems: 'center' }}
+    >
+      {inputElement}
+    </div>
+  ) : (
+    inputElement
   );
 };

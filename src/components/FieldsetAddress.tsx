@@ -1,21 +1,27 @@
 import React, { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { InputField } from './InputField';
-import DropdownState from './DropdownState';
+// import DropdownState from './DropdownState';
+import Dropdown from './Dropdown';
+import { states, State } from '../utils/states';
 
 export default function FieldsetAddress(): JSX.Element {
   const dispatch = useDispatch();
 
+  const stateOptions: string[] = states.map((state: State) => state.name);
+
   return (
     <fieldset className="address">
       <legend>Address</legend>
-
       <InputField name="street" />
-
       <InputField name="city" />
-
-      <DropdownState />
-
+      <Dropdown
+        label='State'
+        dropdownLabel="dropdownLabelState"
+        placeholder="select a state"
+        options={stateOptions}
+        style={{ margin: '8px', width: '100%' }}
+      />
       <InputField name="zipCode" type="number" />
     </fieldset>
   );

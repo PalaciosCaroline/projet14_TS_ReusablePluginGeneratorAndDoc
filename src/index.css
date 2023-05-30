@@ -356,8 +356,8 @@ select {
   border: 1px solid #57810b;
 }
 
-.box_state,
-.box_department {
+.box_State,
+.box_Department {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -365,26 +365,26 @@ select {
   margin-bottom: 10px;
 }
 
-.box_state .p_label,
-.box_department .p_label {
+.box_State .p_label,
+.box_Department .p_label {
   display: inline-block;
   margin-right: 10px;
 }
 
-.box_state li.selectedOption:hover,
-.box_department li.selectedOption:hover {
+.box_State li.selectedOption:hover,
+.box_Department li.selectedOption:hover {
   background-color: #b1c46c;
 }
 
-.box_state li.selectedOption,
-.box_department li.selectedOption {
+.box_State li.selectedOption,
+.box_Department li.selectedOption {
   background-color: #b1c46c;
 }
 
-.box_state li.focused,
-.box_department li.focused,
-.box_state .dropdownMenu li:hover,
-.box_department .dropdownMenu li:hover {
+.box_State li.focused,
+.box_Department li.focused,
+.box_State .dropdownMenu li:hover,
+.box_Department .dropdownMenu li:hover {
   background-color: #cee389;
 }
 
@@ -626,7 +626,7 @@ input::placeholder {
   margin-bottom: 0;
 }
 
-.box_startDate .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input,
+.box_StartDate .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input,
 .box_dateOfBirth .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
   margin: 10px;
   padding: 10px;
@@ -656,7 +656,7 @@ input::placeholder {
   margin: 10px;
 }
 
-.main_newEmployee .box_state .dropdown {
+.main_newEmployee .box_State .dropdown {
   z-index: 10;
 }
 
@@ -708,9 +708,7 @@ input::placeholder {
 
 /* styles pour les options du menu déroulant */
 .main_newEmployee .dropdownOption {
-  padding: 8px 12px;
   cursor: pointer;
-  /* z-index: 999; */
 }
 
 .main_newEmployee .dropdownOption:hover {
@@ -724,7 +722,6 @@ input::placeholder {
 }
 
 .address {
-  /* background-color: rgb(241, 241, 241); */
   background: linear-gradient(to bottom, transparent, rgb(241, 241, 241))
     rgb(235, 235, 235);
 }
@@ -733,9 +730,10 @@ input::placeholder {
   box-shadow: 1px 2px 6px rgb(0 0 0 / 40%);
 }
 
-.dropdownOptionButton {
+.main_newEmployee .dropdownOptionButton {
   width: 100%;
   height: 100%;
   background-color: transparent;
   border: none;
+  padding: 8px 12px;
 }

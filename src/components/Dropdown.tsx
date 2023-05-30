@@ -1,30 +1,58 @@
 import React, { useState, useEffect, useRef, FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { states, State } from '../utils/states';
+import { setField } from '../store/newEmployeeEntreeSlice';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import { RootState } from './../store/index';
 
 interface DropdownProps {
+  label: string;
   options: string[];
   placeholder: string;
-  onOptionClick: (option: string) => void;
   dropdownLabel: string;
   style?: React.CSSProperties;
 }
 
 const Dropdown: FC<DropdownProps> = ({
+  label,
   options,
   placeholder,
-  onOptionClick,
   dropdownLabel,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
+  const newEmployeeEntree = useSelector((state: RootState) => state.newEmployeeEntree);
+  const dispatch = useDispatch();
 
-  const handleOptionClick = (option: string): void => {
-    setSelectedOption(option);
-    setIsOpen(false);
-    onOptionClick(option);
-  };
+  useEffect(() => {
+    if (label === 'State') {
+      const state = states.find(state => state.abbreviation === newEmployeeEntree.state);
+      if (state) {
+        setSelectedOption(state.name);
+      } else {
+        setSelectedOption(''); 
+      }
+    } else if (label === 'Department') {
+      setSelectedOption(newEmployeeEntree.department || '');
+    }
+  }, [label, newEmployeeEntree.state, newEmployeeEntree.department]);
+  
+  function handleSelect(label: string, option: string): void {
+    if(label === 'State'){
+    const state: State | undefined = states.find((item) => item.name === option);
+   
+    if (state) {
+      dispatch(setField({ name: 'state', value: state.abbreviation }));
+      setSelectedOption(state.name);
+    }
+  } else {
+    dispatch(setField({ name: 'department', value: option }));
+  }
+  setSelectedOption(option);
+  setIsOpen(false);
+  }
 
   const toggleDropdown = (): void => {
     setIsOpen((prevIsOpen) => {
@@ -51,13 +79,6 @@ const Dropdown: FC<DropdownProps> = ({
     }
   };
 
-  // function handleKeyDown(event: React.KeyboardEvent): void {
-  //   if (event.key === 'Enter' || event.key === ' ') {
-  //     event.preventDefault();
-  //     toggleDropdown();
-  //   }
-  // }
-
   const handleTriggerKeyDown = (event: React.KeyboardEvent): void => {
     switch (event.key) {
       case 'ArrowUp':
@@ -76,13 +97,12 @@ const Dropdown: FC<DropdownProps> = ({
       case ' ':
         event.preventDefault();
         if (isOpen && focusedOptionIndex >= 0) {
-          handleOptionClick(options[focusedOptionIndex]);
+          handleSelect(label, options[focusedOptionIndex]);
         } else {
           toggleDropdown();
         }
         break;
       case 'Tab':
-        // Si l'utilisateur appuie sur 'Tab', fermez le menu déroulant
         // event.preventDefault();
         setIsOpen(false);
         break;
@@ -127,7 +147,7 @@ const Dropdown: FC<DropdownProps> = ({
       case 'Enter':
       case ' ':
         event.preventDefault();
-        handleOptionClick(option);
+        handleSelect(label, option);
         break;
       case 'Tab':
         // Si l'utilisateur appuie sur 'Tab', fermez le menu déroulant
@@ -140,52 +160,57 @@ const Dropdown: FC<DropdownProps> = ({
   };
 
   return (
-    <div className="dropdown " ref={dropdownRef}>
-      <button
-        type="button"
-        className="dropdownToggle"
-        onClick={toggleDropdown}
-        onKeyDown={handleTriggerKeyDown}
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-        aria-labelledby={dropdownLabel}
-        aria-label="Options de la liste déroulante"
-      >
-        {selectedOption || placeholder}
-        <span className="arrow" onClick={handleChevronClick}>
-          {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-        </span>
-      </button>
-      {isOpen && (
-        <ul className="dropdownMenu" role="listbox">
-          {options.map((option, index) => (
-            <li
-              key={option}
-              // onKeyDown={(event) => handleOptionKeyDown(event, option)}
-              className={`dropdownOption  ${
-                index === focusedOptionIndex ? 'focused' : ''
-              } ${
-                option === selectedOption ? 'selected selectedOption' : ''
-              }`}
-              role="option"
-              aria-selected={option === selectedOption}
-            >
-              <button
-                onKeyDown={(event) => handleOptionKeyDown(event, option)}
-                onClick={() => handleOptionClick(option)}
-                onMouseOver={() => setFocusedOptionIndex(index)}
-                className="dropdownOptionButton" // Ajoutez une classe pour styliser ce bouton comme vous le souhaitez
-                tabIndex={0}
+    <div className={`box_${label}`}>
+      <p className="p_label">{label}</p>
+      <div className="dropdown dropdownNewEmployee" ref={dropdownRef}>
+        <button
+          type="button"
+          className="dropdownToggle"
+          onClick={toggleDropdown}
+          onKeyDown={handleTriggerKeyDown}
+          value={selectedOption}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-labelledby={dropdownLabel}
+          aria-label="Options de la liste déroulante"
+        >
+          {selectedOption || placeholder}
+          <span className="arrow" onClick={handleChevronClick}>
+            {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+          </span>
+        </button>
+        {isOpen && (
+          <ul className="dropdownMenu" role="listbox">
+            {options.map((option, index) => (
+              <li
+                key={option}
+                className={`dropdownOption  ${
+                  index === focusedOptionIndex ? 'focused' : ''
+                } ${
+                  option === selectedOption ? 'selected selectedOption' : ''
+                }`}
+                role="option"
+                aria-selected={option === selectedOption}
               >
-                {option}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-      <span id={dropdownLabel} className="sr-only">
-        Options de la liste déroulante
-      </span>
+                <button
+                  onKeyDown={(event) => handleOptionKeyDown(event, option)}
+                  onClick={() => handleSelect(label, option)}
+                  onMouseOver={() => setFocusedOptionIndex(index)}
+                
+                  className="dropdownOptionButton" // Ajoutez une classe pour styliser ce bouton comme vous le souhaitez
+                  tabIndex={0}
+                  style={{width:'100%', height:'100%'}}
+                >
+                  {option}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+        <span id={dropdownLabel} className="sr-only">
+          Options de la liste déroulante
+        </span>
+      </div>
     </div>
   );
 };
