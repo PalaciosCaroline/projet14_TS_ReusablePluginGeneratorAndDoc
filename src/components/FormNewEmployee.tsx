@@ -95,6 +95,7 @@ export default function FormNewEmployee() {
         <div className="boxName">
           {inputFieldsName.map((input) => (
             <InputField
+              key={input.name}
               isWrapped={true}
               name={input.name}
               label={input.label}
