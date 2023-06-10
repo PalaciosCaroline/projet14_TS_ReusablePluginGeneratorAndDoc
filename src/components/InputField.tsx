@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './../store/index';
-import { setField, setError } from '../store/newEmployeeEntreeSlice';
+import { setField, setError } from '../store/employeeFormStateSlice';
 import { useInputChange } from '../utils/useInputChange';
+import { EmployeeFormValues, EmployeeFormErrors } from '../store/employeeFormStateSlice';
 
 interface InputFieldProps {
   label?: string;
@@ -21,7 +22,7 @@ export const InputField: React.FC<InputFieldProps> = ({
 }) => {
   const dispatch = useDispatch();
   const inputValue = useSelector((state: RootState) =>
-    state.newEmployeeEntree[name]?.toString(),
+    state.employeeFormState.formValues[name]?.toString(),
   );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,22 +32,22 @@ export const InputField: React.FC<InputFieldProps> = ({
       value = value.charAt(0).toUpperCase() + value.slice(1);
     }
 
-    dispatch(setField({ name, value }));
-    dispatch(setError({ name, message: '' }));
+    dispatch(setField({ name : name, value }));
+    dispatch(setError({ name: name, message: '' }));
   };
 
   const isFirstNameOrLastName = name === 'firstname' || name === 'lastname';
 
   const inputComponent = (
     <input
-            id={name}
-            name={name}
-            type={type}
-            value={inputValue}
-            onChange={handleInputChange}
-            className={error ? 'errorBorder' : ''}
-          />
-    )
+      id={name}
+      name={name}
+      type={type}
+      value={inputValue}
+      onChange={handleInputChange}
+      className={error ? 'errorBorder' : ''}
+    />
+  );
   const inputElement = (
     <>
       <label htmlFor={name}>

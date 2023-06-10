@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { states, State } from '../utils/states';
-import { setField } from '../store/newEmployeeEntreeSlice';
+import { setField } from '../store/employeeFormStateSlice';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { RootState } from './../store/index';
 
@@ -23,35 +23,41 @@ const Dropdown: FC<DropdownProps> = ({
   const [selectedOption, setSelectedOption] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
-  const newEmployeeEntree = useSelector((state: RootState) => state.newEmployeeEntree);
+  const newEmployeeEntree = useSelector(
+    (state: RootState) => state.employeeFormState.formValues,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (label === 'State') {
-      const state = states.find(state => state.abbreviation === newEmployeeEntree.state);
+      const state = states.find(
+        (state) => state.abbreviation === newEmployeeEntree.state,
+      );
       if (state) {
         setSelectedOption(state.name);
       } else {
-        setSelectedOption(''); 
+        setSelectedOption('');
       }
     } else if (label === 'Department') {
       setSelectedOption(newEmployeeEntree.department || '');
     }
   }, [label, newEmployeeEntree.state, newEmployeeEntree.department]);
-  
+
   function handleSelect(label: string, option: string): void {
-    if(label === 'State'){
-    const state: State | undefined = states.find((item) => item.name === option);
-   
-    if (state) {
-      dispatch(setField({ name: 'state', value: state.abbreviation }));
-      setSelectedOption(state.name);
+    if (label === 'State') {
+      const state: State | undefined = states.find(
+        (item) => item.name === option,
+      );
+
+      if (state) {
+        dispatch(setField({ name: 'state', value: state.abbreviation }));
+        setSelectedOption(state.name);
+      }
+    } else {
+      dispatch(setField({ name: 'department', value: option }));
     }
-  } else {
-    dispatch(setField({ name: 'department', value: option }));
-  }
-  setSelectedOption(option);
-  setIsOpen(false);
+    setSelectedOption(option);
+    setIsOpen(false);
   }
 
   const toggleDropdown = (): void => {
@@ -196,10 +202,9 @@ const Dropdown: FC<DropdownProps> = ({
                   onKeyDown={(event) => handleOptionKeyDown(event, option)}
                   onClick={() => handleSelect(label, option)}
                   onMouseOver={() => setFocusedOptionIndex(index)}
-                
                   className="dropdownOptionButton" // Ajoutez une classe pour styliser ce bouton comme vous le souhaitez
                   tabIndex={0}
-                  style={{width:'100%', height:'100%'}}
+                  style={{ width: '100%', height: '100%' }}
                 >
                   {option}
                 </button>

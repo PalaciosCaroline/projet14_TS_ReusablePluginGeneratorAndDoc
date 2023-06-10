@@ -3,14 +3,15 @@ import { RootState } from './../store/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import { setField, setError } from './../store/newEmployeeEntreeSlice';
+import { setField, setError } from '../store/employeeFormStateSlice';
+import { EmployeeFormErrors, EmployeeFormValues } from '../store/employeeFormStateSlice';
 
 interface DatePickerProps {
   nameDate: string;
   label: string;
   minDate: number;
   maxDate: number;
-  dateOperation: "add" | "subtract";
+  dateOperation: 'add' | 'subtract';
 }
 
 export default function DatePickerComponent({
@@ -20,15 +21,21 @@ export default function DatePickerComponent({
   maxDate,
   dateOperation,
 }: DatePickerProps): JSX.Element {
+ 
   const dateInput = useSelector(
-    (state: RootState) => state.newEmployeeEntree[nameDate],
+    (state: RootState) =>
+      state.employeeFormState.formValues[nameDate],
   );
-  const errorDate = useSelector(
-    (state: RootState) => state.newEmployeeEntree[`error${nameDate}`],
-  );
+      const errorKey = `error${nameDate}`;
+const errorDate = useSelector(
+  (state: RootState) => state.employeeFormState.formErrors[errorKey],
+);
   const dispatch = useDispatch();
   const noBeforeDay = dayjs().subtract(minDate, 'year');
-  const noAfterDay = dateOperation === 'add' ? dayjs().add(maxDate, 'year') : dayjs().subtract(maxDate, 'year');
+  const noAfterDay =
+    dateOperation === 'add'
+      ? dayjs().add(maxDate, 'year')
+      : dayjs().subtract(maxDate, 'year');
 
   useEffect(() => {
     if (!dateInput) {
@@ -58,6 +65,12 @@ export default function DatePickerComponent({
     }
   };
 
+  if (typeof dateInput === 'string') {
+    const dateAsDayjs = dayjs(dateInput, 'DD/MM/YYYY');
+  } else {
+    const dateAsDayjs = dateInput;
+  }
+
   return (
     <div className={`form-group box_${nameDate}`}>
       <p className={`text_${nameDate}`}>{label}</p>
@@ -67,9 +80,22 @@ export default function DatePickerComponent({
       >
         <DatePicker
           label={`${label} Select`}
-          minDate={noBeforeDay.format('DD/MM/YYYY')}
-          maxDate={noAfterDay.format('DD/MM/YYYY')}
-          value={typeof dateInput === 'string' && dateInput ? dayjs(dateInput).format('DD/MM/YYYY') : null}
+          // minDate={noBeforeDay.format('DD/MM/YYYY')}
+          // maxDate={noAfterDay.format('DD/MM/YYYY')}
+          //           minDate={noBeforeDay.toDate()}
+          // maxDate={noAfterDay.toDate()}
+          minDate={noBeforeDay}
+          maxDate={noAfterDay}
+          // value={typeof dateInput === 'string' && dateInput ? dayjs(dateInput).format('DD/MM/YYYY') : null}
+          // value={typeof dateInput === 'string' && dateInput ? dayjs(dateInput, 'DD/MM/YYYY').toDate() : null}
+          // value={typeof dateInput === 'string' ? dayjs(dateInput, 'DD/MM/YYYY') : dateInput}
+          value={
+            dateInput
+              ? typeof dateInput === 'string'
+                ? dayjs(dateInput, 'DD/MM/YYYY')
+                : dateInput
+              : null
+          }
           views={['year', 'month', 'day']}
           onChange={handleDateChange}
           sx={{
@@ -80,11 +106,7 @@ export default function DatePickerComponent({
             },
           }}
         />
-        {errorDate ? (
-          <p className="errorMessage">{errorDate}</p>
-        ) : (
-          ''
-        )}
+        {errorDate ? <p className="errorMessage">{errorDate}</p> : ''}
       </div>
     </div>
   );

@@ -1,24 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { videInput, setError } from '../store/newEmployeeEntreeSlice';
+import React, { useState, useEffect, FC } from 'react';
+import { clearInput, setError } from '../store/employeeFormStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEmployee } from '../store/employeesSlice';
-import ConfirmationModal from './ConfirmationModal';
+import Modal from './Modal';
 import { InputField } from './InputField';
-import FieldsetAddress from './FieldsetAddress';
-import Dropdown from './Dropdown';
-// import BoxName from './BoxName';
+import AddressAndDepartmentForm from './AddressAndDepartmentForm';
 import { validateNames } from '../utils/controlName';
-import { departmentOptions } from '../utils/department';
-
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
 import { RootState } from '../store/index';
 import DatePickerComponent from './DatePickerComponent';
+// import { Employee } from '../mocks/data';
+import { Employee } from '../store/employeeFormStateSlice';
+import { FaUserCheck } from 'react-icons/fa';
+import { EmployeeFormErrors } from '../store/employeeFormStateSlice';
 
-export default function FormNewEmployee() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+interface Props {
+  employeeId?: number;
+  employee?: Employee;
+}
+
+export const FormNewEmployee: FC<Props> = () => {
   const dispatch = useDispatch();
+  const employees = useSelector((state: RootState) => state.employees.active);
+  // const selectedEmployee = employees.find((employee: any) => employee.id === employeeId);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [employeeName, setEmployeeName] = useState<{
     firstname: string;
     lastname: string;
@@ -27,7 +34,10 @@ export default function FormNewEmployee() {
     lastname: '',
   });
   const newEmployeeEntree = useSelector(
-    (state: RootState) => state.newEmployeeEntree,
+    (state: RootState) => state.employeeFormState.formValues,
+  );
+  const newEmployeeErrors = useSelector(
+    (state: RootState) => state.employeeFormState.formErrors,
   );
   const {
     firstname,
@@ -39,9 +49,13 @@ export default function FormNewEmployee() {
     city,
     state,
     zipCode,
+
+  } = newEmployeeEntree;
+
+  const {
     errordateOfBirth,
     errorstartDate,
-  } = newEmployeeEntree;
+  } = newEmployeeErrors
 
   useEffect(() => {
     if (!firstname) {
@@ -54,6 +68,7 @@ export default function FormNewEmployee() {
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
+    // const isNameValid = validateNames(firstname, lastname, setError, dispatch);
     const isNameValid = validateNames(firstname, lastname, setError, dispatch);
     if (!isNameValid) {
       return;
@@ -72,9 +87,10 @@ export default function FormNewEmployee() {
         zipCode,
       };
       dispatch(addEmployee(newEmployee));
-      setEmployeeName({ firstname, lastname });
+      // setEmployeeName({ firstname, lastname });
+      setEmployeeName({ firstname: firstname, lastname: lastname });
       setIsModalOpen(true);
-      dispatch(videInput());
+      dispatch(clearInput());
       e.target.reset();
     }
   };
@@ -99,7 +115,7 @@ export default function FormNewEmployee() {
               isWrapped={true}
               name={input.name}
               label={input.label}
-              error={newEmployeeEntree[`error${input.name}`]?.toString()}
+              error={newEmployeeErrors[`error${input.name}` as keyof EmployeeFormErrors]?.toString()}
             />
           ))}
         </div>
@@ -121,26 +137,36 @@ export default function FormNewEmployee() {
             />
           </div>
         </LocalizationProvider>
-        <FieldsetAddress />
+        {/* <FieldsetAddress />
         <Dropdown
           label="Department"
           dropdownLabel="dropdownLabelDepartment"
           placeholder="select a department"
           options={departmentOptions}
           style={{ margin: '8px', width: '100%' }}
-        />
+        /> */}
+        <AddressAndDepartmentForm />
         <button className="btnFormSave" type="submit" data-testid="btn_form">
           Save the new employee
         </button>
       </form>
       {isModalOpen && (
-        <ConfirmationModal
+        <Modal
           setIsModalOpen={setIsModalOpen}
           isModalOpen={isModalOpen}
-          firstname={employeeName.firstname}
-          lastname={employeeName.lastname}
-        />
+          closeModal={() => setIsModalOpen(false)}
+          className="confirmationModal"
+        >
+          <div className="box_titleModal">
+            <FaUserCheck className="iconCheckedModal" />
+            <h2 id="modal-title">Confirmation</h2>
+          </div>
+          <p tabIndex={0} id="confirmation-text">
+            The new employee, {employeeName.firstname} {employeeName.lastname},
+            has been registered successfully.
+          </p>
+        </Modal>
       )}
     </div>
   );
-}
+};

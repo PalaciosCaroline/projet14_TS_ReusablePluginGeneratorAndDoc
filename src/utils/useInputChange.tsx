@@ -1,6 +1,7 @@
 
 import { useDispatch } from 'react-redux';
-import { setField, setError } from './../store/newEmployeeEntreeSlice'; 
+import { setField, setError } from '../store/employeeFormStateSlice'; 
+
 
 export function useInputChange(type: 'text' | 'number') {
   const dispatch = useDispatch();
@@ -17,8 +18,8 @@ export function useInputChange(type: 'text' | 'number') {
       newValue = '';
     }
 
-    dispatch(setField({ name, value: newValue }));
-    dispatch(setError({ name, message: '' }));
+    dispatch(setField({ name: name, value: newValue }));
+    dispatch(setError({ name: name, message: '' }));
   };
 
   return handleInputChange;

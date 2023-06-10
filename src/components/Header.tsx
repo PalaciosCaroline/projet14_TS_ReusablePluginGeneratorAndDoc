@@ -1,6 +1,5 @@
 import React from 'react';
 import logoHRnet from './../assets/logoHRnet_bg.png';
-// import NavLinkComponent from './NavLinkComponent';
 import { NavLinkProps, NavLinkComponent } from './NavLinkComponent';
 
 interface HeaderProps {

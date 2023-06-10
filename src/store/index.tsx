@@ -1,10 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import newEmployeeEntreeSlice from './newEmployeeEntreeSlice';
+import employeeFormStateSlice from './employeeFormStateSlice';
 import employeesSlice from './employeesSlice';
 
 const rootReducer = combineReducers({
   employees: employeesSlice.reducer,
-  newEmployeeEntree: newEmployeeEntreeSlice.reducer,
+  employeeFormState: employeeFormStateSlice.reducer,
 });
 
 const store = configureStore({

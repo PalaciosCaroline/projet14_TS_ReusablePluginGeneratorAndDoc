@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from '../../components/Header';
 import { linkCurrentEmployees } from './../../utils/linkData';
-import FormNewEmployee from '../../components/FormNewEmployee';
+import {FormNewEmployee} from '../../components/FormNewEmployee';
 
 export default function NewEmployee(): JSX.Element {
   return (
