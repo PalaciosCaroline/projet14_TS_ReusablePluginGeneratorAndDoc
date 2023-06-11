@@ -202,6 +202,8 @@ h2 {
 .formChangeEmployee input {
   background: linear-gradient(to bottom, transparent, rgb(255, 255, 255))
   rgb(214, 219, 220);
+  margin-left:10px;
+  margin-right:10px;
 }
 
 
@@ -474,7 +476,11 @@ select {
   display: flex;
   right: 50px;
   height: auto;
-  /* min-height: 100vh; */
+}
+
+.editEmployeeModal.deleteEmployeeModal {
+  box-sizing: border-box;
+  border:5px solid red;
 }
 
 @media (max-width: 500px) {
@@ -667,7 +673,7 @@ select {
   margin: 30px auto 20px;
 }
 
-.btnFormSave:hover {
+.btnFormSave:hover, .btnFormDelete:hover,.btnFormCancel:hover, .btnFormArchive:hover, .btnFormEdit:hover, .btn_closeModal:hover {
   background-color: #7e9b16;
   box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
 }
@@ -763,8 +769,6 @@ input::placeholder {
 .editEmployeeModal .address .dropdownToggle{
   background: linear-gradient(to bottom, transparent, rgb(255, 255, 255)) rgb(214, 219, 220);
 }
-
-
 
 /* styles pour la flèche du dropdown */
 .main_newEmployee .arrow {

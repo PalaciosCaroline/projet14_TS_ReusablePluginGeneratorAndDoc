@@ -72,17 +72,17 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       );
     }, [employees, archivedEmployees]);
 
-    const handleEditRow = (id: any, e:any) => {
+    const handleEditRow = (id: any, e: any) => {
       e.persist();
       openModal(id, 'edit', e);
     };
 
-    const handleArchiveRow = (id: any, e:any) => {
+    const handleArchiveRow = (id: any, e: any) => {
       e.persist();
       openModal(id, 'archive', e);
     };
 
-    const handleDeleteRow = (id: number, e:any) => {
+    const handleDeleteRow = (id: number, e: any) => {
       e.persist();
       openModal(id, 'delete', e);
     };
@@ -106,7 +106,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         dispatch(setEmployeeData(employeeData));
         setModalType(type as ModalType);
         setModalPosition({ x: e.clientX, y: e.clientY });
-        console.log({ x: e.clientX, y: e.clientY })
+        console.log({ x: e.clientX, y: e.clientY });
         setIsModalOpen(true);
         console.log('delete: ' + id);
       } else {
@@ -191,12 +191,14 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         {isModalOpen && selectedEmployeeId && (
           <Modal
             style={{
-              top: modalPosition.y,
+              top: modalPosition.y + 100,
             }}
             setIsModalOpen={setIsModalOpen}
             isModalOpen={isModalOpen}
             closeModal={closeModal}
-            className="editEmployeeModal"
+            className={`editEmployeeModal ${
+              modalType === 'delete' ? 'deleteEmployeeModal' : ''
+            }`}
           >
             <div className="box_titleModal">
               <FiEdit3 className="iconCheckedModal" />
