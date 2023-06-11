@@ -191,7 +191,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         {isModalOpen && selectedEmployeeId && (
           <Modal
             style={{
-              top: modalPosition.y + 100,
+              top: modalPosition.y,
             }}
             setIsModalOpen={setIsModalOpen}
             isModalOpen={isModalOpen}
