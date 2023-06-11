@@ -8,7 +8,11 @@ import { ExportDataComponent } from 'typescript-exportdata';
 import { FormNewEmployee } from './FormNewEmployee';
 import DatePickerComponent from './DatePickerComponent';
 import { updateEmployee } from '../store/employeesSlice';
-import { clearInput, setEmployeeData } from '../store/employeeFormStateSlice';
+import {
+  clearInput,
+  setEmployeeData,
+  setError,
+} from '../store/employeeFormStateSlice';
 import { Employee } from '../store/employeeFormStateSlice';
 import Modal from './Modal';
 import AddressAndDepartmentForm from './AddressAndDepartmentForm';
@@ -42,6 +46,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
     const dispatch = useDispatch();
     const [modalType, setModalType] = useState<ModalType>('none');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
     const employeeFormEntree = useSelector(
       (state: RootState) => state.employeeFormState.formValues,
     );
@@ -67,47 +72,19 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       );
     }, [employees, archivedEmployees]);
 
-    const handleEditRow = (id: any) => {
-      setSelectedEmployeeId(id);
-      const selectedEmployee = employees.find(
-        (employee: any) => employee.id === id,
-      );
-      if (selectedEmployee) {
-        const employeeData: any = {
-          ...selectedEmployee,
-        };
-        dispatch(setEmployeeData(employeeData));
-        setModalType('edit');
-        setIsModalOpen(true);
-      } else {
-        console.error('No employee found with id: ', id);
-      }
+    const handleEditRow = (id: any, e:any) => {
+      e.persist();
+      openModal(id, 'edit', e);
     };
 
-    const handleArchiveRow = (id: any) => {
-      setSelectedEmployeeId(id);
-      const selectedEmployee = employees.find(
-        (employee: any) => employee.id === id,
-      );
-      console.log('archive: ' + id);
-      if (selectedEmployee) {
-        const employeeData: any = {
-          ...selectedEmployee,
-        };
-        setModalType('archive');
-        setIsModalOpen(true);
-        dispatch(setEmployeeData(employeeData));
-      } else {
-        console.error('No employee found with id: ', id);
-        // handle error here
-      }
+    const handleArchiveRow = (id: any, e:any) => {
+      e.persist();
+      openModal(id, 'archive', e);
     };
 
-    const handleDeleteRow = (id: number) => {
-      setSelectedEmployeeId(id);
-      setModalType('delete');
-      setIsModalOpen(true);
-      console.log('delete: ' + id);
+    const handleDeleteRow = (id: number, e:any) => {
+      e.persist();
+      openModal(id, 'delete', e);
     };
 
     const closeModal = () => {
@@ -117,12 +94,33 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       setModalType('none');
     };
 
+    const openModal = (id: number, type: string, e: any) => {
+      setSelectedEmployeeId(id);
+      const selectedEmployee = employees.find(
+        (employee: any) => employee.id === id,
+      );
+      if (selectedEmployee) {
+        const employeeData: any = {
+          ...selectedEmployee,
+        };
+        dispatch(setEmployeeData(employeeData));
+        setModalType(type as ModalType);
+        setModalPosition({ x: e.clientX, y: e.clientY });
+        console.log({ x: e.clientX, y: e.clientY })
+        setIsModalOpen(true);
+        console.log('delete: ' + id);
+      } else {
+        console.error('No employee found with id: ', id);
+        return;
+      }
+    };
+
     const handleChangeSubmit = (employeeId: number) => (e: any) => {
       e.preventDefault();
       dispatch(
         updateEmployee({
           id: employeeId,
-          department: employeeFormEntree.department, // les nouvelles valeurs pour chaque champ
+          department: employeeFormEntree.department,
           street: employeeFormEntree.street,
           city: employeeFormEntree.city,
           state: employeeFormEntree.state,
@@ -136,7 +134,15 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       e.preventDefault();
       console.log(employeeFormEntree.endDate);
       const endDate = employeeFormEntree.endDate;
-      if (employeeEntreeErrors.errorendDate || !endDate) {
+      if (!endDate) {
+        dispatch(
+          setError({
+            name: 'endDate',
+            message: 'Veuillez sélectionner une date valide',
+          }),
+        );
+        return;
+      } else if (employeeEntreeErrors.errorendDate) {
         return;
       } else {
         dispatch(archiveEmployee({ id: employeeId, endDate }));
@@ -184,6 +190,9 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         />
         {isModalOpen && selectedEmployeeId && (
           <Modal
+            style={{
+              top: modalPosition.y,
+            }}
             setIsModalOpen={setIsModalOpen}
             isModalOpen={isModalOpen}
             closeModal={closeModal}
@@ -194,7 +203,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
               <h2 id="modal-TitleChange">
                 {' '}
                 {modalType === 'edit'
-                  ? 'Change data of Employee'
+                  ? 'Change Employee Data'
                   : modalType === 'archive'
                   ? 'Archive Employee'
                   : modalType === 'delete'

@@ -251,36 +251,31 @@ h2 {
   justify-content: center;
 }
 
-.box_dateOfBirth,.box_startDate  {
+.box_dateOfBirth,.box_startDate, .box_endDate  {
   margin-right: 10px;
   margin-left:10px;
-}
-
-.box_startDate,
-.box_dateOfBirth {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 20px;
 }
+.box_endDate .text_endDate,
 .box_startDate .text_startDate,
 .box_dateOfBirth .text_dateOfBirth {
   margin-right: 10px;
 }
-/* .box_startDate .text_startDate{
-  margin-left: 20px;
-} */
 
+.box_endDate .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root,
 .box_startDate .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root,
 .box_dateOfBirth .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
   padding-left: 20px;
   padding-top: 2px;
 }
 
+.box_endDate .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input,
 .box_startDate .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input,
 .box_dateOfBirth .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
   margin: 10px;
-  /* padding:10px; */
   height: 20px;
 }
 
@@ -316,7 +311,8 @@ h2 {
     margin-left: 0;
   }
 
-  .box_dateOfBirth {
+  .box_endDate , 
+  .box_dateOfBirth  {
     margin-right: 0;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -324,11 +320,13 @@ h2 {
 }
 
 @media (max-width: 500px) {
+  .box_endDate,
   .box_startDate,
   .box_dateOfBirth {
     justify-content: space-between;
   }
 
+  .box_endDate,
   .box_dateOfBirth,.box_startDate  {
     margin-right: 0;
     margin-left:0;
@@ -447,21 +445,19 @@ select {
   padding-right: 20px;
 }
 
-.bg_modalConfirm {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.1);
-  z-index: 9999;
-}
-
 .confirmationModal {
-  width: 100%;
+  background-color: #b9d851;
+  bottom: 0;
   height: 100%;
   min-height: 400px;
-  background-color: #b9d851;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.editEmployeeModal ,
+.confirmationModal {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -469,11 +465,38 @@ select {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   padding: 20px 20px 20px 20px;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 9999;
+}
+
+.editEmployeeModal {
+  background: linear-gradient(to bottom, transparent, rgb(255, 255, 255))
+  rgb(214, 219, 220);
+  display: flex;
+  right: 50px;
+  height: auto;
+  /* min-height: 100vh; */
+}
+
+@media (max-width: 500px) {
+  .editEmployeeModal {
+    left:0;
+    right: 0;
+  }
+  .editEmployeeModal .box_titleModal {
+   margin-top: 40px;
+  }
+  .editEmployeeModal .box_btnsDelete{
+    flex-direction: column;
+  }
+  .editEmployeeModal .box_btnsDelete button{
+    margin-top:20px;
+  }
+  .editEmployeeModal .address input{
+    margin-top:8px;
+  }
+  .editEmployeeModal #modal-TitleChange{
+    font-size: 1.4rem;
+  }
 }
 
 .confirmationModal h2 {
@@ -501,7 +524,6 @@ select {
   position: absolute;
   top: 15px;
   right: 15px;
-  /* align-self: flex-end; */
   background-color: #677e11;
   border: none;
   color: #fff;
@@ -608,17 +630,41 @@ select {
   height: 30px;
 }
 
-.btnFormSave {
-  text-align: center;
-  width: 300px;
+.containerNewEmployee .btnFormSave {
+  margin: 20px auto 30px;
+}
+
+.btnFormEdit {
+  margin-bottom:20px;
+}
+
+.box_btnsDelete{
+  display: flex;
+  margin: 20px auto;
+}
+
+.btnFormSave, .btnFormArchive, .btnFormEdit {
   padding: 10px 20px;
+  width: 300px;
+}
+.btnFormDelete,.btnFormCancel {
+  padding: 10px 10px;
+  width: 180px;
+  margin: 5px 20px;
+}
+
+.btnFormSave,.btnFormDelete,.btnFormCancel, .btnFormArchive, .btnFormEdit{
+  text-align: center;
   color: #fff;
   border-radius: 25px;
   border: none;
   font-size: 1.2rem;
-  margin: 20px auto 30px;
   background-color: #677e11;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.btnFormArchive {
+  margin: 30px auto 20px;
 }
 
 .btnFormSave:hover {
@@ -710,7 +756,6 @@ input::placeholder {
   padding: 8px 12px;
 }
 
-
 .main_newEmployee .address .dropdownToggle {
   background-color: #f1f1f1;
 }
@@ -783,27 +828,7 @@ input::placeholder {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.1);
-  z-index: 9999;
-}
-
-.editEmployeeModal {
-  width: 100%;
-  min-height: 100vh;
-  height: auto;
-  background: linear-gradient(to bottom, transparent, rgb(255, 255, 255))
-  rgb(214, 219, 220);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  padding: 20px 20px 20px 20px;
-  position: absolute;
-  top: 0;
-  /* bottom: 0; */
-  left: 0;
-  right: 0;
+  background: rgba(5, 5, 5, 0.6);
   z-index: 9999;
 }
 
@@ -812,8 +837,6 @@ input::placeholder {
 }
 
 .editEmployeeModal .formChangeEmployee{
-  /* display: flex;
-  flex-direction: column; */
   text-align: center;
 }
 
@@ -824,6 +847,9 @@ input::placeholder {
 .editEmployeeModal p {
   font-size: 1.2rem;
 }
+.editEmployeeModal .errorMessage {
+  font-size: 0.8rem;
+}
 
 .editEmployeeModal .name{
   font-weight: bold;
@@ -832,6 +858,10 @@ input::placeholder {
 .box_changeModalName p{
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.box_changeModalName .box_input{
+  padding-bottom:60px;
 }
 
 @media (max-width: 900px) {

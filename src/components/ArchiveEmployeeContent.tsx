@@ -20,7 +20,7 @@ const ArchiveEmployeeContent: FC<ArchiveEmployeeContentProps> = ({
       <form
         className="formChangeEmployee"
         action="#"
-        id="create-employee"
+        id="archive-employee"
         onSubmit={handleArchiveSubmit(selectedEmployeeId)}
         data-testid="form"
       >
@@ -36,7 +36,7 @@ const ArchiveEmployeeContent: FC<ArchiveEmployeeContentProps> = ({
           </div>
         </LocalizationProvider>
 
-        <button className="btnFormSave" type="submit" data-testid="btn_form">
+        <button className="btnFormArchive" type="submit" data-testid="btn_form">
           Archive Employee
         </button>
       </form>

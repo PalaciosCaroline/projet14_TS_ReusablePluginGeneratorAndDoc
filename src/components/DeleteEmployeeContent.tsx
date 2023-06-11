@@ -12,17 +12,25 @@ interface DeleteEmployeeContentProps {
 const DeleteEmployeeContent: FC<DeleteEmployeeContentProps> = ({
   handleDeleteSubmit,
   selectedEmployeeId,
-  handleCancel
+  handleCancel,
 }) => {
   return (
-    <>
-       <button className="btnFormDelete" data-testid="btn_DeleteConfirm" onClick={() => handleDeleteSubmit(selectedEmployeeId)}>
-          Confirm Delete this Employee
-        </button>
-        <button className="btnFormCancel" data-testid="btn_form" onClick={handleCancel}>
-          Cancel
-        </button>
-    </>
+    <div className="box_btnsDelete">
+      <button
+        className="btnFormDelete"
+        data-testid="btn_DeleteConfirm"
+        onClick={() => handleDeleteSubmit(selectedEmployeeId)}
+      >
+        Confirm Delete
+      </button>
+      <button
+        className="btnFormCancel"
+        data-testid="btn_form"
+        onClick={handleCancel}
+      >
+        Cancel
+      </button>
+    </div>
   );
 };
 

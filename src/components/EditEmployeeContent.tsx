@@ -14,13 +14,13 @@ interface EditEmployeeContentProps {
         <form
           className="formChangeEmployee"
           action="#"
-          id="create-employee"
+          id="edit-employee"
           onSubmit={handleChangeSubmit(selectedEmployeeId)}
           data-testid="form"
         >
           <AddressAndDepartmentForm />
           <button
-            className="btnFormSave"
+            className="btnFormEdit"
             type="submit"
             data-testid="btn_form"
           >

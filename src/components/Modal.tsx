@@ -9,7 +9,8 @@ interface ModalProps {
     isModalOpen: boolean;
     closeModal: () => void;
     children: ReactNode;
-    className: string
+    className: string;
+    style?: any
 }
 
 const Modal = ({
@@ -17,7 +18,8 @@ const Modal = ({
     isModalOpen,
     closeModal,
     children,
-    className
+    className, 
+    style
   }: ModalProps) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -65,6 +67,7 @@ const Modal = ({
           aria-describedby="confirmation-text"
           onKeyDown={handleKeyDown}
           ref={modalRef}
+          style={style}
         >
           <button
             className="btn_closeModal"
