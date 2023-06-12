@@ -7,13 +7,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 interface ArchiveEmployeeContentProps {
   handleArchiveSubmit: (employeeId: number) => (e: any) => void;
   selectedEmployeeId: number;
-  employeeFormEntree: EmployeeFormValues;
 }
 
 const ArchiveEmployeeContent: FC<ArchiveEmployeeContentProps> = ({
   handleArchiveSubmit,
   selectedEmployeeId,
-  employeeFormEntree,
 }) => {
   return (
     <>

@@ -8,74 +8,80 @@ import ListEmployees from '../listEmployees/ListEmployees';
 import { dataEmployeesMock, dataColumnsMock } from '../../mocks/data';
 // import { Employee } from "../../mocks/data";
 import { Employee } from '../../store/employeeFormStateSlice';
-import newEmployeeEntreeInitialState from '../../store/employeeFormStateSlice';
+import {initialState} from '../../store/employeeFormStateSlice';
 import { setError, setField } from '../../store/employeeFormStateSlice';
+import { addEmployee } from '../../store/employeesSlice';
+
 
 const mockStore = configureStore([]);
 
-// describe('NewEmployee', () => {
-//     let store: any;
+describe('NewEmployee', () => {
+    let store: any;
 
-//     beforeEach(() => {
-//       store = mockStore({
-//         newEmployeeEntree: newEmployeeEntreeInitialState,
-//       });
-//     });
+    beforeEach(() => {
+      store = mockStore({
+        employees: {
+          active: dataEmployeesMock
+        },
+        employeeFormState: initialState,  
+      });
+    });
 
-//   test('renders NewEmployee component', () => {
+  test('renders NewEmployee component', () => {
 
-//     render(
-//         <Provider store={store}>
-//             <Router>
-//                 <NewEmployee />
-//             </Router>
-//         </Provider>,
-//     );
+    render(
+        <Provider store={store}>
+            <Router>
+                <NewEmployee />
+            </Router>
+        </Provider>,
+    );
 
-//     expect(screen.getByTestId('header_newEmployee')).toBeInTheDocument();
-//     expect(screen.getByText(/Create Employee/i)).toBeInTheDocument();
-//     expect(screen.getByText(/View Current Employees/i)).toBeInTheDocument();
-//   });
+    expect(screen.getByTestId('header_test')).toBeInTheDocument();
+    expect(screen.getByText(/Create Employee/i)).toBeInTheDocument();
+    expect(screen.getByText(/View Current Employees/i)).toBeInTheDocument();
+  });
 
-//   test('should render a header with a logo and a link to add List of employees', () => {
+  test('should render a header with a logo and a link to add List of employees', () => {
 
-//     render(
-//         <Provider store={store}>
-//             <Router>
-//                 <NewEmployee />
-//             </Router>
-//         </Provider>,
-//     );
+    render(
+        <Provider store={store}>
+            <Router>
+                <NewEmployee />
+            </Router>
+        </Provider>,
+    );
 
-//     const logo = screen.getByAltText('HRnet Logo');
-//     const title = screen.getByText('HRnet');
-//     const link = screen.getByText('View Current Employees');
-//     const form = screen.getByTestId('form');
+    const logo = screen.getByAltText('HRnet Logo');
+    const title = screen.getByText('HRnet');
+    const link = screen.getByText('View Current Employees');
+    const form = screen.getByTestId('form');
 
-//     expect(logo).toBeInTheDocument();
-//     expect(title).toBeInTheDocument();
-//     expect(form).toBeInTheDocument();
-//     expect(link).toBeInTheDocument();
-//     expect(link.getAttribute('href')).toBe('/listemployees');
+    expect(logo).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    expect(form).toBeInTheDocument();
+    expect(link).toBeInTheDocument();
 
-//     const header = screen.getByTestId('header_newEmployee');
+    const header = screen.getByTestId('header_test');
 
-//     expect(header).toHaveClass('header_ListEmployees');
-//     expect(screen.getByText(/View Current Employees/i).closest('a')).toHaveAttribute('href', '/listemployees');
-//   });
-// });
+    expect(header).toHaveClass('header_ListEmployees');
+    expect(screen.getByText(/View Current Employees/i).closest('a')).toHaveAttribute('href', '/listemployees');
+  });
+});
 
 describe('FormNewEmployee', () => {
   let store: any;
 
   beforeEach(() => {
     store = mockStore({
-      employees: dataEmployeesMock,
-      newEmployeeEntree: newEmployeeEntreeInitialState,
+      employees: {
+        active: dataEmployeesMock
+      },
+      employeeFormState: initialState, 
     });
 
     store.dispatch = jest.fn();
-
+  
     render(
       <Provider store={store}>
         <Router>
@@ -89,10 +95,10 @@ describe('FormNewEmployee', () => {
     fireEvent.submit(screen.getByTestId('form'));
 
     expect(store.dispatch).toHaveBeenCalledWith(
-      setError({ name: 'firstname', message: 'The firstname is required' }),
+      setError({ name: 'firstname', message: 'The first name is required' }),
     );
     expect(store.dispatch).toHaveBeenCalledWith(
-      setError({ name: 'lastname', message: 'The lastname is required' }),
+      setError({ name: 'lastname', message: 'The last name is required' }),
     );
   });
 
@@ -102,6 +108,12 @@ describe('FormNewEmployee', () => {
     });
     fireEvent.input(screen.getByLabelText(/Last Name/i), {
       target: { value: 'Forde' },
+    });
+    fireEvent.input(screen.getByLabelText(/Date Of Birth/i), {
+      target: { value: '15/02/2000' },
+    });
+    fireEvent.input(screen.getByLabelText(/Start Date/i), {
+      target: { value: '10/02/2023' },
     });
 
     fireEvent.submit(screen.getByTestId('form'));

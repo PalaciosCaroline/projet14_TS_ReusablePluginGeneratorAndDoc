@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC } from 'react';
 import { clearInput, setError } from '../store/employeeFormStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { addEmployee } from '../store/employeesSlice';
+import {checkEmployeeExistence, addEmployee } from '../store/employeesSlice';
 import Modal from './Modal';
 import { InputField } from './InputField';
 import AddressAndDepartmentForm from './AddressAndDepartmentForm';
@@ -24,6 +24,7 @@ export const FormNewEmployee: FC<Props> = () => {
   const employees = useSelector((state: RootState) => state.employees.active);
   // const selectedEmployee = employees.find((employee: any) => employee.id === employeeId);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorEmployeeExist, setErrorEmployeeExist] = useState(null);
   const [employeeName, setEmployeeName] = useState<{
     firstname: string;
     lastname: string;
@@ -32,10 +33,10 @@ export const FormNewEmployee: FC<Props> = () => {
     lastname: '',
   });
   const newEmployeeEntree = useSelector(
-    (state: RootState) => state.employeeFormState.formValues,
+    (state: RootState) => state.employeeFormState?.formValues,
   );
   const newEmployeeErrors = useSelector(
-    (state: RootState) => state.employeeFormState.formErrors,
+    (state: RootState) => state.employeeFormState?.formErrors,
   );
   const {
     firstname,
@@ -85,6 +86,41 @@ export const FormNewEmployee: FC<Props> = () => {
       e.target.reset();
     }
   };
+
+  // const handleFormSubmit =  async (e: any) => {
+  //   e.preventDefault();
+  //   const isDateValid = validateDates(dateOfBirth, startDate, setError, dispatch)
+  //   const isNameValid = validateNames(firstname, lastname, setError, dispatch);
+  //   if (!isNameValid || !isDateValid) {
+  //     return;
+  //   } else if (errordateOfBirth || errorstartDate) {
+  //     return;
+  //   } else {
+  //     const newEmployee = {
+  //       firstname,
+  //       lastname,
+  //       startDate,
+  //       department,
+  //       dateOfBirth,
+  //       street,
+  //       city,
+  //       state,
+  //       zipCode,
+  //     };
+  //     const exists = await dispatch(checkEmployeeExistence(newEmployee));
+  
+  //     if (exists) {
+  //       // Si l'employé existe déjà, on affiche une erreur
+  //       setErrorEmployeeExist(`Employee ${newEmployee.firstname} ${newEmployee.lastname} already exists.`);
+  //     } else {
+  //       dispatch(addEmployee(newEmployee));
+  //       setEmployeeName({ firstname: firstname, lastname: lastname });
+  //       setIsModalOpen(true);
+  //       dispatch(clearInput());
+  //       e.target.reset();
+  //     }
+  //   }
+  // };
 
   const inputFieldsName = [
     { name: 'firstname', label: 'First Name' },
@@ -139,6 +175,7 @@ export const FormNewEmployee: FC<Props> = () => {
           isModalOpen={isModalOpen}
           closeModal={() => setIsModalOpen(false)}
           className="confirmationModal"
+          dataTestId='modalConfirm'
         >
           <div className="box_titleModal">
             <FaUserCheck className="iconCheckedModal" />

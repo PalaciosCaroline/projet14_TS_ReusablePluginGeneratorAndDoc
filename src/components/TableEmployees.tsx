@@ -13,12 +13,8 @@ import {
   setEmployeeData,
   setError,
 } from '../store/employeeFormStateSlice';
-import { Employee } from '../store/employeeFormStateSlice';
 import Modal from './Modal';
-import AddressAndDepartmentForm from './AddressAndDepartmentForm';
 import { FiEdit3 } from 'react-icons/fi';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import EditEmployeeContent from './EditEmployeeContent';
 import ArchiveEmployeeContent from './ArchiveEmployeeContent';
 import DeleteEmployeeContent from './DeleteEmployeeContent';
@@ -49,10 +45,10 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
     const employeeFormEntree = useSelector(
-      (state: RootState) => state.employeeFormState.formValues,
+      (state: RootState) => state.employeeFormState?.formValues,
     );
     const employeeEntreeErrors = useSelector(
-      (state: RootState) => state.employeeFormState.formErrors,
+      (state: RootState) => state.employeeFormState?.formErrors,
     );
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(
       null,
@@ -62,13 +58,13 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       (state: RootState) => state.employees.archived,
     );
 
-    useEffect(() => {
-      console.log('active employees:', JSON.stringify(employees, null, 2));
-      console.log(
-        'archived employees:',
-        JSON.stringify(archivedEmployees, null, 2),
-      );
-    }, [employees, archivedEmployees]);
+    // useEffect(() => {
+    //   console.log('active employees:', JSON.stringify(employees, null, 2));
+    //   console.log(
+    //     'archived employees:',
+    //     JSON.stringify(archivedEmployees, null, 2),
+    //   );
+    // }, [employees, archivedEmployees]);
 
     const handleEditRow = (id: any, e: any) => {
       e.persist();
@@ -191,6 +187,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
             className={`editEmployeeModal ${
               modalType === 'delete' ? 'deleteEmployeeModal' : ''
             }`}
+            dataTestId='modalAction'
           >
             <div className="box_titleModal">
               <FiEdit3 className="iconCheckedModal" />
@@ -230,14 +227,14 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
               <EditEmployeeContent
                 handleChangeSubmit={handleChangeSubmit}
                 selectedEmployeeId={selectedEmployeeId}
-                employeeFormEntree={employeeFormEntree}
+                // employeeFormEntree={employeeFormEntree}
               />
             )}
             {modalType === 'archive' && (
               <ArchiveEmployeeContent
                 handleArchiveSubmit={handleArchiveSubmit}
                 selectedEmployeeId={selectedEmployeeId}
-                employeeFormEntree={employeeFormEntree}
+                // employeeFormEntree={employeeFormEntree}
               />
             )}
             {modalType === 'delete' && (

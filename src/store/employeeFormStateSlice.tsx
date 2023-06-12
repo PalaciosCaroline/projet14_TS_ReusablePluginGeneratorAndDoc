@@ -12,10 +12,6 @@ interface Error {
   message: string;
 }
 
-// interface WritableDraft<T> {
-//   [key: string]: T[keyof T];
-// }
-
 export interface EmployeeFormValues extends EmployeeBase {
   id: number | null;
   endDate: string;
@@ -35,10 +31,9 @@ export interface EmployeeFormErrors {
 interface EmployeeFormState {
   formValues: EmployeeFormValues;
   formErrors: EmployeeFormErrors;
-  isLoadingNewEntree: boolean;
 }
 
-const initialState: EmployeeFormState = {
+export const initialState: EmployeeFormState = {
   formValues: {
     id: null,
     firstname: '',
@@ -59,7 +54,6 @@ const initialState: EmployeeFormState = {
     errorstartDate: '',
     errorendDate: '',
   },
-  isLoadingNewEntree: false,
 };
 
 const employeeFormStateSlice = createSlice({
@@ -73,9 +67,6 @@ const employeeFormStateSlice = createSlice({
       state.formValues = initialState.formValues;
       state.formErrors = initialState.formErrors;
     },
-    // setError: (state, action: PayloadAction<Error>) => {
-    //   state.formErrors[`error${action.payload.name}`] = action.payload.message;
-    // },
     setError: (state, action: PayloadAction<{ name: string; message: string }>) => {
       state.formErrors[`error${action.payload.name}`] = action.payload.message;
     },

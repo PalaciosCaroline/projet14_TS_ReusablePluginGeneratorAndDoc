@@ -1,6 +1,7 @@
-import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAction, createSlice, PayloadAction,  createAsyncThunk } from '@reduxjs/toolkit';
 import { dataEmployeesMock } from '../mocks/data';
 import { EmployeeBase } from './../employeeTypes'
+import { RootState } from './index';
 
 export interface Employee extends EmployeeBase {
   id: number;
@@ -14,7 +15,7 @@ interface EmployeesState {
   archived: Employee[];
 }
 
-const initialState: EmployeesState = {
+export const initialState: EmployeesState = {
   active: dataEmployeesMock,
   archived: [],
 };
@@ -32,7 +33,7 @@ const employeesSlice = createSlice({
   name: 'employees',
   initialState: initialState as EmployeesState,
   reducers: {
-    // enregistrement de l'idUser à faire et Date d'enregistrement
+    // sécurité: enregistrement de l'idUser à faire et Date d'enregistrement
     addEmployee: {
       reducer: (state, action: PayloadAction<Employee>) => {
         state.active.push(action.payload);
@@ -52,16 +53,7 @@ const employeesSlice = createSlice({
         state.active[index].zipCode = zipCode;
       }
     },
-    // enregistrement de l'idUser à faire et Date d'archivage
-    // archiveEmployee: (state, action: PayloadAction<number>) => {
-    //   const index = state.active.findIndex(
-    //     (employee) => employee.id === action.payload,
-    //   );
-    //   if (index !== -1) {
-    //     const [employee] = state.active.splice(index, 1);
-    //     state.archived.push(employee);
-    //   }
-    // },
+    // sécurité: enregistrement de l'idUser à faire et Date d'effacement
     archiveEmployee: (state, action: PayloadAction<{id: number, endDate: string}>) => {
       const { id, endDate } = action.payload;
       const index = state.active.findIndex(
@@ -73,7 +65,7 @@ const employeesSlice = createSlice({
         state.archived.push(employee);
       }
     },
-    // enregistrement de l'idUser à faire et Date d'effacement
+    // sécurité: enregistrement de l'idUser à faire et Date d'effacement
     deleteEmployee: (state, action: PayloadAction<number>) => {
       state.active = state.active.filter(
         (employee) => employee.id !== action.payload,
@@ -81,6 +73,20 @@ const employeesSlice = createSlice({
     },
   },
 });
+
+export const checkEmployeeExistence = createAsyncThunk<boolean, EmployeeBase>(
+  'employees/checkExistence',
+  async (employee: EmployeeBase, { getState }) => {
+    const state = getState() as RootState;
+    const exists = state.employees.active.some(
+      emp =>
+        emp.firstname === employee.firstname &&
+        emp.lastname === employee.lastname &&
+        emp.dateOfBirth === employee.dateOfBirth,
+    );
+    return exists;
+  },
+);
 
 export const { addEmployee, updateEmployee, deleteEmployee, archiveEmployee } =
   employeesSlice.actions;

@@ -13,11 +13,6 @@ const mockStore = configureStore([]);
 describe('ListEmployees component', () => {
   let store: any;
 
-  // beforeEach(() => {
-  //   store = mockStore({
-  //     employees: dataEmployeesMock
-  //   });
-  // });
   beforeEach(() => {
       store = mockStore({
       employees: {
@@ -45,13 +40,13 @@ describe('ListEmployees component', () => {
     expect(table).toBeInTheDocument();
     expect(link).toBeInTheDocument();
 
-    const header = screen.getByTestId('header_ListEmployees');
+    const header = screen.getByTestId('header_test');
 
     expect(header).toHaveClass('header_ListEmployees');
     });
 });
 
-describe('table component', () => { 
+describe('table component', () => {
     let store: any;
 
     beforeEach(() => {
@@ -126,29 +121,29 @@ describe('Table features', () => {
     expect(screen.queryByText('department')).not.toBeInTheDocument();
   });
 
-  // test("change perPage value and check if the number of displayed rows changes", () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <Router>
-  //         <ListEmployees />
-  //       </Router>
-  //     </Provider>,
-  //   );
+  test("change perPage value and check if the number of displayed rows changes", () => {
+    render(
+      <Provider store={store}>
+        <Router>
+          <ListEmployees />
+        </Router>
+      </Provider>,
+    );
 
-  //   let displayedRows = screen.getAllByRole('row');
-  //   expect(displayedRows.length).toBe(11); 
-  //   // Ouvrir le menu déroulant
-  //   fireEvent.click(screen.getByTestId('manageTable'));
-  //   const btnPerPage = screen.getByTestId('RowPerPage');
-  //   fireEvent.click(btnPerPage);
+    let displayedRows = screen.getAllByRole('row');
+    expect(displayedRows.length).toBe(11); 
+    // Ouvrir le menu déroulant
+    fireEvent.click(screen.getByTestId('manageTable'));
+    const btnPerPage = screen.getByTestId('RowPerPage');
+    fireEvent.click(btnPerPage);
 
-  //   const optionElement = screen.getByTestId(`optionPerPage-5`);
-  //   fireEvent.click(optionElement);
+    const optionElement = screen.getByTestId(`optionPerPage-5`);
+    fireEvent.click(optionElement);
 
-  //   // Vérifier si le nombre de lignes affichées a changé en conséquence
-  //   displayedRows = screen.getAllByRole('row');
-  //   expect(displayedRows.length).toBe(6); // Ajouter 1 pour inclure la ligne d'en-tête
-  // });
+    // Vérifier si le nombre de lignes affichées a changé en conséquence
+    displayedRows = screen.getAllByRole('row');
+    expect(displayedRows.length).toBe(6); // Ajouter 1 pour inclure la ligne d'en-tête
+  });
 
   it('renders the firstName property of the first dataExample object', () => {
     render(

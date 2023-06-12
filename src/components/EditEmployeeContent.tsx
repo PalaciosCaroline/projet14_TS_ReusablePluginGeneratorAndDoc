@@ -5,10 +5,9 @@ import { EmployeeFormValues } from "../store/employeeFormStateSlice";
 interface EditEmployeeContentProps {
     handleChangeSubmit: (employeeId: number) => (e: any) => void;
     selectedEmployeeId: number;
-    employeeFormEntree: EmployeeFormValues;
   }
   
-  const EditEmployeeContent: FC<EditEmployeeContentProps> = ({ handleChangeSubmit, selectedEmployeeId, employeeFormEntree }) => {
+  const EditEmployeeContent: FC<EditEmployeeContentProps> = ({ handleChangeSubmit, selectedEmployeeId }) => {
     return (
       <>
         <form
