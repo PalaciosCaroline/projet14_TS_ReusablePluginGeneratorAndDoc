@@ -282,7 +282,6 @@ h2 {
   height: 20px;
 }
 
-
 .box_startDate .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input,
 .box_dateOfBirth .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
   margin: 10px;
@@ -470,6 +469,11 @@ select {
 .editEmployeeModal{
   z-index: 999;
 }
+.editEmployeeModal .box_titleModal ,
+.confirmationModal .box_titleModal {
+border-bottom:2px solid #0d0d0d;
+}
+
 .editEmployeeModal ,
 .confirmationModal {
   display: flex;

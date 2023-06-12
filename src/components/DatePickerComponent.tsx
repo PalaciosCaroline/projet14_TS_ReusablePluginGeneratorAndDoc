@@ -44,7 +44,6 @@ const errorDate = useSelector(
   }, []);
 
   const handleDateChange = (date: any): void => {
-    // Convert the date to Dayjs
     const selectedDate = dayjs(date);
     const isValidDate =
       selectedDate.isValid() &&
@@ -65,12 +64,6 @@ const errorDate = useSelector(
     }
   };
 
-  if (typeof dateInput === 'string') {
-    const dateAsDayjs = dayjs(dateInput, 'DD/MM/YYYY');
-  } else {
-    const dateAsDayjs = dateInput;
-  }
-
   return (
     <div className={`form-group box_${nameDate}`}>
       <p className={`text_${nameDate}`}>{label}</p>
@@ -80,15 +73,8 @@ const errorDate = useSelector(
       >
         <DatePicker
           label={`${label} Select`}
-          // minDate={noBeforeDay.format('DD/MM/YYYY')}
-          // maxDate={noAfterDay.format('DD/MM/YYYY')}
-          //           minDate={noBeforeDay.toDate()}
-          // maxDate={noAfterDay.toDate()}
           minDate={noBeforeDay}
           maxDate={noAfterDay}
-          // value={typeof dateInput === 'string' && dateInput ? dayjs(dateInput).format('DD/MM/YYYY') : null}
-          // value={typeof dateInput === 'string' && dateInput ? dayjs(dateInput, 'DD/MM/YYYY').toDate() : null}
-          // value={typeof dateInput === 'string' ? dayjs(dateInput, 'DD/MM/YYYY') : dateInput}
           value={
             dateInput
               ? typeof dateInput === 'string'

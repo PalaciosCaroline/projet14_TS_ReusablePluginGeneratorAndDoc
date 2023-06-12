@@ -6,15 +6,14 @@ import Modal from './Modal';
 import { InputField } from './InputField';
 import AddressAndDepartmentForm from './AddressAndDepartmentForm';
 import { validateNames } from '../utils/controlName';
+import { validateDates } from '../utils/controlDate';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { RootState } from '../store/index';
 import DatePickerComponent from './DatePickerComponent';
-// import { Employee } from '../mocks/data';
 import { Employee } from '../store/employeeFormStateSlice';
 import { FaUserCheck } from 'react-icons/fa';
 import { EmployeeFormErrors } from '../store/employeeFormStateSlice';
-
 interface Props {
   employeeId?: number;
   employee?: Employee;
@@ -25,7 +24,6 @@ export const FormNewEmployee: FC<Props> = () => {
   const employees = useSelector((state: RootState) => state.employees.active);
   // const selectedEmployee = employees.find((employee: any) => employee.id === employeeId);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [employeeName, setEmployeeName] = useState<{
     firstname: string;
     lastname: string;
@@ -49,7 +47,6 @@ export const FormNewEmployee: FC<Props> = () => {
     city,
     state,
     zipCode,
-
   } = newEmployeeEntree;
 
   const {
@@ -58,19 +55,14 @@ export const FormNewEmployee: FC<Props> = () => {
   } = newEmployeeErrors
 
   useEffect(() => {
-    if (!firstname) {
-      dispatch(setError({ name: 'firstname', message: '' }));
-    }
-    if (!lastname) {
-      dispatch(setError({ name: 'lastname', message: '' }));
-    }
-  }, [dispatch, firstname, lastname]);
+    dispatch(clearInput());
+  }, []);
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
-    // const isNameValid = validateNames(firstname, lastname, setError, dispatch);
+    const isDateValid = validateDates(dateOfBirth, startDate, setError, dispatch)
     const isNameValid = validateNames(firstname, lastname, setError, dispatch);
-    if (!isNameValid) {
+    if (!isNameValid || !isDateValid) {
       return;
     } else if (errordateOfBirth || errorstartDate) {
       return;
@@ -87,7 +79,6 @@ export const FormNewEmployee: FC<Props> = () => {
         zipCode,
       };
       dispatch(addEmployee(newEmployee));
-      // setEmployeeName({ firstname, lastname });
       setEmployeeName({ firstname: firstname, lastname: lastname });
       setIsModalOpen(true);
       dispatch(clearInput());
@@ -137,14 +128,6 @@ export const FormNewEmployee: FC<Props> = () => {
             />
           </div>
         </LocalizationProvider>
-        {/* <FieldsetAddress />
-        <Dropdown
-          label="Department"
-          dropdownLabel="dropdownLabelDepartment"
-          placeholder="select a department"
-          options={departmentOptions}
-          style={{ margin: '8px', width: '100%' }}
-        /> */}
         <AddressAndDepartmentForm />
         <button className="btnFormSave" type="submit" data-testid="btn_form">
           Save the new employee

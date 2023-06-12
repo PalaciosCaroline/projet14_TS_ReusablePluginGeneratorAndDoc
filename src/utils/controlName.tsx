@@ -1,20 +1,21 @@
 function isValidName(
   value: string | null,
   setError: (error: Error) => void,
-  errorName: string,
+  nameForError: string,
   dispatch: (action: any) => void,
 ): boolean {
+  const errorName = nameForError.replace(/\s/g, '');
   dispatch(setError({ name: errorName, message: '' }));
   const regex =
     /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ'\s-]{0,40}$/;
   if (!value || value.length < 2) {
     dispatch(
-      setError({ name: errorName, message: `The ${errorName} is required` }),
+      setError({ name: errorName, message: `The ${nameForError} is required` }),
     );
     return false;
   } else if (value.length >= 2 && !regex.test(value)) {
     dispatch(
-      setError({ name: errorName, message: `Invalid ${errorName}     format` }),
+      setError({ name: errorName, message: `Invalid ${nameForError}     format` }),
     );
     return false;
   } else if (regex.test(value) && value.length > 1) {
@@ -33,8 +34,8 @@ export const validateNames = (
 ) => {
   let isNameValid = true;
   isNameValid =
-    isValidName(firstname, setError, 'firstname', dispatch) && isNameValid;
+    isValidName(firstname, setError, 'first name', dispatch) && isNameValid;
   isNameValid =
-    isValidName(lastname, setError, 'lastname', dispatch) && isNameValid;
+    isValidName(lastname, setError, 'last name', dispatch) && isNameValid;
   return isNameValid;
 };

@@ -22,6 +22,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import EditEmployeeContent from './EditEmployeeContent';
 import ArchiveEmployeeContent from './ArchiveEmployeeContent';
 import DeleteEmployeeContent from './DeleteEmployeeContent';
+import isDate from '../utils/controlDate';
 
 interface DataItem<T> {
   [key: string]: T | undefined;
@@ -56,9 +57,6 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(
       null,
     );
-    // const [isModalChangeOpen, setIsModalChangeOpen] = useState(false);
-    // const [isModalArchiveOpen, setIsModalArchiveOpen] = useState(false);
-    // const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
 
     const archivedEmployees = useSelector(
       (state: RootState) => state.employees.archived,
@@ -134,16 +132,10 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       e.preventDefault();
       console.log(employeeFormEntree.endDate);
       const endDate = employeeFormEntree.endDate;
-      if (!endDate) {
-        dispatch(
-          setError({
-            name: 'endDate',
-            message: 'Veuillez sélectionner une date valide',
-          }),
-        );
+      if (employeeEntreeErrors.errorendDate) {
         return;
-      } else if (employeeEntreeErrors.errorendDate) {
-        return;
+      } if (!isDate(endDate, setError, 'end Date', dispatch)){
+        return
       } else {
         dispatch(archiveEmployee({ id: employeeId, endDate }));
         closeModal();
@@ -202,7 +194,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
           >
             <div className="box_titleModal">
               <FiEdit3 className="iconCheckedModal" />
-              <h2 id="modal-TitleChange">
+              <h2 className="modal-titleChange">
                 {' '}
                 {modalType === 'edit'
                   ? 'Change Employee Data'
