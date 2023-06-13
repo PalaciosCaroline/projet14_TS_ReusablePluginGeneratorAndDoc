@@ -5,7 +5,7 @@ import { RootState } from './../store/index';
 import { FaUserCheck } from 'react-icons/fa';
 
 interface ModalProps {
-  setIsModalOpen: (value: boolean) => void;
+  // setIsModalOpen: (value: boolean) => void;
   isModalOpen: boolean;
   closeModal: () => void;
   children: ReactNode;
@@ -15,7 +15,6 @@ interface ModalProps {
 }
 
 const Modal = ({
-  setIsModalOpen,
   isModalOpen,
   closeModal,
   children,

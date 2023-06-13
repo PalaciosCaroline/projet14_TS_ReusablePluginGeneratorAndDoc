@@ -11,6 +11,7 @@ import { Employee } from '../../store/employeeFormStateSlice';
 import {initialState} from '../../store/employeeFormStateSlice';
 import { setError, setField } from '../../store/employeeFormStateSlice';
 import { addEmployee } from '../../store/employeesSlice';
+import Modal from '../../components/Modal';
 
 
 const mockStore = configureStore([]);
@@ -126,3 +127,55 @@ describe('FormNewEmployee', () => {
     );
   });
 });
+
+
+describe('Modal', () => {
+  beforeEach(() => {
+    window.HTMLElement.prototype.scrollIntoView = function() {};
+  });
+  const mockClose = jest.fn();
+  const mockSetIsModalOpen = jest.fn();
+
+  const defaultProps = {
+    setIsModalOpen: mockSetIsModalOpen,
+    isModalOpen: true,
+    closeModal: mockClose,
+    children: <div>Test Child</div>,
+    className: 'test-modal',
+    dataTestId: 'modal-test',
+  };
+
+  it('renders the children and close button when opened', () => {
+    const { getByRole, getByText } = render(<Modal {...defaultProps} />);
+
+    expect(getByText('Test Child')).toBeInTheDocument();
+    expect(getByRole('button', { name: /Fermer la fenêtre/i })).toBeInTheDocument();
+  });
+
+  it('calls the closeModal function when the close button is clicked', () => {
+    const { getByRole } = render(<Modal {...defaultProps} />);
+
+    fireEvent.click(getByRole('button', { name: /Fermer la fenêtre/i }));
+
+    expect(mockClose).toHaveBeenCalled();
+  });
+
+  it('calls the closeModal function when Esc key is pressed', () => {
+    const { container } = render(<Modal {...defaultProps} />);
+
+    fireEvent.keyDown(container, { key: 'Escape', code: 'Escape' });
+
+    expect(mockClose).toHaveBeenCalled();
+  });
+
+  it('focuses on the first focusable element when Tab key is pressed and shift is not held down', () => {
+    const { container, getByRole } = render(<Modal {...defaultProps} />);
+    const button = getByRole('button', { name: /Fermer la fenêtre/i });
+
+    button.focus(); 
+    fireEvent.keyDown(container, { key: 'Tab', code: 'Tab' });
+
+    expect(button).toHaveFocus();
+  });
+});
+
