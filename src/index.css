@@ -473,6 +473,7 @@ select {
 .editEmployeeModal .box_titleModal ,
 .confirmationModal .box_titleModal {
 border-bottom:2px solid #0d0d0d;
+margin-top:30px;
 }
 
 .editEmployeeModal ,
@@ -502,10 +503,52 @@ border-bottom:2px solid #0d0d0d;
   border:5px solid red;
 }
 
-@media (max-width: 500px) {
+.editEmployeeModal .box_changeModalName,
+.editEmployeeModal .box_changeModalDate {
+display: flex;
+justify-content: center;
+}
+
+.editEmployeeModal .box_changeModalName .box_nameLeft,
+.editEmployeeModal .box_changeModalName .box_nameRight,
+.editEmployeeModal .box_changeModalDate .box_nameLeft,
+.editEmployeeModal .box_changeModalDate .box_nameRight{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  text-align: center;
+  width:50%;
+}
+
+.box_changeEmployeeData{
+  display:flex;
+  flex-direction:column;
+ align-items:center;
+}
+.box_nameRight{
+margin-right: 10px;
+}
+.box_nameLeft{
+margin-left: 10px;
+}
+
+.editEmployeeModal .box_changeModalName ,
+.editEmployeeModal .box_changeModalDate {
+  margin-top:20px;
+  width: 300px;
+}
+@media (max-width: 700px) {
+  .confirmationModal {
+    width: 95%;
+    margin: 10px auto;
+  }
+
   .editEmployeeModal {
     left:0;
     right: 0;
+    width: 96%;
+    margin: 20px auto;
+    justify-content: space-between;
   }
   .editEmployeeModal .box_titleModal {
    margin-top: 40px;
@@ -770,9 +813,9 @@ input::placeholder {
 .main_newEmployee .dropdownToggle {
   background-color: #fbfbfb;
 }
-.editEmployeeModal .dropdownToggle {
+/* .editEmployeeModal .dropdownToggle {
   background: linear-gradient(to bottom, transparent, rgb(255, 255, 255)) rgb(228, 230, 230);
-}
+} */
 
 .editEmployeeModal .dropdownToggle {
   padding: 4px 12px;
@@ -787,8 +830,8 @@ input::placeholder {
 }
 
 .editEmployeeModal .address .dropdownToggle{
-  background: linear-gradient(to bottom, transparent, rgb(255, 255, 255)) rgb(214, 219, 220);
-
+  /* background: linear-gradient(to bottom, transparent, rgb(255, 255, 255)) rgb(214, 219, 220); */
+  background-color: #e0dddd;
 }
 
 /* styles pour la flèche du dropdown */
@@ -822,7 +865,7 @@ input::placeholder {
 }
 
 /* styles pour l'option sélectionnée */
-.editEmployeeModal .selected ,
+/* .editEmployeeModal .selected , */
 .main_newEmployee .selected {
   background-color: #b1c46c;
   color: #fff;
@@ -866,7 +909,7 @@ input::placeholder {
 }
 .editEmployeeModal .address {
   /* background-color: #b9d851; */
-  background-color: #c8c8c8;
+  background-color: #e0dddd;
   padding-bottom: 20px;
 }
 
@@ -879,7 +922,10 @@ input::placeholder {
 }
 
 .editEmployeeModal p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+}
+.editEmployeeModal div {
+  font-size: 1.1rem;
 }
 .editEmployeeModal .errorMessage {
   font-size: 0.9rem;
@@ -890,8 +936,8 @@ input::placeholder {
 }
 
 .box_changeModalName p{
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .box_changeModalName .box_input{

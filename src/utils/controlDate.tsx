@@ -4,18 +4,17 @@ export default function isDate(
   nameForError: string,
   dispatch: (action: any) => void,
 ): boolean {
-  const errorName = nameForError.replace(/\s/g, '');
-  dispatch(setError({ name: errorName, message: '' }));
+  dispatch(setError({ name: nameForError, message: '' }));
   if (!value) {
     dispatch(
       setError({
-        name: errorName,
-        message: `The ${nameForError.toLocaleLowerCase()} is required`,
+        name: nameForError,
+        message: `This date is required`,
       }),
     );
     return false;
   } else {
-    dispatch(setError({ name: errorName, message: '' }));
+    dispatch(setError({ name: nameForError, message: '' }));
     return true;
   }
 }
@@ -28,8 +27,8 @@ export const validateDates = (
 ) => {
   let isDateValid = true;
   isDateValid =
-    isDate(dateOfBirth, setError, 'date Of Birth', dispatch) && isDateValid;
+    isDate(dateOfBirth, setError, 'dateOfBirth', dispatch) && isDateValid;
   isDateValid =
-    isDate(startDate, setError, 'start Date', dispatch) && isDateValid;
+    isDate(startDate, setError, 'startDate', dispatch) && isDateValid;
   return isDateValid;
 };

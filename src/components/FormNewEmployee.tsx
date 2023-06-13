@@ -171,7 +171,6 @@ export const FormNewEmployee: FC<Props> = () => {
       </form>
       {isModalOpen && (
         <Modal
-          setIsModalOpen={setIsModalOpen}
           isModalOpen={isModalOpen}
           closeModal={() => setIsModalOpen(false)}
           className="confirmationModal"

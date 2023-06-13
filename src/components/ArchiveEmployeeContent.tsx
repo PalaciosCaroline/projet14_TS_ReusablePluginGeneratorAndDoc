@@ -26,7 +26,7 @@ const ArchiveEmployeeContent: FC<ArchiveEmployeeContentProps> = ({
           <div className="boxDate">
             <DatePickerComponent
               nameDate="endDate"
-              label="Finish Date"
+              label="End date"
               minDate={1}
               maxDate={1}
               dateOperation="add"

@@ -130,8 +130,9 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       const endDate = employeeFormEntree.endDate;
       if (employeeEntreeErrors.errorendDate) {
         return;
-      } if (!isDate(endDate, setError, 'end Date', dispatch)){
-        return
+      }
+      if (!isDate(endDate, setError, 'endDate', dispatch)) {
+        return;
       } else {
         dispatch(archiveEmployee({ id: employeeId, endDate }));
         closeModal();
@@ -181,13 +182,12 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
             style={{
               top: modalPosition.y,
             }}
-            setIsModalOpen={setIsModalOpen}
             isModalOpen={isModalOpen}
             closeModal={closeModal}
             className={`editEmployeeModal ${
               modalType === 'delete' ? 'deleteEmployeeModal' : ''
             }`}
-            dataTestId='modalAction'
+            dataTestId="modalAction"
           >
             <div className="box_titleModal">
               <FiEdit3 className="iconCheckedModal" />
@@ -202,27 +202,28 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
                   : ''}
               </h2>
             </div>
-            <div className="box_changeModalName" style={{ display: 'flex' }}>
-              <p>
-                First Name:
-                <span className="name"> {employeeFormEntree.firstname}</span>
-              </p>
-              <p>
-                Last Name:{' '}
-                <span className="name">{employeeFormEntree.lastname}</span>
-              </p>
+            <div className="box_changeEmployeeData" >
+              <div className="box_changeModalName">
+                <div className="box_nameRight">
+                  <div>First Name:</div>
+                  <div className="name">{employeeFormEntree.firstname}</div>
+                </div>
+                <div className="box_nameLeft">
+                  <div>Last Name:</div>
+                  <div className="name">{employeeFormEntree.lastname}</div>
+                </div>
+              </div>
+              <div className="box_changeModalDate">
+                <div className="box_nameRight">
+                  <div>Date of Birthday:</div>
+                  <div className="name">{employeeFormEntree.dateOfBirth}</div>
+                </div>
+                <div className="box_nameLeft">
+                  <div>Start Date: </div>
+                  <div className="name">{employeeFormEntree.startDate}</div>
+                </div>
+              </div>
             </div>
-            <div className="box_changeModalName" style={{ display: 'flex' }}>
-              <p>
-                Date of Birthday:
-                <span className="name"> {employeeFormEntree.dateOfBirth}</span>
-              </p>
-              <p>
-                Start Date:{' '}
-                <span className="name">{employeeFormEntree.startDate}</span>
-              </p>
-            </div>
-
             {modalType === 'edit' && (
               <EditEmployeeContent
                 handleChangeSubmit={handleChangeSubmit}
