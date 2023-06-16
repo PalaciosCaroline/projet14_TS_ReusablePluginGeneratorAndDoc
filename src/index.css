@@ -956,3 +956,15 @@ input::placeholder {
     font-size: 1.6rem;
   }
 }
+
+.editEmployeeModal, .confirmationModal {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.editEmployeeModal.open , .confirmationModal.open{
+  opacity: 1;
+}
+
+
+
