@@ -81,7 +81,6 @@ const Modal = ({
     <>
       {isModalOpen && <div className="bg_modalConfirm" />}
       <div
-        // className={className}
         className={`${className} ${isModalOpen ? 'open' : ''}`}
         role="dialog"
         aria-modal="true"
