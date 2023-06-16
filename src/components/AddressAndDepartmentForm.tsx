@@ -1,12 +1,10 @@
 import React, { ChangeEvent } from 'react';
-// import { useDispatch } from 'react-redux';
 import { InputField } from './InputField';
 import Dropdown from './Dropdown';
 import { states, State } from '../utils/states';
 import { departmentOptions } from '../utils/department';
 
 export default function AddressAndDepartmentForm(): JSX.Element {
-  // const dispatch = useDispatch();
 
   const stateOptions: string[] = states.map((state: State) => state.name);
 

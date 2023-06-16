@@ -101,7 +101,6 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         setModalType(type as ModalType);
         // setModalPosition({ x: e.clientX, y: e.clientY });
         setModalPosition({ x: e.pageX, y: e.pageY });
-        console.log({ x: e.clientX, y: e.clientY });
         setIsModalOpen(true);
         console.log('delete: ' + id);
       } else {
@@ -185,7 +184,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
             // }}
             style={{
               position: 'absolute', 
-              top: modalPosition.y + 'px', 
+              top: modalPosition.y - 100 + 'px', 
             }}
             isModalOpen={isModalOpen}
             closeModal={closeModal}
