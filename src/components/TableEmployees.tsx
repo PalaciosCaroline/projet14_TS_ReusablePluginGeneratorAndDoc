@@ -99,7 +99,8 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         };
         dispatch(setEmployeeData(employeeData));
         setModalType(type as ModalType);
-        setModalPosition({ x: e.clientX, y: e.clientY });
+        // setModalPosition({ x: e.clientX, y: e.clientY });
+        setModalPosition({ x: e.pageX, y: e.pageY });
         console.log({ x: e.clientX, y: e.clientY });
         setIsModalOpen(true);
         console.log('delete: ' + id);
@@ -179,8 +180,12 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         />
         {isModalOpen && selectedEmployeeId && (
           <Modal
+            // style={{
+            //   top: modalPosition.y,
+            // }}
             style={{
-              top: modalPosition.y,
+              position: 'absolute', 
+              top: modalPosition.y + 'px', 
             }}
             isModalOpen={isModalOpen}
             closeModal={closeModal}
