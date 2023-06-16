@@ -397,10 +397,10 @@ select {
   background-color: #b1c46c;
 }
 
-.box_State li.selectedOption,
+/* .box_State li.selectedOption,
 .box_Department li.selectedOption {
   background-color: #b1c46c;
-}
+} */
 
 .box_State li.focused,
 .box_Department li.focused,

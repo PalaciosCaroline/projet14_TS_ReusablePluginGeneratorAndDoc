@@ -36,10 +36,18 @@ const Modal = ({
     };
   }, [closeModal]);
 
+  // useEffect(() => {
+  //   if (isModalOpen && modalRef.current) {
+  //     modalRef.current.focus();
+  //     modalRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  //   }
+  // }, [isModalOpen]);
+
   useEffect(() => {
     if (isModalOpen && modalRef.current) {
       modalRef.current.focus();
-      modalRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const position = modalRef.current.getBoundingClientRect().top + window.scrollY - 10;
+      window.scrollTo({ top: position, behavior: 'smooth' });
     }
   }, [isModalOpen]);
 
