@@ -4,8 +4,21 @@ import Dropdown from './Dropdown';
 import { states, State } from '../utils/states';
 import { departmentOptions } from '../utils/department';
 
+/**
+ * This component renders a form for user's address and department input. 
+ * The form includes two dropdowns for selecting a state and a department.
+ * 
+ * @returns JSX.Element
+ * 
+ */
 export default function AddressAndDepartmentForm(): JSX.Element {
 
+   /**
+   * Creates an array of strings containing the names of each state
+   * from the `states` array.
+   *
+   * @type {string[]}
+   */
   const stateOptions: string[] = states.map((state: State) => state.name);
 
   return (

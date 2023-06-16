@@ -1,4 +1,3 @@
-// import { Employee } from "../store/newEmployeeEntreeSlice";
 import { EmployeeBase } from "../employeeTypes";
 
 export interface Columns {
@@ -12,18 +11,6 @@ export interface Columns {
 export interface Employee extends EmployeeBase {
   id: number;
 }
-// export interface Employee {
-//   id:number;
-//   firstname: string;
-//   lastname: string;
-//   dateOfBirth: string;
-//   startDate: string;
-//   department: string;
-//   street: string;
-//   city: string;
-//   state: string;
-//   zipCode: string;
-// }
 
 export const dataColumnsMock: Columns[] = [
   { label: 'First Name', property: 'firstname' },

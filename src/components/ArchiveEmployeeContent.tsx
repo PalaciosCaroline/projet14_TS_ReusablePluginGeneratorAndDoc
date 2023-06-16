@@ -4,11 +4,31 @@ import { EmployeeFormValues } from '../store/employeeFormStateSlice';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
+/**
+ * Defines the properties of the component.
+ * 
+ * @interface
+ * 
+ * @property {function} handleArchiveSubmit - The function that is called when the form is submitted. 
+ * This function takes the id of the selected employee as a parameter and returns a function 
+ * that takes the form submission event as a parameter.
+ * 
+ * @property {number} selectedEmployeeId - The id of the selected employee.
+ */
 interface ArchiveEmployeeContentProps {
   handleArchiveSubmit: (employeeId: number) => (e: any) => void;
   selectedEmployeeId: number;
 }
 
+/**
+ * This is a Functional Component that renders the content for archiving an employee.
+ * It includes a form with a DatePickerComponent for selecting an end date for the employee.
+ * 
+ * @component
+ * 
+ * @param {ArchiveEmployeeContentProps} props - The props that are passed to this component
+ * @returns {JSX.Element}
+ */
 const ArchiveEmployeeContent: FC<ArchiveEmployeeContentProps> = ({
   handleArchiveSubmit,
   selectedEmployeeId,

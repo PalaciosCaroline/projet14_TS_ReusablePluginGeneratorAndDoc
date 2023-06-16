@@ -14,14 +14,32 @@ import DatePickerComponent from './DatePickerComponent';
 import { Employee } from '../store/employeeFormStateSlice';
 import { FaUserCheck } from 'react-icons/fa';
 import { EmployeeFormErrors } from '../store/employeeFormStateSlice';
+
+/**
+ * Defines the properties of the FormNewEmployee component.
+ *
+ * @interface
+ *
+ * @property {number} [employeeId] - The ID of the employee being edited, if applicable.
+ * @property {Employee} [employee] - The employee object, if applicable.
+ */
 interface Props {
   employeeId?: number;
   employee?: Employee;
 }
 
+/**
+ * FormNewEmployee is a functional component that renders a form for creating a new employee.
+ * It provides fields for an employee's name, date of birth, start date, and address information.
+ * On form submission, it validates the provided data, and if valid, adds a new employee to the store.
+ * If the operation is successful, it opens a modal with a success message.
+ * @component
+ *
+ * @returns {React.FC}
+ */
 export const FormNewEmployee: FC<Props> = () => {
   const dispatch = useDispatch();
-  const employees = useSelector((state: RootState) => state.employees.active);
+  // const employees = useSelector((state: RootState) => state.employees.active);
   // const selectedEmployee = employees.find((employee: any) => employee.id === employeeId);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorEmployeeExist, setErrorEmployeeExist] = useState(null);

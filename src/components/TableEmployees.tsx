@@ -20,13 +20,37 @@ import ArchiveEmployeeContent from './ArchiveEmployeeContent';
 import DeleteEmployeeContent from './DeleteEmployeeContent';
 import isDate from '../utils/controlDate';
 
+/**
+ * `DataItem<T>` is a generic interface for key-value pairs.
+ * @interface
+ * @template T
+ * @property {string} key - The key of the data item.
+ * @property {T | undefined} value - The value of the data item.
+ */
 interface DataItem<T> {
   [key: string]: T | undefined;
 }
+
+/**
+ * `Props<T>` is a generic interface for the TableEmployees component props.
+ * @interface
+ * @template T
+ * @property {DataItem<T | undefined>[]} employees - The employees to be displayed in the table.
+ */
 interface Props<T> {
   employees: DataItem<T | undefined>[];
 }
 
+/**
+ * `ColumnManaged` is an interface for a managed column in the table of employees.
+ * @interface
+ * @property {string} label - The label to display in the header of the column.
+ * @property {string} property - The property in the data that this column is responsible for.
+ * @property {boolean} [isVisible] - Optional. Indicates whether the column is visible.
+ * @property {string} [dateFormat] - Optional. If the column is a date column, this property is used for formatting the date.
+ * @property {boolean} [disableSort] - Optional. Indicates whether the sorting functionality for the column is disabled.
+ * @property {boolean} [disableFilter] - Optional. Indicates whether the filtering functionality for the column is disabled.
+ */
 interface ColumnManaged {
   label: string;
   property: string;
@@ -38,6 +62,14 @@ interface ColumnManaged {
 
 type ModalType = 'edit' | 'archive' | 'delete' | 'none';
 
+/**
+ * `TableEmployees` is a functional React component. It displays a table of employees,
+ * and provides functionalities to edit, archive, and delete employees.
+ * @component
+ * @template T
+ * @param {Props<T>} { employees } - The properties for the TableEmployees.
+ * @returns {JSX.Element} The rendered TableEmployees.
+ */
 const TableEmployees: FC<Props<any>> = memo<Props<any>>(
   ({ employees }) => {
     const dispatch = useDispatch();
@@ -58,6 +90,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       (state: RootState) => state.employees.archived,
     );
 
+    // seulement pour démonstration 
     // useEffect(() => {
     //   console.log('active employees:', JSON.stringify(employees, null, 2));
     //   console.log(

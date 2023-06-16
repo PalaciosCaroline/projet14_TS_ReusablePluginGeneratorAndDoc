@@ -1,3 +1,13 @@
+/**
+ * Checks if a name value is provided and validates its format. 
+ * It sets an error in the state using the provided dispatch function if a name is not provided or its format is invalid.
+ *
+ * @param {string | null} value - The name value to check.
+ * @param {(error: Error) => void} setError - The function to set the error.
+ * @param {string} nameForError - The name of the error, used as a key in the errors object.
+ * @param {(action: any) => void} dispatch - The dispatch function from Redux.
+ * @returns {boolean} - Returns `true` if the name is provided and its format is valid, `false` otherwise.
+ */
 function isValidName(
   value: string | null,
   setError: (error: Error) => void,
@@ -26,6 +36,16 @@ function isValidName(
   }
 }
 
+/**
+ * Validates provided names for the first name and the last name.
+ * This function uses `isValidName` internally to check each name and sets an error if a name is not provided or its format is invalid.
+ *
+ * @param {string} firstname - The first name to validate.
+ * @param {string} lastname - The last name to validate.
+ * @param {(error: Error) => void} setError - The function to set the error.
+ * @param {(action: any) => void} dispatch - The dispatch function from Redux.
+ * @returns {boolean} - Returns `true` if both names are valid, `false` otherwise.
+ */
 export const validateNames = (
   firstname: string,
   lastname: string,

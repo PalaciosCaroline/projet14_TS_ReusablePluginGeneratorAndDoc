@@ -5,6 +5,15 @@ import { setField, setError } from '../store/employeeFormStateSlice';
 import { useInputChange } from '../utils/useInputChange';
 import { EmployeeFormValues, EmployeeFormErrors } from '../store/employeeFormStateSlice';
 
+/**
+ * `InputFieldProps` is an interface for the InputField component props.
+ * @interface
+ * @property {string} label - The label of the input field.
+ * @property {string} name - The name of the input field.
+ * @property {'text' | 'number'} type - The type of the input field.
+ * @property {string} error - The error message for the input field.
+ * @property {boolean} isWrapped - Whether the input field should be wrapped in a div.
+ */
 interface InputFieldProps {
   label?: string;
   name: string;
@@ -13,6 +22,13 @@ interface InputFieldProps {
   isWrapped?: boolean;
 }
 
+/**
+ * `InputField` is a functional React component.
+ * It renders an input field with a label and optional error message.
+ * @component
+ * @param {InputFieldProps} { label, name, error, type = 'text', isWrapped = false } - The properties for the InputField component.
+ * @returns {JSX.Element} The rendered InputField component.
+ */
 export const InputField: React.FC<InputFieldProps> = ({
   label,
   name,

@@ -5,6 +5,17 @@ import { setField } from '../store/employeeFormStateSlice';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { RootState } from './../store/index';
 
+/**
+ * Defines the properties of the Dropdown component.
+ *
+ * @interface
+ *
+ * @property {string} label - The label of the dropdown.
+ * @property {string[]} options - An array of options that the dropdown can have.
+ * @property {string} placeholder - A short hint that describes the expected value of the dropdown.
+ * @property {string} dropdownLabel - The aria-labelledby for the dropdown.
+ * @property {React.CSSProperties} [style] - The style properties of the dropdown.
+ */
 interface DropdownProps {
   label: string;
   options: string[];
@@ -12,6 +23,15 @@ interface DropdownProps {
   dropdownLabel: string;
   style?: React.CSSProperties;
 }
+
+/**
+ * Dropdown is a functional component that renders a dropdown list with multiple options.
+ * @component
+ *
+ * @param {DropdownProps} props - The props that are passed to this component
+ *
+ * @returns {React.FC}
+ */
 
 const Dropdown: FC<DropdownProps> = ({
   label,

@@ -4,6 +4,16 @@ import { useSelector } from 'react-redux';
 import { RootState } from './../store/index';
 import { FaUserCheck } from 'react-icons/fa';
 
+/**
+ * `ModalProps` is an interface for the Modal component props.
+ * @interface
+ * @property {boolean} isModalOpen - If the modal is open or not.
+ * @property {() => void} closeModal - A function to close the modal.
+ * @property {ReactNode} children - The children nodes of the modal.
+ * @property {string} className - The className for the modal div.
+ * @property {any} style - The style for the modal div.
+ * @property {string} dataTestId - The data-testid for the modal div.
+ */
 interface ModalProps {
   // setIsModalOpen: (value: boolean) => void;
   isModalOpen: boolean;
@@ -14,6 +24,13 @@ interface ModalProps {
   dataTestId: string;
 }
 
+/**
+ * `Modal` is a functional React component.
+ * It renders a modal dialog which can be closed by clicking on the close button, or pressing the 'Escape' key.
+ * @component
+ * @param {ModalProps} { isModalOpen, closeModal, children, className, style, dataTestId } - The properties for the Modal component.
+ * @returns {JSX.Element} The rendered Modal component.
+ */
 const Modal = ({
   isModalOpen,
   closeModal,

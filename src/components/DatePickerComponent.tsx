@@ -6,6 +6,17 @@ import dayjs from 'dayjs';
 import { setField, setError } from '../store/employeeFormStateSlice';
 import { EmployeeFormErrors, EmployeeFormValues } from '../store/employeeFormStateSlice';
 
+/**
+ * Defines the properties of the DatePickerComponent.
+ * 
+ * @interface
+ * 
+ * @property {string} nameDate - The name of the date field.
+ * @property {string} label - The label to be displayed above the DatePicker input.
+ * @property {number} minDate - The minimum selectable date, calculated as the current date subtracted by this value (in years).
+ * @property {number} maxDate - The maximum selectable date, calculated as the current date added or subtracted by this value (in years), based on the dateOperation prop.
+ * @property {'add' | 'subtract'} dateOperation - A string that defines whether the maxDate should be calculated by adding or subtracting years to/from the current date.
+ */
 interface DatePickerProps {
   nameDate: string;
   label: string;
@@ -14,6 +25,16 @@ interface DatePickerProps {
   dateOperation: 'add' | 'subtract';
 }
 
+/**
+ * This is a functional component that renders a DatePicker input.
+ * The user can select a date within a specified range, defined by the minDate and maxDate props.
+ * The selected date is validated and dispatched to the redux store.
+ * 
+ * @component
+ * 
+ * @param {DatePickerProps} props - The props that are passed to this component
+ * @returns {JSX.Element}
+ */
 export default function DatePickerComponent({
   nameDate,
   label,
