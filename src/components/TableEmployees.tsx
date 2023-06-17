@@ -3,7 +3,6 @@ import { dataColumnsMock } from '../mocks/data';
 import { Table } from 'typescript-table';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/index';
-import employeesSlice from '../store/employeesSlice';
 import {
   archiveEmployee,
   updateEmployee,
@@ -11,9 +10,6 @@ import {
   setLoading,
 } from '../store/employeesSlice';
 import { ExportDataComponent } from 'typescript-exportdata';
-import { Employee } from '../store/employeeFormStateSlice';
-import { FormNewEmployee } from './FormNewEmployee';
-import DatePickerComponent from './DatePickerComponent';
 import {
   clearInput,
   setEmployeeData,
@@ -22,7 +18,7 @@ import {
 import Modal from './Modal';
 import { FiEdit3, FiArchive } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { ModalEmployeesContent } from './ModalEmployeesContent';
+import ModalEmployeesContent from './ModalEmployeesContent';
 import isDate from '../utils/controlDate';
 
 /**

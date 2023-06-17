@@ -3,24 +3,18 @@ import EditEmployeeContent from './EditEmployeeContent';
 import ArchiveEmployeeContent from './ArchiveEmployeeContent';
 import DeleteEmployeeContent from './DeleteEmployeeContent';
 import { ModalType } from './TableEmployees';
-
-interface EmployeeForm {
-    firstname: string;
-    lastname: string;
-    dateOfBirth: string;
-    startDate: string;
-  }
+import { EmployeeBase } from './../employeeTypes'
   
-  interface ModalContentProps {
+interface ModalContentProps {
     modalType: ModalType;
     handleSubmit: any;
     handleCancel: () => void;
     selectedEmployeeId: number;
     isLoading: boolean;
-    employeeFormEntree: EmployeeForm;
-  }
+    employeeFormEntree: EmployeeBase;
+}
   
- export const ModalEmployeesContent: FC<ModalContentProps> = ({modalType, handleSubmit, handleCancel, selectedEmployeeId, isLoading, employeeFormEntree}) => {
+const ModalEmployeesContent: FC<ModalContentProps> = ({modalType, handleSubmit, handleCancel, selectedEmployeeId, isLoading, employeeFormEntree}) => {
       return (
         <>
           <div className="box_changeEmployeeData" >
@@ -56,4 +50,6 @@ interface EmployeeForm {
           )}
         </>
       );
-  }
+};
+
+export default ModalEmployeesContent;
