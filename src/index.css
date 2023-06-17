@@ -497,16 +497,13 @@ margin-top:30px;
   border:5px solid red;
 }
 
-.editEmployeeModal .box_changeModalName,
-.editEmployeeModal .box_changeModalDate {
+.editEmployeeModal .box_changeModalName{
 display: flex;
 justify-content: center;
 }
 
 .editEmployeeModal .box_changeModalName .box_nameLeft,
-.editEmployeeModal .box_changeModalName .box_nameRight,
-.editEmployeeModal .box_changeModalDate .box_nameLeft,
-.editEmployeeModal .box_changeModalDate .box_nameRight{
+.editEmployeeModal .box_changeModalName .box_nameRight{
   display: flex;
   flex-direction: column;
   /* justify-content: flex-start; */
@@ -526,8 +523,7 @@ margin-right: 10px;
 margin-left: 10px;
 }
 
-.editEmployeeModal .box_changeModalName ,
-.editEmployeeModal .box_changeModalDate {
+.editEmployeeModal .box_changeModalName {
   margin-top:20px;
   width: 300px;
 }

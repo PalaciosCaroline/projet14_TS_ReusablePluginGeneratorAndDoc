@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, ReactNode } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
-import { RootState } from './../store/index';
-import { FaUserCheck } from 'react-icons/fa';
+// import { useSelector } from 'react-redux';
+// import { RootState } from './../store/index';
+// import { FaUserCheck } from 'react-icons/fa';
 
 /**
  * `ModalProps` is an interface for the Modal component props.
@@ -13,9 +13,10 @@ import { FaUserCheck } from 'react-icons/fa';
  * @property {string} className - The className for the modal div.
  * @property {any} style - The style for the modal div.
  * @property {string} dataTestId - The data-testid for the modal div.
+ * @property {ReactNode} icon - The icon node that appears in the title bar of the modal.
+ * @property {string} title - The title text that appears in the title bar of the modal.
  */
 interface ModalProps {
-  // setIsModalOpen: (value: boolean) => void;
   isModalOpen: boolean;
   closeModal: () => void;
   children: ReactNode;
@@ -42,7 +43,7 @@ const Modal = ({
   dataTestId,
   icon,
   title,
-}: ModalProps) => {
+}: ModalProps): JSX.Element => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,14 +56,29 @@ const Modal = ({
     return () => {
       window.removeEventListener('keydown', handleEscKeyDown);
     };
-  }, [closeModal]);
+  }, [closeModal, , isModalOpen]);
 
   useEffect(() => {
     if (isModalOpen && modalRef.current) {
       modalRef.current.focus();
       const position =
-        modalRef.current.getBoundingClientRect().top + window.scrollY - 10;
+        modalRef.current.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({ top: position, behavior: 'smooth' });
+    }
+  }, [isModalOpen]);
+
+  useEffect(() => {
+    if (isModalOpen && modalRef.current) {
+      const focusableElements =
+        modalRef.current.querySelectorAll<HTMLButtonElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+
+      const firstFocusableElement = focusableElements && focusableElements[0];
+
+      if (firstFocusableElement) {
+        firstFocusableElement.focus();
+      }
     }
   }, [isModalOpen]);
 

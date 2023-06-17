@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from 'react';
+import React, { useState, useEffect, FC, useRef } from 'react';
 import { clearInput, setError } from '../store/employeeFormStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -74,6 +74,7 @@ export const FormNewEmployee: FC<Props> = () => {
     state,
     zipCode,
   } = newEmployeeEntree;
+  const lastFocusedElementRef = useRef<Element | null>(null);
 
   const { errordateOfBirth, errorstartDate } = newEmployeeErrors;
 
@@ -111,6 +112,7 @@ export const FormNewEmployee: FC<Props> = () => {
       };
       dispatch(addEmployee(newEmployee));
       setEmployeeName({ firstname: firstname, lastname: lastname });
+      lastFocusedElementRef.current = document.activeElement;
       setIsModalOpen(true);
       dispatch(clearInput());
       e.target.reset();
@@ -157,6 +159,16 @@ export const FormNewEmployee: FC<Props> = () => {
     { name: 'firstname', label: 'First Name' },
     { name: 'lastname', label: 'Last Name' },
   ];
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    if (
+      lastFocusedElementRef.current &&
+      lastFocusedElementRef.current instanceof HTMLElement
+    ) {
+      lastFocusedElementRef.current.focus();
+    }
+  };
 
   return (
     <div className="box_formEntree">
@@ -210,7 +222,7 @@ export const FormNewEmployee: FC<Props> = () => {
       {isModalOpen && (
         <Modal
           isModalOpen={isModalOpen}
-          closeModal={() => setIsModalOpen(false)}
+          closeModal={handleCloseModal}
           className="confirmationModal"
           dataTestId="modalConfirm"
           icon={<FaUserCheck className="iconCheckedModal" />}
