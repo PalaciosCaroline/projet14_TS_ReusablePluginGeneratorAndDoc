@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import EditEmployeeContent from './EditEmployeeContent';
 import ArchiveEmployeeContent from './ArchiveEmployeeContent';
 import DeleteEmployeeContent from './DeleteEmployeeContent';
@@ -14,7 +14,21 @@ interface ModalContentProps {
     employeeFormEntree: EmployeeBase;
 }
   
+const getContentByModalType = (modalType: ModalType, handleSubmit: any, selectedEmployeeId: number, isLoading: boolean, handleCancel: () => void): ReactElement => {
+  switch (modalType) {
+    case 'edit':
+      return <EditEmployeeContent handleChangeSubmit={handleSubmit} selectedEmployeeId={selectedEmployeeId} isLoading={isLoading} />;
+    case 'archive':
+      return <ArchiveEmployeeContent handleArchiveSubmit={handleSubmit} selectedEmployeeId={selectedEmployeeId} isLoading={isLoading} />;
+    case 'delete':
+      return <DeleteEmployeeContent handleDeleteSubmit={handleSubmit} selectedEmployeeId={selectedEmployeeId} handleCancel={handleCancel} isLoading={isLoading} />;
+    default:
+      return <></>;
+  }
+}
+
 const ModalEmployeesContent: FC<ModalContentProps> = ({modalType, handleSubmit, handleCancel, selectedEmployeeId, isLoading, employeeFormEntree}) => {
+  const modalContent = getContentByModalType(modalType, handleSubmit, selectedEmployeeId, isLoading, handleCancel);
       return (
         <>
           <div className="box_changeEmployeeData" >
@@ -39,15 +53,7 @@ const ModalEmployeesContent: FC<ModalContentProps> = ({modalType, handleSubmit, 
               </div>
             </div>
           </div>
-          {modalType === 'edit' && (
-            <EditEmployeeContent handleChangeSubmit={handleSubmit} selectedEmployeeId={selectedEmployeeId} isLoading={isLoading} />
-          )}
-          {modalType === 'archive' && (
-            <ArchiveEmployeeContent handleArchiveSubmit={handleSubmit} selectedEmployeeId={selectedEmployeeId} isLoading={isLoading} />
-          )}
-          {modalType === 'delete' && (
-            <DeleteEmployeeContent handleDeleteSubmit={handleSubmit} selectedEmployeeId={selectedEmployeeId} handleCancel={handleCancel} isLoading={isLoading} />
-          )}
+          {modalContent}
         </>
       );
 };

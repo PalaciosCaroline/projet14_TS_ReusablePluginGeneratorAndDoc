@@ -20,6 +20,9 @@ import { FiEdit3, FiArchive } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import ModalEmployeesContent from './ModalEmployeesContent';
 import isDate from '../utils/controlDate';
+import EditEmployeeContent from './EditEmployeeContent';
+import ArchiveEmployeeContent from './ArchiveEmployeeContent';
+import DeleteEmployeeContent from './DeleteEmployeeContent';
 
 /**
  * `DataItem<T>` is a generic interface for key-value pairs.
@@ -195,6 +198,31 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       closeModal();
     };
 
+    const modalProperties = {
+      edit: {
+        icon: <FiEdit3 className="iconCheckedModal" />,
+        title: 'Change Employee Data',
+        handleSubmit: handleChangeSubmit,
+      },
+      archive: {
+        icon: <FiArchive className="iconCheckedModal" />,
+        title: 'Archive Employee',
+        handleSubmit: handleArchiveSubmit,
+      },
+      delete: {
+        icon: <RiDeleteBin6Line className="iconCheckedModal" />,
+        title: 'Delete Employee',
+        handleSubmit: handleDeleteSubmit,
+      },
+      none: {
+        icon: null, // ou un autre composant pour none
+        title: '', // ou un autre titre pour none
+        handleSubmit: () => {}, // ou une autre fonction pour none
+      },
+    };
+
+    const { icon, title, handleSubmit } = modalProperties[modalType];
+
     return (
       <div className="box_table" data-testid="employee-table">
         <h1>Current employees</h1>
@@ -234,32 +262,12 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
               modalType === 'delete' ? 'deleteEmployeeModal' : ''
             }`}
             dataTestId="modalAction"
-            icon={
-              modalType === 'edit' ? (
-                <FiEdit3 className="iconCheckedModal" />
-              ) : modalType === 'archive' ? (
-                <FiArchive className="iconCheckedModal" />
-              ) : (
-                <RiDeleteBin6Line className="iconCheckedModal" />
-              )
-            }
-            title={
-              modalType === 'edit'
-                ? 'Change Employee Data'
-                : modalType === 'archive'
-                ? 'Archive Employee'
-                : 'Delete Employee'
-            }
+            icon={icon}
+            title={title}
           >
             <ModalEmployeesContent
               modalType={modalType}
-              handleSubmit={
-                modalType === 'edit'
-                  ? handleChangeSubmit
-                  : modalType === 'archive'
-                  ? handleArchiveSubmit
-                  : handleDeleteSubmit
-              }
+              handleSubmit={handleSubmit}
               handleCancel={handleCancel}
               selectedEmployeeId={selectedEmployeeId}
               isLoading={isLoading}
