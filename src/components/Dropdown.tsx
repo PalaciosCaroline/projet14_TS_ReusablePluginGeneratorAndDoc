@@ -147,11 +147,8 @@ const Dropdown: FC<DropdownProps> = ({
       const optionElement = dropdownRef.current.querySelector(
         `li:nth-child(${focusedOptionIndex + 1})`,
       );
-
-      // Convertir l'élément en HTMLElement avant de faire appel à la méthode focus
       const htmlElement = optionElement as HTMLElement;
 
-      // Ajoutez une vérification pour s'assurer que l'élément existe
       if (htmlElement) {
         htmlElement.focus();
       }
