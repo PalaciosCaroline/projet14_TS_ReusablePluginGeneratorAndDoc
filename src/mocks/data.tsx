@@ -18,10 +18,10 @@ export const dataColumnsMock: Columns[] = [
   { label: 'Start Date', property: 'startDate', dateFormat:'DD/MM/YYYY' },
   { label: 'Department', property: 'department' },
   { label: 'Date of Birth', property: 'dateOfBirth', dateFormat:'DD/MM/YYYY' },
-  { label: 'Street', property: 'street' },
-  { label: 'City', property: 'city' },
-  { label: 'State', property: 'state' },
-  { label: 'Zip Code', property: 'zipCode' },
+  { label: 'Street', property: 'street', disableSort: true,disableFilter: true},
+  { label: 'City', property: 'city', disableSort: true },
+  { label: 'State', property: 'state',disableSort: true },
+  { label: 'Zip Code', property: 'zipCode',disableSort: true,disableFilter: true },
 ];
 
 export const dataEmployeesMock: Employee[] = [

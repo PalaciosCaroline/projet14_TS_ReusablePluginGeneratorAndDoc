@@ -1,7 +1,11 @@
 import React, { useState, useEffect, FC } from 'react';
 import { clearInput, setError } from '../store/employeeFormStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import {checkEmployeeExistence, addEmployee } from '../store/employeesSlice';
+import {
+  checkEmployeeExistence,
+  addEmployee,
+  setLoading,
+} from '../store/employeesSlice';
 import Modal from './Modal';
 import { InputField } from './InputField';
 import AddressAndDepartmentForm from './AddressAndDepartmentForm';
@@ -39,6 +43,9 @@ interface Props {
  */
 export const FormNewEmployee: FC<Props> = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(
+    (state: RootState) => state.employees.isLoading,
+  );
   // const employees = useSelector((state: RootState) => state.employees.active);
   // const selectedEmployee = employees.find((employee: any) => employee.id === employeeId);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,10 +75,7 @@ export const FormNewEmployee: FC<Props> = () => {
     zipCode,
   } = newEmployeeEntree;
 
-  const {
-    errordateOfBirth,
-    errorstartDate,
-  } = newEmployeeErrors
+  const { errordateOfBirth, errorstartDate } = newEmployeeErrors;
 
   useEffect(() => {
     dispatch(clearInput());
@@ -79,11 +83,19 @@ export const FormNewEmployee: FC<Props> = () => {
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
-    const isDateValid = validateDates(dateOfBirth, startDate, setError, dispatch)
+    dispatch(setLoading(true));
+    const isDateValid = validateDates(
+      dateOfBirth,
+      startDate,
+      setError,
+      dispatch,
+    );
     const isNameValid = validateNames(firstname, lastname, setError, dispatch);
     if (!isNameValid || !isDateValid) {
+      dispatch(setLoading(false));
       return;
     } else if (errordateOfBirth || errorstartDate) {
+      dispatch(setLoading(false));
       return;
     } else {
       const newEmployee = {
@@ -102,6 +114,7 @@ export const FormNewEmployee: FC<Props> = () => {
       setIsModalOpen(true);
       dispatch(clearInput());
       e.target.reset();
+      dispatch(setLoading(false));
     }
   };
 
@@ -126,7 +139,7 @@ export const FormNewEmployee: FC<Props> = () => {
   //       zipCode,
   //     };
   //     const exists = await dispatch(checkEmployeeExistence(newEmployee));
-  
+
   //     if (exists) {
   //       // Si l'employé existe déjà, on affiche une erreur
   //       setErrorEmployeeExist(`Employee ${newEmployee.firstname} ${newEmployee.lastname} already exists.`);
@@ -160,7 +173,9 @@ export const FormNewEmployee: FC<Props> = () => {
               isWrapped={true}
               name={input.name}
               label={input.label}
-              error={newEmployeeErrors[`error${input.name}` as keyof EmployeeFormErrors]?.toString()}
+              error={newEmployeeErrors[
+                `error${input.name}` as keyof EmployeeFormErrors
+              ]?.toString()}
             />
           ))}
         </div>
@@ -183,7 +198,12 @@ export const FormNewEmployee: FC<Props> = () => {
           </div>
         </LocalizationProvider>
         <AddressAndDepartmentForm />
-        <button className="btnFormSave" type="submit" data-testid="btn_form">
+        <button
+          className="btnFormSave"
+          type="submit"
+          data-testid="btn_form"
+          disabled={isLoading}
+        >
           Save the new employee
         </button>
       </form>
@@ -192,12 +212,10 @@ export const FormNewEmployee: FC<Props> = () => {
           isModalOpen={isModalOpen}
           closeModal={() => setIsModalOpen(false)}
           className="confirmationModal"
-          dataTestId='modalConfirm'
+          dataTestId="modalConfirm"
+          icon={<FaUserCheck className="iconCheckedModal" />}
+          title="Confirmation"
         >
-          <div className="box_titleModal">
-            <FaUserCheck className="iconCheckedModal" />
-            <h2 id="modal-title">Confirmation</h2>
-          </div>
           <p tabIndex={0} id="confirmation-text">
             The new employee, {employeeName.firstname} {employeeName.lastname},
             has been registered successfully.

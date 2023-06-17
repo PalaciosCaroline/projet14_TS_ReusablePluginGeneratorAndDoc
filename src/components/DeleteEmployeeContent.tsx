@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-import DatePickerComponent from './DatePickerComponent';
-import { EmployeeFormValues } from '../store/employeeFormStateSlice';
 
 /**
  * Defines the properties of the DeleteEmployeeContent component.
@@ -10,12 +8,13 @@ import { EmployeeFormValues } from '../store/employeeFormStateSlice';
  * @property {Function} handleDeleteSubmit - The function to call when the "Confirm Delete" button is clicked. It takes the selected employee's ID as a parameter.
  * @property {number} selectedEmployeeId - The ID of the employee to delete.
  * @property {Function} handleCancel - The function to call when the "Cancel" button is clicked.
+ * @property {boolean} isLoading - A boolean flag indicating whether data is currently being loaded. If true, the save changes button will be disabled. 
  */
 interface DeleteEmployeeContentProps {
   handleDeleteSubmit: (employeeId: number) => void;
   selectedEmployeeId: number;
   handleCancel: () => void;
-  // employeeFormEntree: EmployeeFormValues;
+  isLoading: boolean
 }
 
 /**
@@ -37,6 +36,7 @@ const DeleteEmployeeContent: FC<DeleteEmployeeContentProps> = ({
   handleDeleteSubmit,
   selectedEmployeeId,
   handleCancel,
+  isLoading,
 }) => {
    
   return (
@@ -52,6 +52,7 @@ const DeleteEmployeeContent: FC<DeleteEmployeeContentProps> = ({
         className="btnFormCancel"
         data-testid="btn_form"
         onClick={handleCancel}
+        disabled={isLoading}
       >
         Cancel
       </button>

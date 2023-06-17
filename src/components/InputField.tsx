@@ -2,8 +2,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './../store/index';
 import { setField, setError } from '../store/employeeFormStateSlice';
-import { useInputChange } from '../utils/useInputChange';
-import { EmployeeFormValues, EmployeeFormErrors } from '../store/employeeFormStateSlice';
 
 /**
  * `InputFieldProps` is an interface for the InputField component props.
@@ -43,11 +41,9 @@ export const InputField: React.FC<InputFieldProps> = ({
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
-
     if (type === 'text') {
       value = value.charAt(0).toUpperCase() + value.slice(1);
     }
-
     dispatch(setField({ name : name, value }));
     dispatch(setError({ name: name, message: '' }));
   };

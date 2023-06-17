@@ -1,10 +1,9 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import { RootState } from './../store/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { setField, setError } from '../store/employeeFormStateSlice';
-import { EmployeeFormErrors, EmployeeFormValues } from '../store/employeeFormStateSlice';
 
 /**
  * Defines the properties of the DatePickerComponent.

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { InputField } from './InputField';
 import Dropdown from './Dropdown';
 import { states, State } from '../utils/states';

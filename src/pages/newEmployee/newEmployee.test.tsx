@@ -143,6 +143,8 @@ describe('Modal', () => {
     children: <div>Test Child</div>,
     className: 'test-modal',
     dataTestId: 'modal-test',
+    icon:<div>icon</div>,
+    title: 'title'
   };
 
   it('renders the children and close button when opened', () => {

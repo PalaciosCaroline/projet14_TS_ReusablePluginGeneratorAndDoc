@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import DatePickerComponent from './DatePickerComponent';
-import { EmployeeFormValues } from '../store/employeeFormStateSlice';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
@@ -14,10 +13,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
  * that takes the form submission event as a parameter.
  * 
  * @property {number} selectedEmployeeId - The id of the selected employee.
+ * @property {boolean} isLoading - A boolean flag indicating whether data is currently being loaded. If true, the save changes button will be disabled. 
  */
 interface ArchiveEmployeeContentProps {
   handleArchiveSubmit: (employeeId: number) => (e: any) => void;
   selectedEmployeeId: number;
+  isLoading: boolean;
 }
 
 /**
@@ -32,6 +33,7 @@ interface ArchiveEmployeeContentProps {
 const ArchiveEmployeeContent: FC<ArchiveEmployeeContentProps> = ({
   handleArchiveSubmit,
   selectedEmployeeId,
+  isLoading
 }) => {
   return (
     <>
@@ -54,7 +56,7 @@ const ArchiveEmployeeContent: FC<ArchiveEmployeeContentProps> = ({
           </div>
         </LocalizationProvider>
 
-        <button className="btnFormArchive" type="submit" data-testid="btn_form">
+        <button className="btnFormArchive" type="submit" data-testid="btn_form"  disabled={isLoading}>
           Archive Employee
         </button>
       </form>

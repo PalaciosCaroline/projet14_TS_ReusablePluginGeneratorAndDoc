@@ -115,7 +115,6 @@ h2 {
   color: black;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   width: 320px;
   padding: 10px 20px;
   color: #fff;
@@ -267,26 +266,26 @@ h2 {
   margin-right: 10px;
 }
 
-.box_endDate .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root,
+/* .box_endDate .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root,
 .box_startDate .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root,
 .box_dateOfBirth .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
   padding-left: 20px;
   padding-top: 2px;
-}
+} */
 
-.box_endDate .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
+/* .box_endDate .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
   height: 20px;
-}
+} */
 
-.box_endDate .MuiInputBase-formControl .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+/* .box_endDate .MuiInputBase-formControl .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
   height: 20px;
-}
+} */
 
-.box_startDate .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input,
+/* .box_startDate .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input,
 .box_dateOfBirth .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
   margin: 10px;
   height: 20px;
-}
+} */
 
 .box_startDate .css-1ralhbl-MuiFormControl-root-MuiTextField-root,
 .box_dateOfBirth .css-1ralhbl-MuiFormControl-root-MuiTextField-root {
@@ -396,11 +395,6 @@ select {
 .box_Department li.selectedOption:hover {
   background-color: #b1c46c;
 }
-
-/* .box_State li.selectedOption,
-.box_Department li.selectedOption {
-  background-color: #b1c46c;
-} */
 
 .box_State li.focused,
 .box_Department li.focused,
@@ -752,11 +746,29 @@ input::placeholder {
   margin-bottom: 0;
 }
 
+.formChangeEmployee .box_endDate .box_input .MuiInputBase-input .MuiOutlinedInput-input input{
+  height: 40px;
+}
+.formChangeEmployee .box_endDate .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input input,
 .box_StartDate .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input,
 .box_dateOfBirth .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
   margin: 10px;
   padding: 10px;
   height: 20px;
+}
+
+.formChangeEmployee .box_endDate .MuiInputBase-formControl .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
+  height: 20px;
+}
+
+.main_newEmployee .box_formEntree .boxDate .box_dateOfBirth label,
+.main_newEmployee .box_formEntree .boxDate .box_startDate label{
+  padding-left: 20px;
+  padding-top: 3px;
+}
+.box_table .editEmployeeModal .box_endDate label{
+  padding-left: 20px;
+  padding-top: 3px;
 }
 
 .logoHome {

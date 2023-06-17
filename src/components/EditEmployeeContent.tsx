@@ -1,6 +1,5 @@
 import React, {FC} from "react";
 import AddressAndDepartmentForm from "./AddressAndDepartmentForm";
-import { EmployeeFormValues } from "../store/employeeFormStateSlice";
 
 /**
  * Defines the properties of the EditEmployeeContent component.
@@ -9,10 +8,12 @@ import { EmployeeFormValues } from "../store/employeeFormStateSlice";
  *
  * @property {Function} handleChangeSubmit - The handler function that is invoked when the form is submitted. It should return a function that takes the event object and handles it.
  * @property {number} selectedEmployeeId - The ID of the employee being edited.
+ * @property {boolean} isLoading - A boolean flag indicating whether data is currently being loaded. If true, the save changes button will be disabled. 
  */
 interface EditEmployeeContentProps {
     handleChangeSubmit: (employeeId: number) => (e: any) => void;
     selectedEmployeeId: number;
+    isLoading:boolean
   }
   
   /**
@@ -23,7 +24,7 @@ interface EditEmployeeContentProps {
  *
  * @returns {React.FC}
  */
-const EditEmployeeContent: FC<EditEmployeeContentProps> = ({ handleChangeSubmit, selectedEmployeeId }) => {
+const EditEmployeeContent: FC<EditEmployeeContentProps> = ({ handleChangeSubmit, selectedEmployeeId, isLoading }) => {
     return (
       <>
         <form
@@ -38,6 +39,7 @@ const EditEmployeeContent: FC<EditEmployeeContentProps> = ({ handleChangeSubmit,
             className="btnFormEdit"
             type="submit"
             data-testid="btn_form"
+            disabled={isLoading}
           >
             Save Changes
           </button>

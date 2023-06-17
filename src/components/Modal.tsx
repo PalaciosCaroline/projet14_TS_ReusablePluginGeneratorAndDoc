@@ -22,6 +22,8 @@ interface ModalProps {
   className: string;
   style?: any;
   dataTestId: string;
+  icon: ReactNode;
+  title: string;
 }
 
 /**
@@ -38,6 +40,8 @@ const Modal = ({
   className,
   style,
   dataTestId,
+  icon,
+  title,
 }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -53,17 +57,11 @@ const Modal = ({
     };
   }, [closeModal]);
 
-  // useEffect(() => {
-  //   if (isModalOpen && modalRef.current) {
-  //     modalRef.current.focus();
-  //     modalRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  //   }
-  // }, [isModalOpen]);
-
   useEffect(() => {
     if (isModalOpen && modalRef.current) {
       modalRef.current.focus();
-      const position = modalRef.current.getBoundingClientRect().top + window.scrollY - 10;
+      const position =
+        modalRef.current.getBoundingClientRect().top + window.scrollY - 10;
       window.scrollTo({ top: position, behavior: 'smooth' });
     }
   }, [isModalOpen]);
@@ -116,6 +114,10 @@ const Modal = ({
         >
           <FaTimes className="btn_closeModal_icon" />
         </button>
+        <div className="box_titleModal">
+          {icon}
+          <h2 id="modal-title">{title}</h2>
+        </div>
         {children}
       </div>
     </>

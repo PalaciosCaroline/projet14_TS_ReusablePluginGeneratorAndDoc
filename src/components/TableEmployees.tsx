@@ -1,23 +1,28 @@
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo, useEffect, useState, useCallback } from 'react';
 import { dataColumnsMock } from '../mocks/data';
 import { Table } from 'typescript-table';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/index';
-import { archiveEmployee, deleteEmployee } from '../store/employeesSlice';
+import employeesSlice from '../store/employeesSlice';
+import {
+  archiveEmployee,
+  updateEmployee,
+  deleteEmployee,
+  setLoading,
+} from '../store/employeesSlice';
 import { ExportDataComponent } from 'typescript-exportdata';
+import { Employee } from '../store/employeeFormStateSlice';
 import { FormNewEmployee } from './FormNewEmployee';
 import DatePickerComponent from './DatePickerComponent';
-import { updateEmployee } from '../store/employeesSlice';
 import {
   clearInput,
   setEmployeeData,
   setError,
 } from '../store/employeeFormStateSlice';
 import Modal from './Modal';
-import { FiEdit3 } from 'react-icons/fi';
-import EditEmployeeContent from './EditEmployeeContent';
-import ArchiveEmployeeContent from './ArchiveEmployeeContent';
-import DeleteEmployeeContent from './DeleteEmployeeContent';
+import { FiEdit3, FiArchive } from 'react-icons/fi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { ModalEmployeesContent } from './ModalEmployeesContent';
 import isDate from '../utils/controlDate';
 
 /**
@@ -60,7 +65,7 @@ interface ColumnManaged {
   disableFilter?: boolean;
 }
 
-type ModalType = 'edit' | 'archive' | 'delete' | 'none';
+export type ModalType = 'edit' | 'archive' | 'delete' | 'none';
 
 /**
  * `TableEmployees` is a functional React component. It displays a table of employees,
@@ -73,24 +78,26 @@ type ModalType = 'edit' | 'archive' | 'delete' | 'none';
 const TableEmployees: FC<Props<any>> = memo<Props<any>>(
   ({ employees }) => {
     const dispatch = useDispatch();
+    const isLoading = useSelector(
+      (state: RootState) => state.employees.isLoading,
+    );
     const [modalType, setModalType] = useState<ModalType>('none');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
-    const employeeFormEntree = useSelector(
-      (state: RootState) => state.employeeFormState?.formValues,
+    const employeeFormState = useSelector(
+      (state: RootState) => state.employeeFormState,
     );
-    const employeeEntreeErrors = useSelector(
-      (state: RootState) => state.employeeFormState?.formErrors,
-    );
+    const employeeFormEntree = employeeFormState?.formValues;
+    const employeeEntreeErrors = employeeFormState?.formErrors;
     const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(
       null,
     );
 
-    const archivedEmployees = useSelector(
-      (state: RootState) => state.employees.archived,
-    );
+    // const archivedEmployees = useSelector(
+    //   (state: RootState) => state.employees.archived,
+    // );
 
-    // seulement pour démonstration 
+    // seulement pour démonstration
     // useEffect(() => {
     //   console.log('active employees:', JSON.stringify(employees, null, 2));
     //   console.log(
@@ -113,7 +120,6 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       e.persist();
       openModal(id, 'delete', e);
     };
-
     const closeModal = () => {
       dispatch(clearInput());
       setIsModalOpen(false);
@@ -121,63 +127,73 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       setModalType('none');
     };
 
-    const openModal = (id: number, type: string, e: any) => {
-      setSelectedEmployeeId(id);
-      const selectedEmployee = employees.find(
-        (employee: any) => employee.id === id,
-      );
-      if (selectedEmployee) {
-        const employeeData: any = {
-          ...selectedEmployee,
-        };
-        dispatch(setEmployeeData(employeeData));
-        setModalType(type as ModalType);
-        // setModalPosition({ x: e.clientX, y: e.clientY });
-        setModalPosition({ x: e.pageX, y: e.pageY });
-        setIsModalOpen(true);
-        console.log('delete: ' + id);
-      } else {
+    const openModal = (id: number, type: ModalType, e: MouseEvent) => {
+      const selectedEmployee = employees.find((employee) => employee.id === id);
+      if (!selectedEmployee) {
         console.error('No employee found with id: ', id);
         return;
       }
+      setSelectedEmployeeId(id);
+      const employeeData: any = {
+        ...selectedEmployee,
+      };
+      dispatch(setEmployeeData(employeeData));
+      setModalType(type);
+      setModalPosition({ x: e.pageX, y: e.pageY });
+      setIsModalOpen(true);
     };
 
-    const handleChangeSubmit = (employeeId: number) => (e: any) => {
-      e.preventDefault();
-      dispatch(
-        updateEmployee({
-          id: employeeId,
-          department: employeeFormEntree.department,
-          street: employeeFormEntree.street,
-          city: employeeFormEntree.city,
-          state: employeeFormEntree.state,
-          zipCode: employeeFormEntree.zipCode,
-        }),
-      );
-      closeModal();
-    };
-
-    const handleArchiveSubmit = (employeeId: number) => (e: any) => {
-      e.preventDefault();
-      console.log(employeeFormEntree.endDate);
-      const endDate = employeeFormEntree.endDate;
-      if (employeeEntreeErrors.errorendDate) {
-        return;
-      }
-      if (!isDate(endDate, setError, 'endDate', dispatch)) {
-        return;
-      } else {
-        dispatch(archiveEmployee({ id: employeeId, endDate }));
+    const handleChangeSubmit = useCallback(
+      (employeeId: number) => (e: any) => {
+        e.preventDefault();
+        dispatch(setLoading(true));
+        dispatch(
+          updateEmployee({
+            id: employeeId,
+            department: employeeFormEntree.department,
+            street: employeeFormEntree.street,
+            city: employeeFormEntree.city,
+            state: employeeFormEntree.state,
+            zipCode: employeeFormEntree.zipCode,
+          }),
+        );
         closeModal();
-      }
-    };
+        dispatch(setLoading(false));
+      },
+      [employeeFormEntree, dispatch],
+    );
 
-    const handleDeleteSubmit = (employeeId: number) => {
-      setSelectedEmployeeId(employeeId);
-      console.log('delete: ' + employeeId);
-      dispatch(deleteEmployee(employeeId));
-      closeModal();
-    };
+    const handleArchiveSubmit = useCallback(
+      (employeeId: number) => (e: any) => {
+        e.preventDefault();
+        dispatch(setLoading(true));
+        const endDate = employeeFormEntree.endDate;
+        if (employeeEntreeErrors.errorendDate) {
+          dispatch(setLoading(false));
+          return;
+        }
+        if (!isDate(endDate, setError, 'endDate', dispatch)) {
+          dispatch(setLoading(false));
+          return;
+        } else {
+          dispatch(archiveEmployee({ id: employeeId, endDate }));
+          closeModal();
+          dispatch(setLoading(false));
+        }
+      },
+      [employeeFormEntree, employeeEntreeErrors, dispatch],
+    );
+
+    const handleDeleteSubmit = useCallback(
+      (employeeId: number) => {
+        dispatch(setLoading(true));
+        setSelectedEmployeeId(employeeId);
+        dispatch(deleteEmployee(employeeId));
+        closeModal();
+        dispatch(setLoading(false));
+      },
+      [dispatch],
+    );
 
     const handleCancel = () => {
       closeModal();
@@ -212,12 +228,9 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         />
         {isModalOpen && selectedEmployeeId && (
           <Modal
-            // style={{
-            //   top: modalPosition.y,
-            // }}
             style={{
-              position: 'absolute', 
-              top: modalPosition.y - 100 + 'px', 
+              position: 'absolute',
+              top: modalPosition.y - 100 + 'px',
             }}
             isModalOpen={isModalOpen}
             closeModal={closeModal}
@@ -225,63 +238,37 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
               modalType === 'delete' ? 'deleteEmployeeModal' : ''
             }`}
             dataTestId="modalAction"
+            icon={
+              modalType === 'edit' ? (
+                <FiEdit3 className="iconCheckedModal" />
+              ) : modalType === 'archive' ? (
+                <FiArchive className="iconCheckedModal" />
+              ) : (
+                <RiDeleteBin6Line className="iconCheckedModal" />
+              )
+            }
+            title={
+              modalType === 'edit'
+                ? 'Change Employee Data'
+                : modalType === 'archive'
+                ? 'Archive Employee'
+                : 'Delete Employee'
+            }
           >
-            <div className="box_titleModal">
-              <FiEdit3 className="iconCheckedModal" />
-              <h2 className="modal-titleChange">
-                {' '}
-                {modalType === 'edit'
-                  ? 'Change Employee Data'
+            <ModalEmployeesContent
+              modalType={modalType}
+              handleSubmit={
+                modalType === 'edit'
+                  ? handleChangeSubmit
                   : modalType === 'archive'
-                  ? 'Archive Employee'
-                  : modalType === 'delete'
-                  ? 'Delete Employee'
-                  : ''}
-              </h2>
-            </div>
-            <div className="box_changeEmployeeData" >
-              <div className="box_changeModalName">
-                <div className="box_nameRight">
-                  <div>First Name:</div>
-                  <div className="name">{employeeFormEntree.firstname}</div>
-                </div>
-                <div className="box_nameLeft">
-                  <div>Last Name:</div>
-                  <div className="name">{employeeFormEntree.lastname}</div>
-                </div>
-              </div>
-              <div className="box_changeModalDate">
-                <div className="box_nameRight">
-                  <div>Date of Birthday:</div>
-                  <div className="name">{employeeFormEntree.dateOfBirth}</div>
-                </div>
-                <div className="box_nameLeft">
-                  <div>Start Date: </div>
-                  <div className="name">{employeeFormEntree.startDate}</div>
-                </div>
-              </div>
-            </div>
-            {modalType === 'edit' && (
-              <EditEmployeeContent
-                handleChangeSubmit={handleChangeSubmit}
-                selectedEmployeeId={selectedEmployeeId}
-                // employeeFormEntree={employeeFormEntree}
-              />
-            )}
-            {modalType === 'archive' && (
-              <ArchiveEmployeeContent
-                handleArchiveSubmit={handleArchiveSubmit}
-                selectedEmployeeId={selectedEmployeeId}
-                // employeeFormEntree={employeeFormEntree}
-              />
-            )}
-            {modalType === 'delete' && (
-              <DeleteEmployeeContent
-                handleDeleteSubmit={handleDeleteSubmit}
-                selectedEmployeeId={selectedEmployeeId}
-                handleCancel={handleCancel}
-              />
-            )}
+                  ? handleArchiveSubmit
+                  : handleDeleteSubmit
+              }
+              handleCancel={handleCancel}
+              selectedEmployeeId={selectedEmployeeId}
+              isLoading={isLoading}
+              employeeFormEntree={employeeFormEntree}
+            />
           </Modal>
         )}
       </div>

@@ -13,11 +13,13 @@ let nextId = 22;
 interface EmployeesState {
   active: Employee[];
   archived: Employee[];
+  isLoading: boolean;
 }
 
 export const initialState: EmployeesState = {
   active: dataEmployeesMock,
   archived: [],
+  isLoading: false,
 };
 
 interface UpdateEmployeePayload {
@@ -33,6 +35,10 @@ const employeesSlice = createSlice({
   name: 'employees',
   initialState: initialState as EmployeesState,
   reducers: {
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      // Mise à jour de l'état de chargement en fonction de l'action
+      state.isLoading = action.payload;
+    },
     // sécurité: enregistrement de l'idUser à faire et Date d'enregistrement
     addEmployee: {
       reducer: (state, action: PayloadAction<Employee>) => {
@@ -88,6 +94,6 @@ export const checkEmployeeExistence = createAsyncThunk<boolean, EmployeeBase>(
   },
 );
 
-export const { addEmployee, updateEmployee, deleteEmployee, archiveEmployee } =
+export const { setLoading, addEmployee, updateEmployee, deleteEmployee, archiveEmployee } =
   employeesSlice.actions;
 export default employeesSlice;
