@@ -1,8 +1,5 @@
 import React, { useRef, useEffect, ReactNode } from 'react';
 import { FaTimes } from 'react-icons/fa';
-// import { useSelector } from 'react-redux';
-// import { RootState } from './../store/index';
-// import { FaUserCheck } from 'react-icons/fa';
 
 /**
  * `ModalProps` is an interface for the Modal component props.

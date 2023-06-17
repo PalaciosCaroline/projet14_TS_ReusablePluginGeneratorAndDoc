@@ -107,19 +107,20 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
     // }, [employees, archivedEmployees]);
 
     const handleEditRow = (id: any, e: any) => {
-      e.persist();
+      // e.persist();
       openModal(id, 'edit', e);
     };
 
     const handleArchiveRow = (id: any, e: any) => {
-      e.persist();
+      // e.persist();
       openModal(id, 'archive', e);
     };
 
     const handleDeleteRow = (id: number, e: any) => {
-      e.persist();
+      // e.persist();
       openModal(id, 'delete', e);
     };
+
     const closeModal = () => {
       dispatch(clearInput());
       setIsModalOpen(false);
@@ -130,44 +131,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       }
     };
 
-    // const openModal = (id: number, type: ModalType, e: MouseEvent) => {
-    //   lastFocusedElementRef.current = document.activeElement;
-    //   const selectedEmployee = employees.find((employee) => employee.id === id);
-    //   if (!selectedEmployee) {
-    //     console.error('No employee found with id: ', id);
-    //     return;
-    //   }
-    //   setSelectedEmployeeId(id);
-    //   const employeeData: any = {
-    //     ...selectedEmployee,
-    //   };
-    //   dispatch(setEmployeeData(employeeData));
-    //   setModalType(type);
-    //   setModalPosition({ x: e.pageX, y: e.pageY });
-    //   setIsModalOpen(true);
-    // };
-
-    // const openModal = async (id: number, type: ModalType, e: MouseEvent) => {
-    //   lastFocusedElementRef.current = document.activeElement;
-    //   const selectedEmployee = employees.find((employee) => employee.id === id);
-    //   if (!selectedEmployee) {
-    //     console.error('No employee found with id: ', id);
-    //     return;
-    //   }
-    //   setSelectedEmployeeId(id);
-    //   const employeeData: any = {
-    //     ...selectedEmployee,
-    //   };
-      
-    //   await Promise.all([
-    //     dispatch(setEmployeeData(employeeData)),
-    //     setModalType(type),
-    //     setModalPosition({ x: e.pageX, y: e.pageY }),
-    //     setIsModalOpen(true)
-    //   ]);
-    // };
-    const openModal = async (id: number, type: ModalType, e: any) => {
-    setTimeout(() => {
+    const openModal = async (id: number, type: ModalType, e:any) => {
       lastFocusedElementRef.current = document.activeElement;
       const selectedEmployee = employees.find((employee) => employee.id === id);
       if (!selectedEmployee) {
@@ -178,12 +142,14 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       const employeeData: any = {
         ...selectedEmployee,
       };
-      dispatch(setEmployeeData(employeeData));
-      setModalType(type);
-      setModalPosition({ x: e.pageX, y: e.pageY });
-      setIsModalOpen(true);
-    }, 0);
-  };
+      
+      await Promise.all([
+        dispatch(setEmployeeData(employeeData)),
+        setModalType(type),
+        setModalPosition({ x: e.pageX, y: e.pageY }),
+        setIsModalOpen(true)
+      ]);
+    };
 
     const handleChangeSubmit = useCallback(
       (employeeId: number) => (e: any) => {
@@ -201,7 +167,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         );
         closeModal();
         dispatch(setLoading(false));
-        
+  
       },
       [employeeFormEntree, dispatch],
     );

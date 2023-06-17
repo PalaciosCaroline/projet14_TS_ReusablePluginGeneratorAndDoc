@@ -55,7 +55,6 @@ const ArchiveEmployeeContent: FC<ArchiveEmployeeContentProps> = ({
             />
           </div>
         </LocalizationProvider>
-
         <button className="btnFormArchive" type="submit" data-testid="btn_form"  disabled={isLoading}>
           Archive Employee
         </button>
