@@ -215,9 +215,9 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         handleSubmit: handleDeleteSubmit,
       },
       none: {
-        icon: null, // ou un autre composant pour none
-        title: '', // ou un autre titre pour none
-        handleSubmit: () => {}, // ou une autre fonction pour none
+        icon: null, 
+        title: '', 
+        handleSubmit: () => {}, 
       },
     };
 
