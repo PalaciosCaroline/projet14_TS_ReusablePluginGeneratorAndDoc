@@ -96,16 +96,20 @@ const Dropdown: FC<DropdownProps> = ({
     toggleDropdown();
   };
 
-  const handleClickOutside = (event: MouseEvent): void => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false);
-    }
-  };
+  // const handleClickOutside = (event: MouseEvent): void => {
+  //   if (
+  //     dropdownRef.current &&
+  //     !dropdownRef.current.contains(event.target as Node)
 
-  const handleTriggerKeyDown = (event: React.KeyboardEvent): void => {
+  //   ) {
+  //     setIsOpen(false);
+  //   }
+  // };
+
+  const handleTriggerKeyDown1 = (event: React.KeyboardEvent): void => {
+    if (event.currentTarget !== event.target) {
+      return;
+    }
     switch (event.key) {
       case 'ArrowUp':
         event.preventDefault();
@@ -121,11 +125,13 @@ const Dropdown: FC<DropdownProps> = ({
         break;
       case 'Enter':
       case ' ':
-        event.preventDefault();
-        if (isOpen && focusedOptionIndex >= 0) {
-          handleSelect(label, options[focusedOptionIndex]);
-        } else {
-          toggleDropdown();
+        if (isOpen) {
+          event.preventDefault();
+          if (isOpen && focusedOptionIndex >= 0) {
+            handleSelect(label, options[focusedOptionIndex]);
+          } else {
+            toggleDropdown();
+          }
         }
         break;
       case 'Tab':
@@ -155,22 +161,27 @@ const Dropdown: FC<DropdownProps> = ({
     }
   }, [focusedOptionIndex, isOpen, options.length]);
 
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener('click', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('click', handleClickOutside);
+  //   };
+  // }, []);
 
-  const handleOptionKeyDown = (
+  const handleOptionKeyDown2 = (
     event: React.KeyboardEvent,
     option: string,
   ): void => {
+    if (event.currentTarget !== event.target) {
+      return;
+    }
     switch (event.key) {
       case 'Enter':
       case ' ':
+        if (isOpen) {
         event.preventDefault();
         handleSelect(label, option);
+        }
         break;
       case 'Tab':
         // Si l'utilisateur appuie sur 'Tab', fermez le menu déroulant
@@ -190,7 +201,7 @@ const Dropdown: FC<DropdownProps> = ({
           type="button"
           className="dropdownToggle"
           onClick={toggleDropdown}
-          onKeyDown={handleTriggerKeyDown}
+          onKeyDown={handleTriggerKeyDown1}
           value={selectedOption}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
@@ -216,7 +227,7 @@ const Dropdown: FC<DropdownProps> = ({
                 aria-selected={option === selectedOption}
               >
                 <button
-                  onKeyDown={(event) => handleOptionKeyDown(event, option)}
+                  onKeyDown={(event) => handleOptionKeyDown2(event, option)}
                   onClick={() => handleSelect(label, option)}
                   onMouseOver={() => setFocusedOptionIndex(index)}
                   className="dropdownOptionButton" // Ajoutez une classe pour styliser ce bouton comme vous le souhaitez
