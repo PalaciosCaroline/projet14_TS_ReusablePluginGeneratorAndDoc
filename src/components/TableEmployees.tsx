@@ -1,4 +1,11 @@
-import React, { FC, memo, useEffect, useState, useCallback, useRef } from 'react';
+import React, {
+  FC,
+  memo,
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+} from 'react';
 import { dataColumnsMock } from '../mocks/data';
 import { Table } from 'typescript-table';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,9 +27,6 @@ import { FiEdit3, FiArchive } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import ModalEmployeesContent from './ModalEmployeesContent';
 import isDate from '../utils/controlDate';
-import EditEmployeeContent from './EditEmployeeContent';
-import ArchiveEmployeeContent from './ArchiveEmployeeContent';
-import DeleteEmployeeContent from './DeleteEmployeeContent';
 
 /**
  * `DataItem<T>` is a generic interface for key-value pairs.
@@ -126,12 +130,15 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       setIsModalOpen(false);
       setSelectedEmployeeId(null);
       setModalType('none');
-      if (lastFocusedElementRef.current && lastFocusedElementRef.current instanceof HTMLElement) {
+      if (
+        lastFocusedElementRef.current &&
+        lastFocusedElementRef.current instanceof HTMLElement
+      ) {
         lastFocusedElementRef.current.focus();
       }
     };
 
-    const openModal = async (id: number, type: ModalType, e:any) => {
+    const openModal = async (id: number, type: ModalType, e: any) => {
       lastFocusedElementRef.current = document.activeElement;
       const selectedEmployee = employees.find((employee) => employee.id === id);
       if (!selectedEmployee) {
@@ -142,12 +149,12 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       const employeeData: any = {
         ...selectedEmployee,
       };
-      
+
       await Promise.all([
         dispatch(setEmployeeData(employeeData)),
         setModalType(type),
         setModalPosition({ x: e.pageX, y: e.pageY }),
-        setIsModalOpen(true)
+        setIsModalOpen(true),
       ]);
     };
 
@@ -167,7 +174,6 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         );
         closeModal();
         dispatch(setLoading(false));
-  
       },
       [employeeFormEntree, dispatch],
     );
@@ -225,9 +231,9 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         handleSubmit: handleDeleteSubmit,
       },
       none: {
-        icon: null, 
-        title: '', 
-        handleSubmit: () => {}, 
+        icon: null,
+        title: '',
+        handleSubmit: () => {},
       },
     };
 
@@ -262,10 +268,18 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         />
         {isModalOpen && selectedEmployeeId && (
           <Modal
+            // style={{
+            //   position: 'absolute',
+            //   top: modalPosition.y + 'px',
+            // }}
             style={{
-              position: 'absolute',
-              top: modalPosition.y + 'px',
-            }}
+              position: 'fixed',  // changed from 'absolute' to 'fixed'
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              maxHeight: '99%',
+              overflow: 'auto',
+          }}
             isModalOpen={isModalOpen}
             closeModal={closeModal}
             className={`editEmployeeModal ${

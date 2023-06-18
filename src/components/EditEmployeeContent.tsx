@@ -1,5 +1,5 @@
-import React, {FC} from "react";
-import AddressAndDepartmentForm from "./AddressAndDepartmentForm";
+import React, { FC } from 'react';
+import AddressAndDepartmentForm from './AddressAndDepartmentForm';
 
 /**
  * Defines the properties of the EditEmployeeContent component.
@@ -8,15 +8,15 @@ import AddressAndDepartmentForm from "./AddressAndDepartmentForm";
  *
  * @property {Function} handleChangeSubmit - The handler function that is invoked when the form is submitted. It should return a function that takes the event object and handles it.
  * @property {number} selectedEmployeeId - The ID of the employee being edited.
- * @property {boolean} isLoading - A boolean flag indicating whether data is currently being loaded. If true, the save changes button will be disabled. 
+ * @property {boolean} isLoading - A boolean flag indicating whether data is currently being loaded. If true, the save changes button will be disabled.
  */
 interface EditEmployeeContentProps {
-    handleChangeSubmit: (employeeId: number) => (e: any) => void;
-    selectedEmployeeId: number;
-    isLoading:boolean
-  }
-  
-  /**
+  handleChangeSubmit: (employeeId: number) => (e: any) => void;
+  selectedEmployeeId: number;
+  isLoading: boolean;
+}
+
+/**
  * EditEmployeeContent is a functional component that renders a form for editing an employee's information.
  * @component
  *
@@ -24,28 +24,32 @@ interface EditEmployeeContentProps {
  *
  * @returns {React.FC}
  */
-const EditEmployeeContent: FC<EditEmployeeContentProps> = ({ handleChangeSubmit, selectedEmployeeId, isLoading }) => {
-    return (
-      <>
-        <form
-          className="formChangeEmployee"
-          action="#"
-          id="edit-employee"
-          onSubmit={handleChangeSubmit(selectedEmployeeId)}
-          data-testid="form"
+const EditEmployeeContent: FC<EditEmployeeContentProps> = ({
+  handleChangeSubmit,
+  selectedEmployeeId,
+  isLoading,
+}) => {
+  return (
+    <>
+      <form
+        className="formChangeEmployee"
+        action="#"
+        id="edit-employee"
+        onSubmit={handleChangeSubmit(selectedEmployeeId)}
+        data-testid="form"
+      >
+        <AddressAndDepartmentForm />
+        <button
+          className="btnFormEdit"
+          type="submit"
+          data-testid="btn_form"
+          disabled={isLoading}
         >
-          <AddressAndDepartmentForm />
-          <button
-            className="btnFormEdit"
-            type="submit"
-            data-testid="btn_form"
-            disabled={isLoading}
-          >
-            Save Changes
-          </button>
-        </form>
-      </>
-    );
-  };
+          Save Changes
+        </button>
+      </form>
+    </>
+  );
+};
 
-  export default EditEmployeeContent;
+export default EditEmployeeContent;

@@ -58,9 +58,6 @@ const Modal = ({
   useEffect(() => {
     if (isModalOpen && modalRef.current) {
       modalRef.current.focus();
-      const position =
-        modalRef.current.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top: position, behavior: 'smooth' });
     }
   }, [isModalOpen]);
 

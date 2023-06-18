@@ -44,7 +44,7 @@ export const InputField: React.FC<InputFieldProps> = ({
     if (type === 'text') {
       value = value.charAt(0).toUpperCase() + value.slice(1);
     }
-    dispatch(setField({ name : name, value }));
+    dispatch(setField({ name: name, value }));
     dispatch(setError({ name: name, message: '' }));
   };
 

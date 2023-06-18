@@ -184,8 +184,6 @@ const Dropdown: FC<DropdownProps> = ({
         }
         break;
       case 'Tab':
-        // Si l'utilisateur appuie sur 'Tab', fermez le menu déroulant
-        // event.preventDefault();
         setIsOpen(false);
         break;
       default:

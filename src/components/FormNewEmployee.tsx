@@ -227,6 +227,12 @@ export const FormNewEmployee: FC<Props> = () => {
           dataTestId="modalConfirm"
           icon={<FaUserCheck className="iconCheckedModal" />}
           title="Confirmation"
+          // style={{
+          //   position: 'fixed', // changed from 'absolute' to 'fixed'
+          //   top: '50%',
+          //   left: '50%',
+          //   transform: 'translate(-50%, -50%)',
+          // }}
         >
           <p tabIndex={0} id="confirmation-text">
             The new employee, {employeeName.firstname} {employeeName.lastname},
