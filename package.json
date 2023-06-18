@@ -21,7 +21,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "typescript-exportdata": "^1.0.5",
-    "typescript-table": "^3.1.27",
+    "typescript-table": "^3.1.29",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"
   },
