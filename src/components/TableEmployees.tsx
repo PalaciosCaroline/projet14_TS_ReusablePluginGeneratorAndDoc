@@ -96,6 +96,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       null,
     );
     const lastFocusedElementRef = useRef<Element | null>(null);
+    const [isFadingOut, setIsFadingOut] = useState(false);    
 
     // const archivedEmployees = useSelector(
     //   (state: RootState) => state.employees.archived,
@@ -127,7 +128,11 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
 
     const closeModal = () => {
       dispatch(clearInput());
-      setIsModalOpen(false);
+      // setIsFadingOut(true);
+      // setTimeout(() => {
+      //   setIsModalOpen(false);
+      //   setIsFadingOut(false);
+      // }, 300);
       setSelectedEmployeeId(null);
       setModalType('none');
       if (
@@ -137,6 +142,13 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         lastFocusedElementRef.current.focus();
       }
     };
+    const handleanimModal = () => {
+      setIsFadingOut(true);
+      setTimeout(() => {
+        setIsFadingOut(false); // cache la modale après l'animation
+        closeModal(); // informe le parent que la modale est fermée
+      }, 300);
+    }
 
     const openModal = async (id: number, type: ModalType, e: any) => {
       lastFocusedElementRef.current = document.activeElement;
@@ -241,7 +253,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
 
     return (
       <div className="box_table" data-testid="employee-table">
-        <h1>Current employees</h1>
+        <h1 className="pageApp_title">Current employees</h1>
 
         <Table
           data={employees}
@@ -268,35 +280,24 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         />
         {isModalOpen && selectedEmployeeId && (
           <Modal
-            // style={{
-            //   position: 'absolute',
-            //   top: modalPosition.y + 'px',
-            // }}
-            style={{
-              position: 'fixed',  // changed from 'absolute' to 'fixed'
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              maxHeight: '99%',
-              overflow: 'auto',
-          }}
             isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            className={`editEmployeeModal ${
+            // closeModal={closeModal}
+            closeModal={handleanimModal}
+            className={`editEmployeeModal ${isFadingOut ? 'fadeOut' : ''} ${
               modalType === 'delete' ? 'deleteEmployeeModal' : ''
             }`}
             dataTestId="modalAction"
             icon={icon}
             title={title}
           >
-            <ModalEmployeesContent
-              modalType={modalType}
-              handleSubmit={handleSubmit}
-              handleCancel={handleCancel}
-              selectedEmployeeId={selectedEmployeeId}
-              isLoading={isLoading}
-              employeeFormEntree={employeeFormEntree}
-            />
+              <ModalEmployeesContent
+                modalType={modalType}
+                handleSubmit={handleSubmit}
+                handleCancel={handleCancel}
+                selectedEmployeeId={selectedEmployeeId}
+                isLoading={isLoading}
+                employeeFormEntree={employeeFormEntree}
+              />
           </Modal>
         )}
       </div>

@@ -104,7 +104,7 @@ const Modal = ({
 
   return (
     <>
-      {isModalOpen && <div className="bg_modalConfirm" />}
+      {isModalOpen && <div className={`bg_modalConfirm ${isModalOpen ? 'open' : ''}`} />}
       <div
         className={`${className} ${isModalOpen ? 'open' : ''}`}
         role="dialog"

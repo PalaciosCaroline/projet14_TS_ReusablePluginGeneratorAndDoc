@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom';
  */
 export interface NavLinkProps {
   path: string;
-  className: string;
+  name: string;
   icon: JSX.Element;
   text: string;
 }
@@ -23,9 +23,9 @@ export interface NavLinkProps {
  * @param {NavLinkProps} { path, className, icon, text } - The properties for the NavLinkComponent.
  * @returns {JSX.Element} The rendered NavLinkComponent.
  */
-export const NavLinkComponent = ({ path, className, icon, text }: NavLinkProps): JSX.Element => {
+export const NavLinkComponent = ({ path, name, icon, text }: NavLinkProps): JSX.Element => {
   return (
-    <NavLink to={path} className={className} data-testid={className}>
+    <NavLink to={path} className='linkApp' data-testid={name}>
       {icon}
       <span className='textLink'>{text}</span>
     </NavLink>

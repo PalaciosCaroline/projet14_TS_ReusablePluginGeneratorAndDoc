@@ -11,7 +11,7 @@ export default function NewEmployee(): JSX.Element {
         className="main_newEmployee containerNewEmployee"
         data-testid="newEmployee"
       >
-        <h1>Create Employee</h1>
+        <h1 className='pageApp_title'>Create Employee</h1>
         <FormNewEmployee />
       </main>
     </>

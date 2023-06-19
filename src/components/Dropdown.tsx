@@ -96,16 +96,6 @@ const Dropdown: FC<DropdownProps> = ({
     toggleDropdown();
   };
 
-  // const handleClickOutside = (event: MouseEvent): void => {
-  //   if (
-  //     dropdownRef.current &&
-  //     !dropdownRef.current.contains(event.target as Node)
-
-  //   ) {
-  //     setIsOpen(false);
-  //   }
-  // };
-
   const handleTriggerKeyDown1 = (event: React.KeyboardEvent): void => {
     if (event.currentTarget !== event.target) {
       return;
@@ -160,13 +150,6 @@ const Dropdown: FC<DropdownProps> = ({
       }
     }
   }, [focusedOptionIndex, isOpen, options.length]);
-
-  // useEffect(() => {
-  //   document.addEventListener('click', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('click', handleClickOutside);
-  //   };
-  // }, []);
 
   const handleOptionKeyDown2 = (
     event: React.KeyboardEvent,
