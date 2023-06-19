@@ -6,10 +6,8 @@ import { linkNewEmployee, linkCurrentEmployees } from './../../utils/linkData';
 export default function Home(): JSX.Element {
   return (
     <main className="box_home" data-testid="home">
-      {/* <header style={{padding:'20px'}}> */}
       <img src={logoHRnet} alt="" className="logoHome" />
       <h1 data-testid="pageApp_title">Welcome to <br className='br'/>HRnet Service !</h1>
-      {/* </header> */}
       <nav className="box_navHome">
         <NavLinkComponent {...linkNewEmployee} />
         <NavLinkComponent {...linkCurrentEmployees} />

@@ -281,7 +281,6 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         {isModalOpen && selectedEmployeeId && (
           <Modal
             isModalOpen={isModalOpen}
-            // closeModal={closeModal}
             closeModal={handleanimModal}
             className={`editEmployeeModal ${isFadingOut ? 'fadeOut' : ''} ${
               modalType === 'delete' ? 'deleteEmployeeModal' : ''

@@ -166,8 +166,8 @@ header .linkApp:hover {
 
 .box_navHome .linkApp:hover {
   background: #b3d145;
-  border-left: 30px solid #8cac19;
 }
+
 .box_navHome .linkApp {
   display: flex;
   flex-direction: column;
@@ -217,7 +217,7 @@ header .linkApp:hover {
   }
 
   .box_navHome .linkApp {
-    width: 150px;
+    width: 160px;
     height: 240px;
     padding: 10px;
     margin-left: 6px;
