@@ -280,12 +280,16 @@ header .linkApp:after {
   header .linkApp {
     margin-right: 10px;
   }
+  header .linkApp .textLink {
+    margin-left:20px;
+  }
   .box_navHome .linkApp > svg {
     font-size: 3rem;
     height: 25%;
     margin-bottom: 30px;
     color: #5a6e0e;
   }
+
 
   .box_navHome .linkApp {
     width: 160px;
