@@ -16,7 +16,7 @@ import {
   deleteEmployee,
   setLoading,
 } from '../store/employeesSlice';
-// import { ExportDataComponent } from 'typescript-exportdata';
+import { ExportDataComponent } from 'typescript-exportdata';
 import {
   clearInput,
   setEmployeeData,
@@ -254,19 +254,19 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
           handleArchiveRow={handleArchiveRow}
           deleteRowColumnVisible
           handleDeleteRow={handleDeleteRow}
-          // renderExportDataComponent={(
-          //   filteredData: DataItem<any | undefined>[],
-          //   columnsManaged: ColumnManaged[],
-          // ) => (
-          //   <ExportDataComponent
-          //     filteredData={filteredData}
-          //     columnsManaged={columnsManaged}
-          //     headerProperty="label"
-          //     csvExport={true}
-          //     excelExport={true}
-          //     pdfExport={true}
-          //   />
-          // )}
+          renderExportDataComponent={(
+            filteredData: DataItem<any | undefined>[],
+            columnsManaged: ColumnManaged[],
+          ) => (
+            <ExportDataComponent
+              filteredData={filteredData}
+              columnsManaged={columnsManaged}
+              headerProperty="label"
+              csvExport={true}
+              excelExport={true}
+              pdfExport={true}
+            />
+          )}
         />
         {isModalOpen && selectedEmployeeId && (
           <Modal
