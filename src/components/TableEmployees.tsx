@@ -86,7 +86,6 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
     );
     const [modalType, setModalType] = useState<ModalType>('none');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
     const employeeFormState = useSelector(
       (state: RootState) => state.employeeFormState,
     );
@@ -111,28 +110,20 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
     //   );
     // }, [employees, archivedEmployees]);
 
-    const handleEditRow = (id: any, e: any) => {
-      // e.persist();
-      openModal(id, 'edit', e);
+    const handleEditRow = (id: any) => {
+      openModal(id, 'edit');
     };
 
-    const handleArchiveRow = (id: any, e: any) => {
-      // e.persist();
-      openModal(id, 'archive', e);
+    const handleArchiveRow = (id: any) => {
+      openModal(id, 'archive');
     };
 
-    const handleDeleteRow = (id: number, e: any) => {
-      // e.persist();
-      openModal(id, 'delete', e);
+    const handleDeleteRow = (id: number) => {
+      openModal(id, 'delete');
     };
 
     const closeModal = () => {
       dispatch(clearInput());
-      // setIsFadingOut(true);
-      // setTimeout(() => {
-      //   setIsModalOpen(false);
-      //   setIsFadingOut(false);
-      // }, 300);
       setSelectedEmployeeId(null);
       setModalType('none');
       if (
@@ -150,7 +141,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       }, 300);
     }
 
-    const openModal = async (id: number, type: ModalType, e: any) => {
+    const openModal = async (id: number, type: ModalType) => {
       lastFocusedElementRef.current = document.activeElement;
       const selectedEmployee = employees.find((employee) => employee.id === id);
       if (!selectedEmployee) {
@@ -165,7 +156,6 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       await Promise.all([
         dispatch(setEmployeeData(employeeData)),
         setModalType(type),
-        setModalPosition({ x: e.pageX, y: e.pageY }),
         setIsModalOpen(true),
       ]);
     };

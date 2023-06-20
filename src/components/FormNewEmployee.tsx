@@ -1,10 +1,9 @@
-import React, { useState, useEffect, FC, useRef } from 'react';
+import React, { useState, useEffect, FC, useRef, useMemo } from 'react';
+import { createSelector } from 'reselect';
 import { clearInput, setError } from '../store/employeeFormStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addEmployee,
-  setLoading,
-} from '../store/employeesSlice';
+import { addEmployee, setLoading } from '../store/employeesSlice';
+import { employeeStateSelector } from '../store/index';
 import Modal from './Modal';
 import { InputField } from './InputField';
 import AddressAndDepartmentForm from './AddressAndDepartmentForm';
@@ -33,6 +32,8 @@ interface Props {
   employee?: Employee;
 }
 
+export type ModalType = 'confirmationModal' | 'errorConfirmationModal' | 'none';
+
 /**
  * FormNewEmployee is a functional component that renders a form for creating a new employee.
  * It provides fields for an employee's name, date of birth, start date, and address information.
@@ -44,10 +45,8 @@ interface Props {
  */
 export const FormNewEmployee: FC<Props> = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(
-    (state: RootState) => state.employees.isLoading,
-  );
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<ModalType>('none');
   const [employeeName, setEmployeeName] = useState<{
     firstname: string;
     lastname: string;
@@ -57,13 +56,13 @@ export const FormNewEmployee: FC<Props> = () => {
     lastname: '',
     dateOfBirth: '',
   });
-  const newEmployeeEntree = useSelector(
-    (state: RootState) => state.employeeFormState?.formValues,
+
+  const { isLoading, employeeFormState, errorEmployeeExist } = useSelector(
+    employeeStateSelector,
   );
-  const newEmployeeErrors = useSelector(
-    (state: RootState) => state.employeeFormState?.formErrors,
-  );
-  const errorEmployeeExist = useSelector((state: RootState) => state.employees.error);
+  const newEmployeeErrors = employeeFormState?.formErrors;
+  const newEmployeeEntree = employeeFormState?.formValues;
+
   const {
     firstname,
     lastname,
@@ -82,6 +81,14 @@ export const FormNewEmployee: FC<Props> = () => {
   useEffect(() => {
     dispatch(clearInput());
   }, []);
+
+  useEffect(() => {
+    if (errorEmployeeExist) {
+      setModalType('errorConfirmationModal');
+    } else {
+      setModalType('confirmationModal');
+    }
+  }, [errorEmployeeExist]);
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
@@ -112,7 +119,17 @@ export const FormNewEmployee: FC<Props> = () => {
         zipCode,
       };
       dispatch(addEmployee(newEmployee));
-      setEmployeeName({ firstname: firstname, lastname: lastname, dateOfBirth: dateOfBirth });
+      
+      // if (errorEmployeeExist) {
+      //   setModalType('errorConfirmationModal');
+      // } else {
+      //   setModalType('confirmationModal');
+      // }
+      setEmployeeName({
+        firstname: firstname,
+        lastname: lastname,
+        dateOfBirth: dateOfBirth,
+      });
       lastFocusedElementRef.current = document.activeElement;
       setIsModalOpen(true);
       dispatch(clearInput());
@@ -121,13 +138,17 @@ export const FormNewEmployee: FC<Props> = () => {
     }
   };
 
-  const inputFieldsName = [
-    { name: 'firstname', label: 'First Name' },
-    { name: 'lastname', label: 'Last Name' },
-  ];
+  const inputFieldsName = useMemo(
+    () => [
+      { name: 'firstname', label: 'First Name' },
+      { name: 'lastname', label: 'Last Name' },
+    ],
+    [],
+  );
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setModalType('none');
     if (
       lastFocusedElementRef.current &&
       lastFocusedElementRef.current instanceof HTMLElement
@@ -136,16 +157,35 @@ export const FormNewEmployee: FC<Props> = () => {
     }
   };
 
-  const modalFormAddContent = errorEmployeeExist ? (
-    <p tabIndex={0} id="error-text">
-     The employee {employeeName.firstname} {employeeName.lastname}, born on {employeeName.dateOfBirth}, already exist.
-    </p>
-  ) : (
-    <p tabIndex={0} id="confirmation-text">
-      The new employee, {employeeName.firstname} {employeeName.lastname},
-      has been registered successfully.
-    </p>
-  );
+  const modalProperties = {
+    confirmationModal: {
+      icon: <FaUserCheck className="iconCheckedModal" />,
+      title: 'Confirmation',
+      modalFormAddContent: (
+        <p tabIndex={0} id="confirmation-text">
+          The new employee, {employeeName.firstname} {employeeName.lastname},
+          has been registered successfully.
+        </p>
+      ),
+    },
+    errorConfirmationModal: {
+      icon: <BiErrorAlt className="iconCheckedModal" />,
+      title: 'Error',
+      modalFormAddContent: (
+        <p tabIndex={0} id="error-text">
+          The employee {employeeName.firstname} {employeeName.lastname}, born on{' '}
+          {employeeName.dateOfBirth}, already exist.
+        </p>
+      ),
+    },
+    none: {
+      icon: null,
+      title: '',
+      modalFormAddContent: null
+    },
+  };
+
+  const { icon, title, modalFormAddContent } = modalProperties[modalType];
 
   return (
     <div className="box_formEntree">
@@ -196,14 +236,16 @@ export const FormNewEmployee: FC<Props> = () => {
           Save the new employee
         </button>
       </form>
-      {isModalOpen && (
+      {isModalOpen && modalType != 'none' && (
         <Modal
           isModalOpen={isModalOpen}
           closeModal={handleCloseModal}
-          className={`formAddModal ${errorEmployeeExist ? "errorConfirmationModal" : "confirmationModal" }`}
+          className={`formAddModal ${
+            errorEmployeeExist ? 'errorConfirmationModal' : 'confirmationModal'
+          }`}
           dataTestId="modalConfirm"
-          icon={errorEmployeeExist ? <BiErrorAlt className="iconCheckedModal" /> : <FaUserCheck className="iconCheckedModal" />}
-          title={errorEmployeeExist ? "Error" : "Confirmation"}
+          icon={icon}
+          title={title}
         >
           {modalFormAddContent}
         </Modal>

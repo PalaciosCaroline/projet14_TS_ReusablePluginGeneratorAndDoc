@@ -15,14 +15,14 @@ interface EmployeesState {
   active: Employee[];
   archived: Employee[];
   isLoading: boolean;
-  error: string | null;
+  errorEmployeeExist: string | null;
 }
 
 export const initialState: EmployeesState = {
   active: dataEmployeesMock,
   archived: [],
   isLoading: false,
-  error: null, 
+  errorEmployeeExist: null, 
 };
 
 interface UpdateEmployeePayload {
@@ -51,10 +51,10 @@ const employeesSlice = createSlice({
             employee.dateOfBirth === action.payload.dateOfBirth
         );
         if (existingEmployee) {
-          state.error = "Employee already exists";
+          state.errorEmployeeExist = "Employee already exists";
         } else {
           state.active.push(action.payload);
-          state.error = null; // réinitialiser l'erreur si l'ajout est réussi
+          state.errorEmployeeExist = null; // réinitialiser l'erreur si l'ajout est réussi
         }
       },
       prepare: (employee: EmployeeBase) => {
