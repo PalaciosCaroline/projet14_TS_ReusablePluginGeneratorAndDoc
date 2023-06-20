@@ -2,6 +2,7 @@ import { createAction, createSlice, PayloadAction,  createAsyncThunk } from '@re
 import { dataEmployeesMock } from '../mocks/data';
 import { EmployeeBase } from './../employeeTypes'
 import { RootState } from './index';
+import dayjs from 'dayjs';
 
 export interface Employee extends EmployeeBase {
   id: number;
@@ -38,19 +39,17 @@ const employeesSlice = createSlice({
   initialState: initialState as EmployeesState,
   reducers: {
     setLoading: (state, action: PayloadAction<boolean>) => {
-      // Mise à jour de l'état de chargement en fonction de l'action
       state.isLoading = action.payload;
     },
     // sécurité: enregistrement de l'idUser à faire et Date d'enregistrement
     addEmployee: {
       reducer: (state, action: PayloadAction<Employee>) => {
         const existingEmployee = state.active.find(
-          (employee) =>
+          (employee) => 
             employee.firstname === action.payload.firstname &&
             employee.lastname === action.payload.lastname &&
             employee.dateOfBirth === action.payload.dateOfBirth
         );
-
         if (existingEmployee) {
           state.error = "Employee already exists";
         } else {

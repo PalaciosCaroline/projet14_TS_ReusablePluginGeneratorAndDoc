@@ -29,7 +29,7 @@ export const dataEmployeesMock: Employee[] = [
     id:1,
     firstname: 'John',
     lastname: 'Doe',
-    dateOfBirth: '15/01/1975',
+    dateOfBirth: "15/01/1975",
     startDate: '01/04/2022',
     department: 'Sales',
     street: '123 Main St',
