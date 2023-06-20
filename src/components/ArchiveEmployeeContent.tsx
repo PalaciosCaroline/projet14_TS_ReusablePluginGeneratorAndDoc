@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import DatePickerComponent from './DatePickerComponent';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import 'dayjs/locale/en-gb';
 
 /**
  * Defines the properties of the component.
@@ -44,7 +45,7 @@ const ArchiveEmployeeContent: FC<ArchiveEmployeeContentProps> = ({
         onSubmit={handleArchiveSubmit(selectedEmployeeId)}
         data-testid="form"
       >
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
           <div className="boxDate">
             <DatePickerComponent
               nameDate="endDate"
