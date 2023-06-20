@@ -65,6 +65,13 @@ button {
     display: none;
   }
 }
+
+h1,
+h2 {
+  /* color:#676565; */
+  color: #545252;
+}
+
 .main_newEmployee .pageApp_title {
   margin-top: 30px;
 }
@@ -76,7 +83,7 @@ button {
 .pageApp_title {
   margin-bottom: 20px;
   font-size: 2.4rem;
-  color: #3f3f3f;
+  /* color: #3f3f3f; */
   text-align: center;
 }
 
@@ -511,16 +518,22 @@ select {
   justify-content: center;
 }
 
-.confirmationModal {
-  background-color: #b9d851;
+.formAddModal {
   min-width: 500px;
   min-height: 300px;
 }
 
-.confirmationModal {
+/* .formAddModal.confirmationModal{
+  background-color: #b9d851;
+} */
+
+.formAddModal {
+  background: linear-gradient(to bottom, transparent, rgb(255, 255, 255))
+    rgb(214, 219, 220);
   left: 50%;
 }
-.confirmationModal,
+
+.formAddModal,
 .editEmployeeModal {
   position: fixed;
   top: 50%;
@@ -535,14 +548,28 @@ select {
   height: auto;
 }
 
+.editEmployeeModal.deleteEmployeeModal .box_titleModal {
+  border-bottom: 2px solid #e01111;
+}
+.editEmployeeModal .box_titleModal {
+  border-bottom: 2px solid #677e11;
+}
+
+.formAddModal.confirmationModal .box_titleModal {
+  border-bottom: 2px solid #677e11;
+}
+
+.formAddModal.errorConfirmationModal .box_titleModal {
+  border-bottom: 2px solid #e01111;
+}
+
 .editEmployeeModal .box_titleModal,
-.confirmationModal .box_titleModal {
-  border-bottom: 2px solid #0d0d0d;
+.formAddModal .box_titleModal {
   margin-top: 30px;
 }
 
 .editEmployeeModal,
-.confirmationModal {
+.formAddModal {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -550,11 +577,12 @@ select {
   padding: 20px 30px 20px 30px;
   border-radius: 8px;
 }
-.confirmationModal {
+.formAddModal {
   z-index: 9999;
 }
 
-.editEmployeeModal.deleteEmployeeModal {
+.editEmployeeModal.deleteEmployeeModal,
+.formAddModal.errorConfirmationModal {
   box-sizing: border-box;
   border: 5px solid red;
 }
@@ -614,7 +642,7 @@ select {
   .editEmployeeModal .address input {
     margin-top: 8px;
   }
-  .confirmationModal {
+  .formAddModal {
     min-width: 350px;
   }
   .box_titleModal h2 {
@@ -626,9 +654,11 @@ select {
   }
 }
 
-.iconCheckedModal {
+.formAddModal .iconCheckedModal,
+.editEmployeeModal .iconCheckedModal {
   font-size: 2.3rem;
   margin-right: 20px;
+  color: #545252;
 }
 
 .modal-title {
@@ -639,7 +669,7 @@ select {
   font-size: 1.1rem;
 }
 
-.confirmationModal p {
+.formAddModal p {
   font-size: 1.3rem;
 }
 
@@ -649,13 +679,13 @@ select {
   }
 
   .editEmployeeModal,
-  .confirmationModal {
+  .formAddModal {
     width: 95%;
     padding-left: 15px;
     padding-right: 15px;
   }
 
-  .confirmationModal p {
+  .formAddModal p {
     font-size: 1rem;
   }
 }
@@ -697,6 +727,7 @@ select {
   font-size: 2rem;
   font-weight: bold;
   margin: 10px 0;
+  color: #494949;
 }
 
 .header_ListEmployees {
@@ -1054,7 +1085,7 @@ input::placeholder {
 .editEmployeeModal {
   animation: fadeIn 0.3s ease-out forwards, slideInEdit 0.3s ease-out forwards;
 }
-.confirmationModal {
+.formAddModal {
   animation: fadeIn 0.3s ease-out forwards,
     slideInConfirm 0.3s ease-out forwards;
 }
@@ -1069,7 +1100,7 @@ input::placeholder {
   animation: fadeOut 0.3s ease-out forwards, slideOutEdit 0.3s ease-out forwards;
 }
 
-.confirmationModal.fadeOut {
+.formAddModal.fadeOut {
   animation: fadeOut 0.3s ease-out forwards,
     slideOutConfirm 0.3s ease-out forwards;
 }

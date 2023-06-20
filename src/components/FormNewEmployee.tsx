@@ -2,7 +2,6 @@ import React, { useState, useEffect, FC, useRef } from 'react';
 import { clearInput, setError } from '../store/employeeFormStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  checkEmployeeExistence,
   addEmployee,
   setLoading,
 } from '../store/employeesSlice';
@@ -13,10 +12,12 @@ import { validateNames } from '../utils/controlName';
 import { validateDates } from '../utils/controlDate';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import 'dayjs/locale/en-gb';
 import { RootState } from '../store/index';
 import DatePickerComponent from './DatePickerComponent';
 import { Employee } from '../store/employeeFormStateSlice';
 import { FaUserCheck } from 'react-icons/fa';
+import { BiErrorAlt } from 'react-icons/bi';
 import { EmployeeFormErrors } from '../store/employeeFormStateSlice';
 
 /**
@@ -46,16 +47,15 @@ export const FormNewEmployee: FC<Props> = () => {
   const isLoading = useSelector(
     (state: RootState) => state.employees.isLoading,
   );
-  // const employees = useSelector((state: RootState) => state.employees.active);
-  // const selectedEmployee = employees.find((employee: any) => employee.id === employeeId);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [errorEmployeeExist, setErrorEmployeeExist] = useState(null);
   const [employeeName, setEmployeeName] = useState<{
     firstname: string;
     lastname: string;
+    dateOfBirth: string;
   }>({
     firstname: '',
     lastname: '',
+    dateOfBirth: '',
   });
   const newEmployeeEntree = useSelector(
     (state: RootState) => state.employeeFormState?.formValues,
@@ -63,6 +63,7 @@ export const FormNewEmployee: FC<Props> = () => {
   const newEmployeeErrors = useSelector(
     (state: RootState) => state.employeeFormState?.formErrors,
   );
+  const errorEmployeeExist = useSelector((state: RootState) => state.employees.error);
   const {
     firstname,
     lastname,
@@ -111,7 +112,7 @@ export const FormNewEmployee: FC<Props> = () => {
         zipCode,
       };
       dispatch(addEmployee(newEmployee));
-      setEmployeeName({ firstname: firstname, lastname: lastname });
+      setEmployeeName({ firstname: firstname, lastname: lastname, dateOfBirth: dateOfBirth });
       lastFocusedElementRef.current = document.activeElement;
       setIsModalOpen(true);
       dispatch(clearInput());
@@ -119,41 +120,6 @@ export const FormNewEmployee: FC<Props> = () => {
       dispatch(setLoading(false));
     }
   };
-
-  // const handleFormSubmit =  async (e: any) => {
-  //   e.preventDefault();
-  //   const isDateValid = validateDates(dateOfBirth, startDate, setError, dispatch)
-  //   const isNameValid = validateNames(firstname, lastname, setError, dispatch);
-  //   if (!isNameValid || !isDateValid) {
-  //     return;
-  //   } else if (errordateOfBirth || errorstartDate) {
-  //     return;
-  //   } else {
-  //     const newEmployee = {
-  //       firstname,
-  //       lastname,
-  //       startDate,
-  //       department,
-  //       dateOfBirth,
-  //       street,
-  //       city,
-  //       state,
-  //       zipCode,
-  //     };
-  //     const exists = await dispatch(checkEmployeeExistence(newEmployee));
-
-  //     if (exists) {
-  //       // Si l'employé existe déjà, on affiche une erreur
-  //       setErrorEmployeeExist(`Employee ${newEmployee.firstname} ${newEmployee.lastname} already exists.`);
-  //     } else {
-  //       dispatch(addEmployee(newEmployee));
-  //       setEmployeeName({ firstname: firstname, lastname: lastname });
-  //       setIsModalOpen(true);
-  //       dispatch(clearInput());
-  //       e.target.reset();
-  //     }
-  //   }
-  // };
 
   const inputFieldsName = [
     { name: 'firstname', label: 'First Name' },
@@ -169,6 +135,17 @@ export const FormNewEmployee: FC<Props> = () => {
       lastFocusedElementRef.current.focus();
     }
   };
+
+  const modalFormAddContent = errorEmployeeExist ? (
+    <p tabIndex={0} id="error-text">
+     The employee {employeeName.firstname} {employeeName.lastname}, born on {employeeName.dateOfBirth}, already exist.
+    </p>
+  ) : (
+    <p tabIndex={0} id="confirmation-text">
+      The new employee, {employeeName.firstname} {employeeName.lastname},
+      has been registered successfully.
+    </p>
+  );
 
   return (
     <div className="box_formEntree">
@@ -191,7 +168,7 @@ export const FormNewEmployee: FC<Props> = () => {
             />
           ))}
         </div>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
           <div className="boxDate">
             <DatePickerComponent
               nameDate="dateOfBirth"
@@ -223,21 +200,12 @@ export const FormNewEmployee: FC<Props> = () => {
         <Modal
           isModalOpen={isModalOpen}
           closeModal={handleCloseModal}
-          className="confirmationModal"
+          className={`formAddModal ${errorEmployeeExist ? "errorConfirmationModal" : "confirmationModal" }`}
           dataTestId="modalConfirm"
-          icon={<FaUserCheck className="iconCheckedModal" />}
-          title="Confirmation"
-          // style={{
-          //   position: 'fixed', // changed from 'absolute' to 'fixed'
-          //   top: '50%',
-          //   left: '50%',
-          //   transform: 'translate(-50%, -50%)',
-          // }}
+          icon={errorEmployeeExist ? <BiErrorAlt className="iconCheckedModal" /> : <FaUserCheck className="iconCheckedModal" />}
+          title={errorEmployeeExist ? "Error" : "Confirmation"}
         >
-          <p tabIndex={0} id="confirmation-text">
-            The new employee, {employeeName.firstname} {employeeName.lastname},
-            has been registered successfully.
-          </p>
+          {modalFormAddContent}
         </Modal>
       )}
     </div>

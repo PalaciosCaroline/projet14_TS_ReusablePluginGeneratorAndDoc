@@ -14,12 +14,14 @@ interface EmployeesState {
   active: Employee[];
   archived: Employee[];
   isLoading: boolean;
+  error: string | null;
 }
 
 export const initialState: EmployeesState = {
   active: dataEmployeesMock,
   archived: [],
   isLoading: false,
+  error: null, 
 };
 
 interface UpdateEmployeePayload {
@@ -42,7 +44,19 @@ const employeesSlice = createSlice({
     // sécurité: enregistrement de l'idUser à faire et Date d'enregistrement
     addEmployee: {
       reducer: (state, action: PayloadAction<Employee>) => {
-        state.active.push(action.payload);
+        const existingEmployee = state.active.find(
+          (employee) =>
+            employee.firstname === action.payload.firstname &&
+            employee.lastname === action.payload.lastname &&
+            employee.dateOfBirth === action.payload.dateOfBirth
+        );
+
+        if (existingEmployee) {
+          state.error = "Employee already exists";
+        } else {
+          state.active.push(action.payload);
+          state.error = null; // réinitialiser l'erreur si l'ajout est réussi
+        }
       },
       prepare: (employee: EmployeeBase) => {
         return { payload: { ...employee, id: nextId++ } };
@@ -79,20 +93,6 @@ const employeesSlice = createSlice({
     },
   },
 });
-
-export const checkEmployeeExistence = createAsyncThunk<boolean, EmployeeBase>(
-  'employees/checkExistence',
-  async (employee: EmployeeBase, { getState }) => {
-    const state = getState() as RootState;
-    const exists = state.employees.active.some(
-      emp =>
-        emp.firstname === employee.firstname &&
-        emp.lastname === employee.lastname &&
-        emp.dateOfBirth === employee.dateOfBirth,
-    );
-    return exists;
-  },
-);
 
 export const { setLoading, addEmployee, updateEmployee, deleteEmployee, archiveEmployee } =
   employeesSlice.actions;
