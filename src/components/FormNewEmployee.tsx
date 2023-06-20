@@ -119,12 +119,6 @@ export const FormNewEmployee: FC<Props> = () => {
         zipCode,
       };
       dispatch(addEmployee(newEmployee));
-      
-      // if (errorEmployeeExist) {
-      //   setModalType('errorConfirmationModal');
-      // } else {
-      //   setModalType('confirmationModal');
-      // }
       setEmployeeName({
         firstname: firstname,
         lastname: lastname,
