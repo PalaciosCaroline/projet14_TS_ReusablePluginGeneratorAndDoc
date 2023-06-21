@@ -1242,7 +1242,7 @@ border: 1px solid #67980e;
 .form-item input ~ label {
   padding: 2px 10px;
   background-color: transparent;
-  color: #5e5d5d;
+  color: #6a6a6a;
   font-size: 12px;
   top: 8px;
   left: 15px;
@@ -1260,7 +1260,7 @@ border: 1px solid #67980e;
   padding: 2px 2px;
   background-color: inherit;
   font-weight: bold;
-  color: #365da3;
+  color: #636363;
   font-size: 12px;
   top: -12px;
   left: 15px;
