@@ -419,7 +419,7 @@ header .linkApp:after {
   }
 }
 .editEmployeeModal .box_endDate .MuiInputBase-formControl .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-  height: 20px;
+  height: 40px;
   padding:8px 8px;
 }
 .editEmployeeModal .box_endDate .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root input{
