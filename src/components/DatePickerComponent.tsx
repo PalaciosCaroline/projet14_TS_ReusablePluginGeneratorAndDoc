@@ -86,7 +86,7 @@ const errorDate = useSelector(
 
   return (
     <div className={`form-group box_${nameDate}`}>
-      <p className={`text_${nameDate}`}>{label}</p>
+      {/* <p className={`text_${nameDate}`}>{label}</p> */}
       <div
         className="box_Input "
         style={{ display: 'flex', position: 'relative' }}
@@ -107,8 +107,9 @@ const errorDate = useSelector(
           sx={{
             '& .MuiInputBase-input': {
               height: '20px',
-              width: '160px',
-              margin: '10px',
+              width: '180px',
+              margin: '8px',
+              padding:'8px 10px'
             },
           }}
         />

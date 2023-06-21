@@ -19,7 +19,7 @@ import { RootState } from './../store/index';
 interface DropdownProps {
   label: string;
   options: string[];
-  placeholder: string;
+  placeholder?: string;
   dropdownLabel: string;
   style?: React.CSSProperties;
 }
@@ -176,11 +176,12 @@ const Dropdown: FC<DropdownProps> = ({
 
   return (
     <div className={`box_${label}`}>
-      <p className="p_label">{label}</p>
-      <div className="dropdown dropdownNewEmployee" ref={dropdownRef}>
+      {/* <p className="p_label form__label">{label}</p> */}
+      <div className="dropdown dropdownNewEmployee" ref={dropdownRef} style={{position:'relative'}}>
+      <p className="p_label form__label">{label}</p> 
         <button
           type="button"
-          className="dropdownToggle"
+          className="dropdownToggle form__input"
           onClick={toggleDropdown}
           onKeyDown={handleTriggerKeyDown1}
           value={selectedOption}
