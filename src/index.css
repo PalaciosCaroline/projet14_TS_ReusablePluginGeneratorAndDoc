@@ -1284,6 +1284,9 @@ border: 1px solid #67980e;
   background: linear-gradient(to top, rgb(226, 226, 226)20% ,rgb(233, 233, 233)20%,rgb(255, 255, 255) 50%);
 } */
 
+.main_newEmployee .boxName .form-item {
+  margin-top:10px;
+}
 .main_newEmployee .form-item label.up {
   padding: 2px 10px;
   background-color: inherit;
