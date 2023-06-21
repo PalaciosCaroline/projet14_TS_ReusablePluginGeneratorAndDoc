@@ -904,23 +904,12 @@ input::placeholder {
 
 .main_newEmployee .box_formEntree .boxDate .box_dateOfBirth label,
 .main_newEmployee .box_formEntree .boxDate .box_startDate label {
-  padding-left: 20px;
+  padding-left: 8px;
   padding-top: 3px;
 }
-.box_table .editEmployeeModal .box_endDate label {
-  padding-left: 20px;
+/* .box_table .editEmployeeModal .box_endDate label {
+  padding-left: 8px;
   padding-top: 3px;
-}
-
-/* .logoHome {
-  width: 330px;
-  height: 300px;
-} */
-
-/* @media (max-width: 800px) {
-  .header_ListEmployees {
-    flex-direction: column;
-  }
 } */
 
 .main_ListEmployees .box_searchGlobal input {
