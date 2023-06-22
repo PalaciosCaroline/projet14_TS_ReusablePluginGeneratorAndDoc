@@ -1,41 +1,39 @@
-import NewEmployee from './NewEmployee';
+import NewEmployee from '../pages/NewEmployee';
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
-import ListEmployees from '../listEmployees/ListEmployees';
-import { dataEmployeesMock, dataColumnsMock } from '../../mocks/data';
+import ListEmployees from '../pages/ListEmployees';
+import { dataEmployeesMock, dataColumnsMock } from '../mocks/data';
 // import { Employee } from "../../mocks/data";
-import { Employee } from '../../store/employeeFormStateSlice';
-import {initialState} from '../../store/employeeFormStateSlice';
-import { setError, setField } from '../../store/employeeFormStateSlice';
-import { addEmployee } from '../../store/employeesSlice';
-import Modal from '../../components/Modal';
-
+import { Employee } from '../store/employeeFormStateSlice';
+import { initialState } from '../store/employeeFormStateSlice';
+import { setError, setField } from '../store/employeeFormStateSlice';
+import { addEmployee } from '../store/employeesSlice';
+import Modal from '../components/Modal';
 
 const mockStore = configureStore([]);
 
 describe('NewEmployee', () => {
-    let store: any;
+  let store: any;
 
-    beforeEach(() => {
-      store = mockStore({
-        employees: {
-          active: dataEmployeesMock
-        },
-        employeeFormState: initialState,  
-      });
+  beforeEach(() => {
+    store = mockStore({
+      employees: {
+        active: dataEmployeesMock,
+      },
+      employeeFormState: initialState,
     });
+  });
 
   test('renders NewEmployee component', () => {
-
     render(
-        <Provider store={store}>
-            <Router>
-                <NewEmployee />
-            </Router>
-        </Provider>,
+      <Provider store={store}>
+        <Router>
+          <NewEmployee />
+        </Router>
+      </Provider>,
     );
 
     expect(screen.getByTestId('header_test')).toBeInTheDocument();
@@ -44,13 +42,12 @@ describe('NewEmployee', () => {
   });
 
   test('should render a header with a logo and a link to add List of employees', () => {
-
     render(
-        <Provider store={store}>
-            <Router>
-                <NewEmployee />
-            </Router>
-        </Provider>,
+      <Provider store={store}>
+        <Router>
+          <NewEmployee />
+        </Router>
+      </Provider>,
     );
 
     const logo = screen.getByAltText('HRnet Logo');
@@ -66,7 +63,9 @@ describe('NewEmployee', () => {
     const header = screen.getByTestId('header_test');
 
     expect(header).toHaveClass('header_ListEmployees');
-    expect(screen.getByText(/View Current Employees/i).closest('a')).toHaveAttribute('href', '/listemployees');
+    expect(
+      screen.getByText(/View Current Employees/i).closest('a'),
+    ).toHaveAttribute('href', '/listemployees');
   });
 });
 
@@ -76,13 +75,13 @@ describe('FormNewEmployee', () => {
   beforeEach(() => {
     store = mockStore({
       employees: {
-        active: dataEmployeesMock
+        active: dataEmployeesMock,
       },
-      employeeFormState: initialState, 
+      employeeFormState: initialState,
     });
 
     store.dispatch = jest.fn();
-  
+
     render(
       <Provider store={store}>
         <Router>
@@ -128,10 +127,9 @@ describe('FormNewEmployee', () => {
   });
 });
 
-
 describe('Modal', () => {
   beforeEach(() => {
-    window.HTMLElement.prototype.scrollIntoView = function() {};
+    window.HTMLElement.prototype.scrollIntoView = function () {};
   });
   const mockClose = jest.fn();
   const mockSetIsModalOpen = jest.fn();
@@ -143,15 +141,17 @@ describe('Modal', () => {
     children: <div>Test Child</div>,
     className: 'test-modal',
     dataTestId: 'modal-test',
-    icon:<div>icon</div>,
-    title: 'title'
+    icon: <div>icon</div>,
+    title: 'title',
   };
 
   it('renders the children and close button when opened', () => {
     const { getByRole, getByText } = render(<Modal {...defaultProps} />);
 
     expect(getByText('Test Child')).toBeInTheDocument();
-    expect(getByRole('button', { name: /Fermer la fenêtre/i })).toBeInTheDocument();
+    expect(
+      getByRole('button', { name: /Fermer la fenêtre/i }),
+    ).toBeInTheDocument();
   });
 
   it('calls the closeModal function when the close button is clicked', () => {
@@ -174,10 +174,9 @@ describe('Modal', () => {
     const { container, getByRole } = render(<Modal {...defaultProps} />);
     const button = getByRole('button', { name: /Fermer la fenêtre/i });
 
-    button.focus(); 
+    button.focus();
     fireEvent.keyDown(container, { key: 'Tab', code: 'Tab' });
 
     expect(button).toHaveFocus();
   });
 });
-

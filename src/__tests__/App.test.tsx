@@ -1,13 +1,12 @@
 import React from "react";
 import { render, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import {  MemoryRouter, Route, Routes  } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { Provider } from "react-redux";
-import store from "./store/index";
-import App from "./App";
+import store from "../store/index";
+import App from "../App";
 
-jest.setTimeout(30000);
+jest.setTimeout(10000);
 
 describe("App", () => {
   it("renders the Home component as the default route", async () => {
@@ -29,21 +28,21 @@ describe("App", () => {
         </Provider>
     );
 
-    await waitForElementToBeRemoved(() => screen.getByTestId("progressbar"), { timeout: 22000 });
+    await waitForElementToBeRemoved(() => screen.getByTestId("progressbar"), { timeout: 10000 });
     expect(screen.getByTestId("newEmployee")).toBeInTheDocument();
   });
 
-  // it("renders the ListEmployees component when navigating to /listemployees", async () => {
-  //   render(
-  //       <Provider store={store}>
-  //           <MemoryRouter initialEntries={["/listemployees"]}>
-  //               <App />
-  //           </MemoryRouter>
-  //       </Provider>
-  //   );
+  it("renders the ListEmployees component when navigating to /listemployees", async () => {
+    render(
+        <Provider store={store}>
+            <MemoryRouter initialEntries={["/listemployees"]}>
+                <App />
+            </MemoryRouter>
+        </Provider>
+    );
 
-  //   await waitForElementToBeRemoved(() => screen.getByTestId("progressbar"), { timeout: 60000 });
-  //   expect(screen.getByTestId("header_ListEmployees")).toBeInTheDocument();
-  // });
+    await waitForElementToBeRemoved(() => screen.getByTestId("progressbar"), { timeout: 10000 });
+    expect(screen.getByTestId("listEmployees")).toBeInTheDocument();
+  });
 });
 

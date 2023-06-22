@@ -1,10 +1,10 @@
-import Home from './pages/home/Home';
+import Home from './pages/Home';
 import Spinner from './pages/Spinner';
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-const NewEmployee = lazy(() => import('./pages/newEmployee/NewEmployee'));
-const ListEmployees = lazy(() => import('./pages/listEmployees/ListEmployees'));
+const NewEmployee = lazy(() => import('./pages/NewEmployee'));
+const ListEmployees = lazy(() => import('./pages/ListEmployees'));
 
 export default function App() {
   document.title = 'HRnet';

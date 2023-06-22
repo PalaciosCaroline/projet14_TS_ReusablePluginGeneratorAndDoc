@@ -13,7 +13,7 @@ export interface NavLinkProps {
   path: string;
   name: string;
   icon: JSX.Element;
-  text: string;
+  text: JSX.Element;
 }
 
 /**
@@ -27,7 +27,7 @@ export const NavLinkComponent = ({ path, name, icon, text }: NavLinkProps): JSX.
   return (
     <NavLink to={path} className='linkApp' data-testid={name}>
       {icon}
-      <span className='textLink'>{text}</span>
+      {text}
     </NavLink>
   );
 };
