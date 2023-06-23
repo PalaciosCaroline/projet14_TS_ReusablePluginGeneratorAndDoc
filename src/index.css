@@ -199,7 +199,7 @@ header .linkApp {
 header .linkApp .textLink{
   color:#607722;
  
-  color: #4f6226;
+  color:#667a3b;
   /* text-shadow: 1px 1px 1px #7e9b16, 1px 3px 1px #7e9b16, 1px 3px 1px #7e9b16, 0px 2px 2px #474141, 1px 2px 1px rgba(16,16,16,0.4);
   text-shadow: 1px 1px 1px #a8ac96, 1px 3px 1px #97b72c, 1px 3px 1px #a6aa93, 0px 2px 2px #474141, 1px 2px 1px rgb(14 14 14 / 40%);
   text-shadow: 1px 2px 1px rgb(198 179 179), 1px 2px 1px #878686, 1px 3px 1px rgb(191 186 186), 1px 4px 1px rgb(191 181 181), 1px 2px 1px #474141, 1px 2px 2px rgba(16,16,16,0.8), 1px 2px 2px rgb(77 76 76 / 60%); */
@@ -212,13 +212,15 @@ header .linkApp .textLink{
 
 .linkApp:before {
   content: '';
-  height: 100%;
+
   position: absolute;
-  top: 0;
+
   left: 0;
 }
 
 .box_navHome .linkApp:before {
+  top: 0;
+  height: 100%;
   width: 30px;
   transform: skewY(-45deg) translate(-57px, -43px);
   /* background-color: #718722; */
@@ -232,14 +234,16 @@ header .linkApp .textLink{
 }
 
 header .linkApp:before {
+  height: 100%;
   width: 16px;
-  transform: skewY(-49deg) translate(-26px, -20px);
+  transform: skewY(311deg) translate(-26px, -20px);
   background:  hsl(73, 58%, 32%);
+  top:-1px;
 }
 
 .linkApp:after {
   content: '';
-background: repeating-linear-gradient(0deg,#bababa 0,#bababa 2px,#fff 2px,#fff 4px);
+background: repeating-linear-gradient(0deg,#bab9b9 0,#cdcccc 1px,#fff 1px,#fff 2px);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -252,8 +256,9 @@ background: repeating-linear-gradient(0deg,#bababa 0,#bababa 2px,#fff 2px,#fff 4
 
 header .linkApp:after {
   height: 17px;
-  transform: skewX(-45deg) translate(-6px, 17px);
-  width: 104%;
+  transform: skewX(318deg) translate(-6px, 17px);
+  width: 102%;
+  left: 4px;
 }
 
 .box_home .linkApp  .textLink{
@@ -284,6 +289,9 @@ header .linkApp:after {
     color: #5a6e0e;
   }
 
+  .box_navHome .linkApp:hover {
+    border-left: 12px solid #7e9b16;
+  }
   .box_navHome .linkApp {
     width: 160px;
     height: 240px;
@@ -296,12 +304,14 @@ header .linkApp:after {
   .box_home .linkApp  .textLink{
     font-size: 1.2rem;
     /* color:#59701d; */
-    color:#406521;
+    color:#677e11;
   
 
       /* text-shadow: 1px 1px 1px rgb(197, 206, 200), 1px 2px 1px #b1b9b1, 1px 3px 1px #9ead6e, 1px 4px 1px #9ead6e, 1px 1px 1px #474141, 1px 2px 2px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2); */
-      text-shadow: 1px 1px 1px #a6b573, 1px 2px 1px #acbc78, 1px 3px 1px #acbc78, 1px 4px 1px #aaba76, 1px 1px 1px #474141, 1px 2px 2px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2);
-    
+      /* text-shadow: 1px 1px 1px #a6b573, 1px 2px 1px #acbc78, 1px 3px 1px #acbc78, 1px 4px 1px #aaba76, 1px 1px 1px #474141, 1px 2px 2px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2); */
+
+      text-shadow: 1px 1px #9db940, 1px 1px 1px #9eb946, 1px 2px 1px #4f4f4f, 1px 1px 1px rgba(16,16,16,0.2);    
+      text-shadow:   1px 1px #799234, 1px 1px 1px #819b39, 1px 1px 1px #4f4f4f, 1px 1px 1px rgba(16,16,16,0.6);
   }
 
   .box_navHome .linkApp:before {
@@ -314,6 +324,7 @@ header .linkApp:after {
     content: '';
     height: 17px;
     transform: skewX(-45deg) translate(-6px, 17px);
+    left:3px;
   }
 }
 
