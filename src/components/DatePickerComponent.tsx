@@ -85,13 +85,14 @@ const errorDate = useSelector(
   };
 
   return (
-    <div className={`form-group box_${nameDate}`}>
-      {/* <p className={`text_${nameDate}`}>{label}</p> */}
+    <div className={`form-group box_${nameDate} ${errorDate ? 'errorBorder' : ''}`}>
       <div
         className="box_Input "
         style={{ display: 'flex', position: 'relative' }}
+        
       >
         <DatePicker
+          
           label={`${label} Select`}
           minDate={noBeforeDay}
           maxDate={noAfterDay}

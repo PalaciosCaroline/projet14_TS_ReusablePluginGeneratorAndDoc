@@ -83,7 +83,7 @@ const Dropdown: FC<DropdownProps> = ({
   const toggleDropdown = (): void => {
     setIsOpen((prevIsOpen) => {
       if (!prevIsOpen) {
-        setFocusedOptionIndex(0); // Sélectionnez la première option lors de l'ouverture du menu déroulant
+        setFocusedOptionIndex(0); // select first option when dropdown is opened
       }
       return !prevIsOpen;
     });
@@ -92,7 +92,7 @@ const Dropdown: FC<DropdownProps> = ({
   const handleChevronClick = (
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
   ): void => {
-    event.stopPropagation(); // Arrêter la propagation de l'événement pour éviter que le clic ne soit transmis au bouton parent
+    event.stopPropagation(); 
     toggleDropdown();
   };
 
@@ -125,7 +125,6 @@ const Dropdown: FC<DropdownProps> = ({
         }
         break;
       case 'Tab':
-        // event.preventDefault();
         setIsOpen(false);
         break;
       default:
@@ -138,7 +137,7 @@ const Dropdown: FC<DropdownProps> = ({
       isOpen &&
       focusedOptionIndex >= 0 &&
       focusedOptionIndex < options.length &&
-      dropdownRef.current // Ajoutez une vérification pour s'assurer que dropdownRef.current n'est pas null
+      dropdownRef.current 
     ) {
       const optionElement = dropdownRef.current.querySelector(
         `li:nth-child(${focusedOptionIndex + 1})`,
@@ -176,11 +175,13 @@ const Dropdown: FC<DropdownProps> = ({
 
   return (
     <div className={`box_${label}`}>
-      {/* <p className="p_label form__label">{label}</p> */}
       <div className="dropdown dropdownNewEmployee" ref={dropdownRef} style={{position:'relative'}}>
       <p className="p_label form__label">{label}</p> 
         <button
           type="button"
+          style={{
+            color: selectedOption ? '#5a5a5a' : '#747474', fontWeight: selectedOption ? '600' : ''
+          }}
           className="dropdownToggle form__input"
           onClick={toggleDropdown}
           onKeyDown={handleTriggerKeyDown1}

@@ -68,7 +68,7 @@ const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
       value={inputValue}
       onChange={handleInputChange}
       onBlur={handleBlur}
-      className={error ? 'errorBorder' : ''}
+      className={`inputFormEmployee ${error ? 'errorBorder' : ''}`}
     />
   );
   const inputElement = (

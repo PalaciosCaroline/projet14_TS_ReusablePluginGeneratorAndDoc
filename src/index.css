@@ -3,7 +3,7 @@ body {
   font-family: Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
   margin: 0;
-  color: #0d0d0d;
+  color: #494848;
   padding: 0;
   height: 100vh;
   box-sizing: border-box;
@@ -22,9 +22,7 @@ li {
 
 .sr-only {
   position: absolute !important;
-  clip: rect(
-    1px 1px 1px 1px
-  ); /* masque le contenu, mais le rend accessible pour les lecteurs d'écran */
+  clip: rect(1px 1px 1px 1px);
   padding: 0 !important;
   border: 0 !important;
   height: 1px !important;
@@ -68,7 +66,6 @@ button {
 
 h1,
 h2 {
-  /* color:#676565; */
   color: #545252;
 }
 
@@ -83,7 +80,6 @@ h2 {
 .pageApp_title {
   margin-bottom: 20px;
   font-size: 2.4rem;
-  /* color: #3f3f3f; */
   text-align: center;
 }
 
@@ -127,33 +123,37 @@ h2 {
   font-weight: bold;
 }
 
-.box_navHome .linkApp:hover > svg {
+.linkApp:hover > svg {
   color: #728c14;
 }
+
 .box_navHome .linkApp > svg {
   font-size: 5rem;
   height: 30%;
   margin-bottom: 30px;
-  /* color: #728c14; */
-  /* color:#5b7010; */
+}
+
+.linkApp > svg {
   color: #657a1b;
 }
 
-header .linkApp  .br_homeTitle{
-display: none;
+header .linkApp .br_homeTitle {
+  display: none;
 }
 
 header .linkApp > svg {
   font-size: 2.8rem;
-  /* color: #5a6e0e; */
-  color:#5b7010;
 }
 
-.linkApp:hover{
-  background: linear-gradient(335deg, hsl(73, 71%, 43%) 45%,  hsl(73, 76%, 40%) 55%);
+.linkApp:hover {
+  background: linear-gradient(
+    335deg,
+    hsl(73, 71%, 43%) 45%,
+    hsl(73, 76%, 40%) 55%
+  );
 }
 
-header .linkApp:hover{
+header .linkApp:hover {
   border-left: 11px solid hsl(73, 74%, 38%);
   box-shadow: -20px 20px 20px rgba(0, 0, 0, 0.5);
 }
@@ -169,8 +169,8 @@ header .linkApp:hover{
   text-decoration: none;
   color: inherit;
   filter: contrast(1.4) brightness(0.8);
- background: linear-gradient(144deg, #87a420 40%, #91b02d 50%, #9fbc36 60%);
-  color:#595a59;
+  background: linear-gradient(144deg, #87a420 40%, #91b02d 50%, #9fbc36 60%);
+  color: #595a59;
   border-radius: 0 8px 8px 0;
 }
 .box_navHome .linkApp {
@@ -178,7 +178,6 @@ header .linkApp:hover{
   width: 300px;
   height: 450px;
   padding: 30px;
-  display: flex;
   border-left: 30px solid hsl(73, 75%, 35%);
   transform: rotate(-5deg) skewX(10deg) scale(0.8);
   box-shadow: -50px 50px 50px rgba(0, 0, 0, 0.5);
@@ -196,25 +195,14 @@ header .linkApp {
   transform: rotate(-2deg) skewX(10deg) scale(0.8);
   box-shadow: -40px 40px 40px rgba(0, 0, 0, 0.5);
 }
-header .linkApp .textLink{
-  color:#607722;
- 
-  color:#667a3b;
-  /* text-shadow: 1px 1px 1px #7e9b16, 1px 3px 1px #7e9b16, 1px 3px 1px #7e9b16, 0px 2px 2px #474141, 1px 2px 1px rgba(16,16,16,0.4);
-  text-shadow: 1px 1px 1px #a8ac96, 1px 3px 1px #97b72c, 1px 3px 1px #a6aa93, 0px 2px 2px #474141, 1px 2px 1px rgb(14 14 14 / 40%);
-  text-shadow: 1px 2px 1px rgb(198 179 179), 1px 2px 1px #878686, 1px 3px 1px rgb(191 186 186), 1px 4px 1px rgb(191 181 181), 1px 2px 1px #474141, 1px 2px 2px rgba(16,16,16,0.8), 1px 2px 2px rgb(77 76 76 / 60%); */
-
-
-  /* text-shadow: 1px 1px 1px rgb(202 177 177), 1px 2px 1px #b7a4a4, 1px 3px 1px rgb(191 181 181), 1px 4px 1px rgb(201 168 168), 1px 1px 1px #474141, 1px 2px 2px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2);
-
-  text-shadow: 1px 2px 1px rgb(198 179 179), 1px 2px 1px #878686, 1px 3px 1px rgb(191 186 186), 1px 4px 1px rgb(191 181 181), 1px 2px 1px #474141, 1px 2px 2px rgba(16,16,16,0.8), 1px 2px 2px rgb(77 76 76 / 60%); */
+header .linkApp .textLink {
+  /* color: #607434; */
+  color: #5a6e2d;
 }
 
 .linkApp:before {
   content: '';
-
   position: absolute;
-
   left: 0;
 }
 
@@ -223,27 +211,32 @@ header .linkApp .textLink{
   height: 100%;
   width: 30px;
   transform: skewY(-45deg) translate(-57px, -43px);
-  /* background-color: #718722; */
-  background: linear-gradient(148deg, 
-                            #718722 0%, 
-                            #718722 55%, 
-                            hsl(73deg 58.9% 36.47%) 70%, 
-                            hsl(73deg 58.9% 36.47%) 100%);
-
-
+  background: linear-gradient(
+    148deg,
+    #718722 0%,
+    #718722 55%,
+    hsl(73deg 58.9% 36.47%) 70%,
+    hsl(73deg 58.9% 36.47%) 100%
+  );
 }
 
 header .linkApp:before {
   height: 100%;
   width: 16px;
   transform: skewY(311deg) translate(-26px, -20px);
-  background:  hsl(73, 58%, 32%);
-  top:-1px;
+  background: hsl(73, 58%, 32%);
+  top: -1px;
 }
 
 .linkApp:after {
   content: '';
-background: repeating-linear-gradient(0deg,#bab9b9 0,#cdcccc 1px,#fff 1px,#fff 2px);
+  background: repeating-linear-gradient(
+    0deg,
+    #a7a7a7 0,
+    #b2b2b2 1px,
+    #fff 1px,
+    #fff 3px
+  );
   position: absolute;
   bottom: 0;
   left: 0;
@@ -261,13 +254,11 @@ header .linkApp:after {
   left: 4px;
 }
 
-.box_home .linkApp  .textLink{
+.box_home .linkApp .textLink {
   font-size: 2rem;
-  color:#728438;
   color: #718442;
-  text-shadow: 1px 1px #7b9731, 1px 2px 1px #7b9731, 1px 3px 1px #474141, 1px 3px 3px rgba(16,16,16,0.4), 1px 4px 4px rgba(16,16,16,0.2);
-  text-shadow: 1px 1px #7b9731, 1px 2px 1px #7b9731, 1px 3px 1px #474141, 1px 3px 4px rgba(16,16,16,0.4), 1px 3px 4px rgba(16,16,16,0.3);
-  
+  text-shadow: 1px 1px #7b9731, 1px 2px 1px #7b9731, 1px 3px 1px #474141,
+    1px 3px 4px rgba(16, 16, 16, 0.4), 1px 3px 4px rgba(16, 16, 16, 0.3);
 }
 
 @media (max-width: 700px) {
@@ -280,13 +271,12 @@ header .linkApp:after {
   }
   header .linkApp .textLink {
     margin-left: 20px;
-
   }
   .box_navHome .linkApp > svg {
     font-size: 3rem;
     height: 25%;
     margin-bottom: 30px;
-    color: #5a6e0e;
+    /* color: #5a6e0e; */
   }
 
   .box_navHome .linkApp:hover {
@@ -301,14 +291,11 @@ header .linkApp:after {
     transform: rotate(-2deg) skewX(10deg) scale(0.8);
   }
 
-  .box_home .linkApp  .textLink{
+  .box_home .linkApp .textLink {
     font-size: 1.2rem;
-  
-    color:#677e11;
-
-
-      text-shadow: 1px 1px #9db940, 1px 1px 1px #9eb946, 1px 2px 1px #4f4f4f, 1px 1px 1px rgba(16,16,16,0.2);    
-      text-shadow:   1px 1px #799234, 1px 1px 1px #819b39, 1px 1px 1px #4f4f4f, 1px 1px 1px rgba(16,16,16,0.6);
+    color: #677e11;
+    text-shadow: 1px 1px #799234, 1px 1px 1px #819b39, 1px 2px 1px #4f4f4f,
+      1px 1px 1px rgba(16, 16, 16, 0.6);
   }
 
   .box_navHome .linkApp:before {
@@ -321,18 +308,16 @@ header .linkApp:after {
     content: '';
     height: 17px;
     transform: skewX(-45deg) translate(-6px, 17px);
-    left:3px;
+    left: 3px;
   }
 }
 
-
 @media (max-width: 500px) {
-
-  header .linkApp  .br_homeTitle{
-    display:block;
+  header .linkApp .br_homeTitle {
+    display: block;
   }
 
-  header .linkApp  .textLink{
+  header .linkApp .textLink {
     text-align: center;
   }
 }
@@ -340,7 +325,7 @@ header .linkApp:after {
 .box_home {
   min-height: 100vh;
   background: linear-gradient(to bottom, transparent, rgb(255, 255, 255))
-    rgb(214, 219, 220);
+    rgb(224, 229, 230);
 }
 
 .box_home img {
@@ -366,7 +351,6 @@ header .linkApp:after {
   border-radius: 10px;
   box-shadow: inset -6px -6px 6px #e1e1e1, inset 6px 6px 6px white;
   outline: 1px solid rgb(220, 239, 232);
-  background: #fff;
 }
 
 @media (max-width: 1000px) {
@@ -392,16 +376,6 @@ header .linkApp:after {
   display: flex;
   justify-content: center;
 }
-
-/* .boxName .box_input {
-  margin-right: 30px;
-  margin-left: 30px;
-} */
-
-/* .box_input {
-  margin-right: 30px;
-  margin-left: 30px;
-} */
 
 .box_formEntree {
   position: relative;
@@ -462,7 +436,6 @@ header .linkApp:after {
 
   .box_endDate,
   .box_dateOfBirth {
-    /* margin-top: 20px; */
     margin-bottom: 15px;
   }
 }
@@ -481,7 +454,6 @@ header .linkApp:after {
 }
 
 @media (max-width: 500px) {
-
   .box_endDate,
   .box_dateOfBirth,
   .box_startDate {
@@ -498,14 +470,17 @@ header .linkApp:after {
 .errorMessage {
   position: absolute;
   margin: 0 0 0 0;
-  bottom: -20px;
+  bottom: -18px;
   font-weight: 600;
   color: #d21f1f;
+  font-size: 0.8rem;
 }
 
-.errorBorder {
+.box_endDate.errorBorder input,
+.box_dateOfBirth.errorBorder input,
+.box_startDate.errorBorder input,
+.form-item input.errorBorder {
   border: 1px solid #d21f1f;
-  border: 1px solid #ded007;
 }
 
 .address {
@@ -515,11 +490,6 @@ header .linkApp:after {
 fieldset,
 select {
   border: 1px solid #57810b;
-}
-
-.box_State li.selectedOption:hover,
-.box_Department li.selectedOption:hover {
-  background-color: #b1c46c;
 }
 
 .box_State li.focused,
@@ -545,6 +515,7 @@ select {
 #zipCode {
   max-width: 330px;
 }
+
 @media (max-width: 650px), (min-width: 900px) and (max-width: 1000px) {
   .address {
     flex-direction: column;
@@ -553,7 +524,6 @@ select {
   #zipCode {
     margin-bottom: 20px;
   }
-
 }
 
 .box_titleModal {
@@ -565,10 +535,6 @@ select {
 .formAddModal {
   min-width: 500px;
   min-height: 300px;
-}
-
-
-.formAddModal {
   background-color: #fff;
   left: 50%;
 }
@@ -587,17 +553,11 @@ select {
   height: auto;
 }
 
-.editEmployeeModal.deleteEmployeeModal .box_titleModal {
-  border-bottom: 2px solid #e01111;
-}
-.editEmployeeModal .box_titleModal {
-  border-bottom: 2px solid #677e11;
-}
-
+.editEmployeeModal .box_titleModal,
 .formAddModal.confirmationModal .box_titleModal {
   border-bottom: 2px solid #677e11;
 }
-
+.editEmployeeModal.deleteEmployeeModal .box_titleModal,
 .formAddModal.errorConfirmationModal .box_titleModal {
   border-bottom: 2px solid #e01111;
 }
@@ -616,6 +576,7 @@ select {
   padding: 20px 30px 20px 30px;
   border-radius: 8px;
 }
+
 .formAddModal {
   z-index: 9999;
 }
@@ -685,17 +646,17 @@ select {
   .box_titleModal h2 {
     font-size: 1.4rem;
   }
+}
 
-  .editEmployeeModal {
-    overflow-y: auto;
-  }
+.editEmployeeModal {
+  overflow-y: auto;
 }
 
 .formAddModal .iconCheckedModal,
 .editEmployeeModal .iconCheckedModal {
   font-size: 2.3rem;
   margin-right: 20px;
-  color: #545252;
+  /* color: #545252; */
 }
 
 .modal-title {
@@ -750,12 +711,6 @@ select {
   align-items: center;
   width: 100%;
 }
-
-.containerNewEmployee select {
-  background-color: #fbfbfb;
-  text-align: center;
-}
-
 
 .titleService {
   font-size: 2rem;
@@ -838,6 +793,7 @@ select {
   margin-top: 10px;
   width: 300px;
 }
+
 .btnFormDelete,
 .btnFormCancel {
   padding: 10px 10px;
@@ -852,7 +808,6 @@ select {
 .btnFormEdit {
   text-align: center;
   color: #fff;
-  /* border-radius: 25px; */
   border-radius: 15px;
   border: none;
   font-size: 1.1rem;
@@ -875,16 +830,12 @@ select {
 }
 
 @media (max-width: 500px) {
-  btnFormSave,
+  .btnFormSave,
   .btnFormArchive,
   .btnFormEdit {
     width: 250px;
   }
 }
-
-/* input::placeholder {
-  color: gray;
-} */
 
 .title_newEmployee {
   font-size: 2rem;
@@ -958,7 +909,6 @@ select {
 .main_newEmployee .dropdown {
   position: relative;
   display: inline-block;
-  background-color: #f6f8f2;
 }
 
 .main_ListEmployees .btn_Reset {
@@ -968,10 +918,6 @@ select {
 .editEmployeeModal .dropdownToggle,
 .main_newEmployee .dropdownToggle {
   border: 1px solid #57810b;
-}
-
-.editEmployeeModal .dropdownToggle,
-.main_newEmployee .dropdownToggle {
   border-radius: 4px;
   cursor: pointer;
   display: flex;
@@ -981,13 +927,15 @@ select {
 }
 
 .box_Department .dropdownToggle {
-  background-color: #fbfbfb;
+  background-color: #fff;
 }
 
 .editEmployeeModal .dropdownToggle {
   height: 35px;
 }
-.main_newEmployee .dropdownToggle,.editEmployeeModal .dropdownToggle  {
+
+.main_newEmployee .dropdownToggle,
+.editEmployeeModal .dropdownToggle {
   padding: 9px 12px 9px 30px;
 }
 
@@ -995,15 +943,12 @@ select {
   background-color: #ececec;
 }
 
-
-/* styles pour la flèche du dropdown */
-.editEmployeeModal .arrow ,
+.editEmployeeModal .arrow,
 .main_newEmployee .arrow {
   margin-left: 8px;
-  color:#7d7878;
+  color: #7d7878;
 }
 
-/* styles pour le menu déroulant */
 .editEmployeeModal .dropdownMenu,
 .main_newEmployee .dropdownMenu {
   position: absolute;
@@ -1021,24 +966,11 @@ select {
 .main_newEmployee .box_Department .dropdownMenu,
 .editEmployeeModal .box_Department .dropdownMenu {
   background-color: #fff;
-} 
+}
 .main_newEmployee .box_State .dropdownMenu,
 .editEmployeeModal .box_State .dropdownMenu {
   background: rgb(238 241 241);
-} 
-/* 
-.editEmployeeModal .address .dropdownMenu {
-  background-color: #e0dddd;
-} */
-
-/* .main_newEmployee .address .dropdownOption {
-  background-color: rgb(239, 238, 238);
-} */
-
-/* .main_newEmployee .dropdownOption:hover,
-.editEmployeeModal .dropdownOption:hover {
-  background-color: #7d6060;
-} */
+}
 
 .box_table .btn_Reset {
   box-shadow: 1px 2px 6px rgb(0 0 0 / 40%);
@@ -1053,7 +985,6 @@ select {
   padding: 8px 12px;
 }
 
-/* change Employee data */
 .bg_modalConfirm {
   position: fixed;
   top: 0;
@@ -1071,9 +1002,6 @@ select {
   z-index: 998;
 }
 .editEmployeeModal .address {
-  /* background-color: #b9d851; */
-  /* background: linear-gradient(to bottom, transparent, rgb(255, 255, 255))
-    rgb(214, 219, 220); */
   padding-bottom: 20px;
 }
 
@@ -1082,7 +1010,7 @@ select {
 }
 
 .editEmployeeModal .errorMessage {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .editEmployeeModal .name {
@@ -1193,7 +1121,6 @@ select {
   overflow-y: auto;
 }
 
-/* essai2 */
 .form-item {
   position: relative;
   background-color: #fff;
@@ -1212,8 +1139,7 @@ select {
   width: 240px;
 }
 
-.main_newEmployee .address,
-.editEmployeeModal .address {
+form .address {
   background: linear-gradient(to bottom, transparent, rgb(245 245 245))
     rgb(224 228 228);
   display: flex;
@@ -1226,188 +1152,122 @@ select {
   padding: 10px 10px 10px 10px;
   height: 100%;
   width: 260px;
-  font-weight: bold;
+  font-weight: 600;
   width: 100%;
-  /* outline: none; */
   border-radius: 4px;
   border: 1px solid #bbb;
-  color:#504d4d;
+  color: #5a5a5a;
 }
 
-.form-item input:focus ~ label {
-  color: #216d11;
-}
 .form-item input:focus {
   border: 2px solid #97ac53;
-  color: #20260c;
 }
-
-/* .form-item label {
-  position: absolute;
-  top: 8px;
-  display: flex;
-  left: 10px;
-  transition: 0.3s ease-in;
-} */
 
 .form-item input ~ label {
   padding: 2px 10px;
   background-color: transparent;
   position: absolute;
   color: #747474;
-  font-size: 12px;
+  font-size: 0.8rem;
   top: 5px;
-  /* top: 8px; */
   left: 15px;
   font-size: 0.9rem;
   transition: all 0.3s ease;
 }
 
-/* .editEmployeeModal .address .form-item input:focus ~ label ,
-.main_newEmployee .address .form-item input:focus ~ label {
-  background: linear-gradient( to top, rgb(246, 246, 246) 50%, rgb(237 241 241) 50% );
-  border-inline: 1px solid #97ac53;
-} */
-/* .main_newEmployee .boxName .form-item input:focus ~ label {
-  background: linear-gradient(to top, rgb(234, 234, 234)10% ,rgb(233, 233, 233)20%,rgb(255, 255, 255) 50%);
-} */
 .form-item input:focus ~ label {
   padding: 2px 2px;
   background-color: inherit;
   font-weight: bold;
-  /* color: #636363; */
   font-size: 12px;
   top: -12px;
   left: 15px;
-  /* color: #677e1b; */
   color: #7a8f37;
   border-inline: 1px solid #97ac53;
 }
 
-/* .main_newEmployee .address .form-item input:focus ~ label.up {
-  background: linear-gradient(to top, rgb(246, 246, 246)20% ,rgb(209, 209, 209)20%,rgb(235, 235, 235) 50%);
-} */
-
-.editEmployeeModal .form-item label.up {
-  padding: 2px 10px;
-  background-color: inherit;
-  font-weight: bold;
-  font-size: 0.8rem;
-  top: -12px;
-  left: 15px;
-  border-inline: 1px solid rgb(126, 129, 129);
-}
-/* .main_newEmployee .boxName .form-item label.up {
-  background: linear-gradient(to top, rgb(226, 226, 226)20% ,rgb(233, 233, 233)20%,rgb(255, 255, 255) 50%);
-} */
-
 .main_newEmployee .boxName .form-item {
   margin-top: 10px;
 }
-.main_newEmployee .form-item label.up {
+
+form .form-item label.up {
   padding: 2px 10px;
   background-color: inherit;
   font-weight: bold;
   font-size: 0.8rem;
   top: -12px;
   left: 15px;
-  color:#828282;
+  color: #777777;
   border-inline: 1px solid rgb(126, 129, 129);
 }
-
-/* .main_newEmployee .address .form-item label.up {
-  background: linear-gradient( to top, rgb(255 255 255) 30%, rgb(228 230 230) 70% );
-  border-inline: 1px solid rgb(126, 129, 129);
-} */
-
-/* .editEmployeeModal .address label {
-  color: #3d3c3c;
-} */
 
 .address .box_streetCity {
   display: flex;
   margin-top: 10px;
 }
 
-/* .address .box_streetCity .form-item {
-  margin-left: 15px;
-  margin-right: 15px;
-} */
-
 @media (max-width: 700px) {
-  .boxName .form-item{
+  .boxName .form-item {
     margin-left: 15px;
     margin-right: 15px;
   }
 }
+
 @media (max-width: 900px) {
   .address .box_streetCity {
     display: flex;
     flex-direction: column;
   }
+
   .address .box_streetCity .form-item {
     margin-left: 0;
     margin-right: 0;
   }
 }
 
-.main_newEmployee .address input:focus ~ label ,
-.formChangeEmployee .address input:focus ~ label ,
-.main_newEmployee .address label.up ,
-.formChangeEmployee .address label.up {
-  background: linear-gradient( to top, rgb(255 255 255) 30%, rgb(228 230 230) 70% );
+form .address input:focus ~ label,
+form .address label.up {
+  background: linear-gradient(
+    to top,
+    rgb(255 255 255) 25%,
+    rgb(255 255 255) 25%,
+    rgb(228 230 230) 25%,
+    rgb(228 230 230) 80%
+  );
   border-inline: 1px solid rgb(126, 129, 129);
 }
 
-/* .formChangeEmployee .form-item input:focus ~ label {
-  color: #3d3c3c;
-} */
+form .form-item input:focus ~ label {
+  color: #7e9046;
+}
 
-.main_newEmployee .address .form__linput,
-.formChangeEmployee .address .form__linput {
+form .address .form__linput {
   margin-bottom: 20px;
 }
 
-.main_newEmployee .box_Department,
-.formChangeEmployee .box_Department {
+form .box_Department {
   margin-bottom: 20px;
   margin-top: 20px;
 }
-.main_newEmployee .address .box_State,
-.formChangeEmployee .address .box_State {
+
+form .address .box_State {
   margin-bottom: 25px;
   margin-top: 8px;
 }
 
-.main_newEmployee .address .box_State .p_label {
-  background-color: rgb(239, 238, 238);
-}
-.box_Department .p_label {
-  background-color: #fff;
-}
-.main_newEmployee .address .box_State .p_label,
-.main_newEmployee .box_Department .p_label,
-.formChangeEmployee .address .box_State .p_label,
-.formChangeEmployee .box_Department .p_label {
+form .address .box_State .p_label,
+form .box_Department .p_label {
   font-size: 0.9rem;
   padding-inline: 0.5em;
   user-select: none;
   cursor: text;
-  /* color:#6a6a6a; */
-  /* color:#787876; */
-  color:#828282;
-  font-weight: 600;
+  color: #777777;
+  font-weight: 700;
   letter-spacing: 1px;
-}
-
-.formChangeEmployee .address .box_State .p_label,
-.formChangeEmployee .box_Department .p_label {
-  color: #3d3c3c;
 }
 
 .form__label {
   transition: top 180ms linear, font-size 180ms linear;
-  background: #fff;
   position: absolute;
   left: 0.9em;
   top: 50%;
@@ -1419,37 +1279,36 @@ select {
   letter-spacing: 1px;
 }
 
+.box_Department .form__label {
+  background: #fff;
+}
+
 .box_Department .form__label,
 .box_State .form__label {
   top: 0px;
   margin: 0;
   font-size: 0.9rem;
-  border-inline:1px solid rgb(126, 129, 129);
+  border-inline: 1px solid rgb(126, 129, 129);
 }
 
-.main_newEmployee .address .box_State .p_label ,
+.main_newEmployee .address .box_State .p_label,
 .formChangeEmployee .address .form__label {
   background-color: #e9e9e9;
 }
 
-/* .main_newEmployee .address input,
-.formChangeEmployee .address input {
- background: #fafafa;
- 
-} */
-
 .form-item {
   margin-right: 30px;
   margin-left: 30px;
- }
-@media (max-width: 500px) {
-.form-item {
- margin-right: 0;
- margin-left: 0;
-}
 }
 
-.main_ListEmployees .selectedBtnSort > svg ,
+@media (max-width: 500px) {
+  .form-item {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+.main_ListEmployees .selectedBtnSort > svg,
 .main_ListEmployees .selectedBtnFilter > svg {
   color: #597c1d;
 }
@@ -1457,7 +1316,7 @@ select {
 .main_ListEmployees .inputSearchByProperty,
 .main_ListEmployees .box_searchGlobal input {
   box-shadow: inset -6px -6px 6px #e1e1e1, inset 6px 6px 6px white;
-  border-radius:10px;
+  border-radius: 10px;
 }
 /* 
 .box_table .btn_Reset,
@@ -1473,4 +1332,3 @@ select {
 .box_table .btnOpenManageTable {
   border-radius: 0;
 } */
-
