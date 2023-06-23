@@ -779,7 +779,7 @@ select {
 @media (max-width: 1000px) {
   .header_ListEmployees img {
     margin: 10px 0 0 0;
-    width: 90px;
+    width: 80px;
     height: 70px;
   }
   .titleService {
@@ -1451,14 +1451,15 @@ select {
   box-shadow: inset -6px -6px 6px #e1e1e1, inset 6px 6px 6px white;
   border-radius:10px;
 }
-
-.box_table .btn_Reset {
+/* 
+.box_table .btn_Reset,
+.box_table .btnShowAllColumns  {
   border-radius: 10px;
-}
+} */
 
-.box_table .toggle-btnManageTable {
+/* .box_table .toggle-btnManageTable {
   border-radius:  18px 18px 0 0;
-}
+} */
 
 .box_table .btnOpenManageTable:hover ,
 .box_table .btnOpenManageTable {
