@@ -198,8 +198,16 @@ header .linkApp {
 }
 header .linkApp .textLink{
   color:#607722;
-  text-shadow: 1px 1px 1px #7e9b16, 1px 3px 1px #7e9b16, 1px 3px 1px #7e9b16, 0px 2px 2px #474141, 1px 2px 1px rgba(16,16,16,0.4);
+ 
+  color: #4f6226;
+  /* text-shadow: 1px 1px 1px #7e9b16, 1px 3px 1px #7e9b16, 1px 3px 1px #7e9b16, 0px 2px 2px #474141, 1px 2px 1px rgba(16,16,16,0.4);
   text-shadow: 1px 1px 1px #a8ac96, 1px 3px 1px #97b72c, 1px 3px 1px #a6aa93, 0px 2px 2px #474141, 1px 2px 1px rgb(14 14 14 / 40%);
+  text-shadow: 1px 2px 1px rgb(198 179 179), 1px 2px 1px #878686, 1px 3px 1px rgb(191 186 186), 1px 4px 1px rgb(191 181 181), 1px 2px 1px #474141, 1px 2px 2px rgba(16,16,16,0.8), 1px 2px 2px rgb(77 76 76 / 60%); */
+
+
+  /* text-shadow: 1px 1px 1px rgb(202 177 177), 1px 2px 1px #b7a4a4, 1px 3px 1px rgb(191 181 181), 1px 4px 1px rgb(201 168 168), 1px 1px 1px #474141, 1px 2px 2px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2);
+
+  text-shadow: 1px 2px 1px rgb(198 179 179), 1px 2px 1px #878686, 1px 3px 1px rgb(191 186 186), 1px 4px 1px rgb(191 181 181), 1px 2px 1px #474141, 1px 2px 2px rgba(16,16,16,0.8), 1px 2px 2px rgb(77 76 76 / 60%); */
 }
 
 .linkApp:before {
@@ -219,6 +227,8 @@ header .linkApp .textLink{
                             #718722 55%, 
                             hsl(73deg 58.9% 36.47%) 70%, 
                             hsl(73deg 58.9% 36.47%) 100%);
+
+
 }
 
 header .linkApp:before {
@@ -249,7 +259,10 @@ header .linkApp:after {
 .box_home .linkApp  .textLink{
   font-size: 2rem;
   color:#728438;
-  text-shadow: 1px 1px #7b9731, 1px 2px 1px #7b9731, 1px 3px 1px #474141, 1px 4px 4px rgba(16,16,16,0.4), 1px 5px 5px rgba(16,16,16,0.2);
+  color: #718442;
+  text-shadow: 1px 1px #7b9731, 1px 2px 1px #7b9731, 1px 3px 1px #474141, 1px 3px 3px rgba(16,16,16,0.4), 1px 4px 4px rgba(16,16,16,0.2);
+  text-shadow: 1px 1px #7b9731, 1px 2px 1px #7b9731, 1px 3px 1px #474141, 1px 3px 4px rgba(16,16,16,0.4), 1px 3px 4px rgba(16,16,16,0.3);
+  
 }
 
 @media (max-width: 700px) {
@@ -282,7 +295,14 @@ header .linkApp:after {
 
   .box_home .linkApp  .textLink{
     font-size: 1.2rem;
-    text-shadow: 1px 1px #809f30, 1px 2px 1px #748c2f,1px 3px 1px #748c2f, 1px 1px 1px #474141, -1px 2px 1px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2);
+    color:#59701d;
+    color:#406521;
+  
+
+
+
+      text-shadow: 1px 1px 1px rgb(202 177 177), 1px 2px 1px #b7a4a4, 1px 3px 1px rgb(191 181 181), 1px 4px 1px rgb(201 168 168), 1px 1px 1px #474141, 1px 2px 2px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2);
+    
   }
 
   .box_navHome .linkApp:before {
