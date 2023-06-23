@@ -299,9 +299,7 @@ header .linkApp:after {
     color:#406521;
   
 
-
-
-      text-shadow: 1px 1px 1px rgb(202 177 177), 1px 2px 1px #b7a4a4, 1px 3px 1px rgb(191 181 181), 1px 4px 1px rgb(201 168 168), 1px 1px 1px #474141, 1px 2px 2px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2);
+      text-shadow: 1px 1px 1px rgb(197, 206, 200), 1px 2px 1px #b1b9b1, 1px 3px 1px #9ead6e, 1px 4px 1px #9ead6e, 1px 1px 1px #474141, 1px 2px 2px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2);
     
   }
 
