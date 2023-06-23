@@ -303,12 +303,9 @@ header .linkApp:after {
 
   .box_home .linkApp  .textLink{
     font-size: 1.2rem;
-    /* color:#59701d; */
-    color:#677e11;
   
+    color:#677e11;
 
-      /* text-shadow: 1px 1px 1px rgb(197, 206, 200), 1px 2px 1px #b1b9b1, 1px 3px 1px #9ead6e, 1px 4px 1px #9ead6e, 1px 1px 1px #474141, 1px 2px 2px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2); */
-      /* text-shadow: 1px 1px 1px #a6b573, 1px 2px 1px #acbc78, 1px 3px 1px #acbc78, 1px 4px 1px #aaba76, 1px 1px 1px #474141, 1px 2px 2px rgba(16,16,16,0.4), 1px 2px 2px rgba(16,16,16,0.2); */
 
       text-shadow: 1px 1px #9db940, 1px 1px 1px #9eb946, 1px 2px 1px #4f4f4f, 1px 1px 1px rgba(16,16,16,0.2);    
       text-shadow:   1px 1px #799234, 1px 1px 1px #819b39, 1px 1px 1px #4f4f4f, 1px 1px 1px rgba(16,16,16,0.6);
