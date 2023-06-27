@@ -22,7 +22,8 @@ import {
   setEmployeeData,
   setError,
 } from '../store/employeeFormStateSlice';
-import Modal from './Modal';
+// import Modal from './Modal';
+const Modal = React.lazy(() => import('./Modal'));
 import { FiEdit3, FiArchive } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import ModalEmployeesContent from './ModalEmployeesContent';
@@ -141,7 +142,25 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
       }, 300);
     }
 
-    const openModal = async (id: number, type: ModalType) => {
+    // const openModal = async (id: number, type: ModalType) => {
+    //   lastFocusedElementRef.current = document.activeElement;
+    //   const selectedEmployee = employees.find((employee) => employee.id === id);
+    //   if (!selectedEmployee) {
+    //     console.error('No employee found with id: ', id);
+    //     return;
+    //   }
+    //   setSelectedEmployeeId(id);
+    //   const employeeData: any = {
+    //     ...selectedEmployee,
+    //   };
+    //   await Promise.all([
+    //     dispatch(setEmployeeData(employeeData)),
+    //     setModalType(type),
+    //     setIsModalOpen(true),
+    //   ]);
+    // };
+
+    const openModal = useCallback(async (id: number, type: ModalType) => {
       lastFocusedElementRef.current = document.activeElement;
       const selectedEmployee = employees.find((employee) => employee.id === id);
       if (!selectedEmployee) {
@@ -153,12 +172,10 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
         ...selectedEmployee,
       };
 
-      await Promise.all([
-        dispatch(setEmployeeData(employeeData)),
-        setModalType(type),
-        setIsModalOpen(true),
-      ]);
-    };
+      dispatch(setEmployeeData(employeeData));
+      setModalType(type);
+      setIsModalOpen(true);
+    }, [employees, dispatch]);
 
     const handleChangeSubmit = useCallback(
       (employeeId: number) => (e: any) => {
@@ -268,6 +285,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
             />
           )}
         />
+        <React.Suspense fallback={<></>}>
         {isModalOpen && selectedEmployeeId && (
           <Modal
             isModalOpen={isModalOpen}
@@ -289,6 +307,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
               />
           </Modal>
         )}
+        </React.Suspense>
       </div>
     );
   },

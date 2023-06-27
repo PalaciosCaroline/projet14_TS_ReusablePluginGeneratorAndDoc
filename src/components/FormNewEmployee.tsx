@@ -4,7 +4,8 @@ import { clearInput, setError } from '../store/employeeFormStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEmployee, setLoading } from '../store/employeesSlice';
 import { employeeStateSelector } from '../store/index';
-import Modal from './Modal';
+// import Modal from './Modal';
+const Modal = React.lazy(() => import('./Modal'));
 import { InputField } from './InputField';
 import AddressAndDepartmentForm from './AddressAndDepartmentForm';
 import { validateNames } from '../utils/controlName';
@@ -231,6 +232,7 @@ export const FormNewEmployee: FC<Props> = () => {
           Save the new employee
         </button>
       </form>
+      <React.Suspense fallback={<></>}>
       {isModalOpen && modalType != 'none' && (
         <Modal
           isModalOpen={isModalOpen}
@@ -245,6 +247,7 @@ export const FormNewEmployee: FC<Props> = () => {
           {modalFormAddContent}
         </Modal>
       )}
+       </React.Suspense>
     </div>
   );
 };
