@@ -237,7 +237,7 @@ export const FormNewEmployee: FC<Props> = () => {
         <Modal
           isModalOpen={isModalOpen}
           closeModal={handleCloseModal}
-          className={`formAddModal ${
+          className={`formAddModal formAppModal ${
             errorEmployeeExist ? 'errorConfirmationModal' : 'confirmationModal'
           }`}
           dataTestId="modalConfirm"

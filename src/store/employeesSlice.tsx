@@ -1,8 +1,6 @@
-import { createAction, createSlice, PayloadAction,  createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { dataEmployeesMock } from '../mocks/data';
-import { EmployeeBase } from './../employeeTypes'
-import { RootState } from './index';
-import dayjs from 'dayjs';
+import { EmployeeBase } from './../mocks/data';
 
 export interface Employee extends EmployeeBase {
   id: number;

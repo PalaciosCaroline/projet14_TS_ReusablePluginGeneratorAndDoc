@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { EmployeeBase } from '../employeeTypes';
-// import { Employee } from './employeesSlice';
+import { EmployeeBase } from './../mocks/data';
 
 export interface Employee extends EmployeeBase {
   id: number | null;

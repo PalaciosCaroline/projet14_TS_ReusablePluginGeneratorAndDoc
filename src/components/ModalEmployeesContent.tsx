@@ -3,7 +3,7 @@ import EditEmployeeContent from './EditEmployeeContent';
 import ArchiveEmployeeContent from './ArchiveEmployeeContent';
 import DeleteEmployeeContent from './DeleteEmployeeContent';
 import { ModalType } from './TableEmployees';
-import { EmployeeBase } from './../employeeTypes';
+import { EmployeeBase } from './../mocks/data';
 
 const employeeDataConfig = [
   {

@@ -1,5 +1,5 @@
 import React from 'react';
-import logoHRnet from './../assets/logoHRnet_bg.png';
+import logoHRnet from './../assets/img_hrnet.png';
 import { NavLinkComponent } from '../components/NavLinkComponent';
 import { linkNewEmployee, linkCurrentEmployees } from '../utils/linkData';
 

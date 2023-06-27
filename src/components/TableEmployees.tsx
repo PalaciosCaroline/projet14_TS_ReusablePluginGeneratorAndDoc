@@ -290,7 +290,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
           <Modal
             isModalOpen={isModalOpen}
             closeModal={handleanimModal}
-            className={`editEmployeeModal ${isFadingOut ? 'fadeOut' : ''} ${
+            className={`editEmployeeModal formAppModal ${isFadingOut ? 'fadeOut' : ''} ${
               modalType === 'delete' ? 'deleteEmployeeModal' : ''
             }`}
             dataTestId="modalAction"

@@ -525,20 +525,18 @@ fieldset {
 .formAddModal {
   min-width: 500px;
   min-height: 300px;
-  background-color: #fff;
   left: 50%;
 }
 
-.formAddModal,
-.editEmployeeModal {
+/* .formAppModal {
   position: fixed;
   top: 50%;
   max-height: 99%;
-}
+  background-color: #fff;
+} */
 
 .editEmployeeModal {
   z-index: 999;
-  background: #fff;
   right: 100px;
   height: auto;
 }
@@ -552,13 +550,15 @@ fieldset {
   border-bottom: 2px solid #e01111;
 }
 
-.editEmployeeModal .box_titleModal,
-.formAddModal .box_titleModal {
+.formAppModal .box_titleModal {
   margin-top: 30px;
 }
 
-.editEmployeeModal,
-.formAddModal {
+.formAppModal {
+  position: fixed;
+  top: 50%;
+  max-height: 99%;
+  background-color: #fff;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -642,11 +642,9 @@ fieldset {
   overflow-y: auto;
 }
 
-.formAddModal .iconCheckedModal,
-.editEmployeeModal .iconCheckedModal {
+.formAppModal .iconCheckedModal {
   font-size: 2.3rem;
   margin-right: 20px;
-  /* color: #545252; */
 }
 
 .modal-title {
@@ -658,8 +656,7 @@ fieldset {
     font-size: 2rem;
   }
 
-  .editEmployeeModal,
-  .formAddModal {
+  .formAppModal {
     width: 95%;
     padding-left: 15px;
     padding-right: 15px;
@@ -691,7 +688,7 @@ fieldset {
   font-size: 2rem;
   font-weight: bold;
   margin: 10px 0;
-  color: #494949;
+  color: #545252;
 }
 
 .header_ListEmployees {
@@ -802,24 +799,12 @@ fieldset {
   }
 }
 
-.title_newEmployee {
-  font-size: 2rem;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
 .formChangeEmployee
   .box_endDate
   .box_input
   .MuiInputBase-input
   .MuiOutlinedInput-input
-  input {
-  height: 40px;
-}
-
-.formChangeEmployee .box_endDate .box_input #\:rd\: input {
+  input ,.formChangeEmployee .box_endDate .box_input #\:rd\: input {
   height: 40px;
 }
 
@@ -838,7 +823,7 @@ fieldset {
   .box_endDate
   .MuiInputBase-formControl
   .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
-  height: 40px;
+  height: 35px;
 }
 .box_table .editEmployeeModal .box_endDate label,
 .main_newEmployee .box_formEntree .boxDate .box_dateOfBirth label,
@@ -856,19 +841,16 @@ fieldset {
   margin: 10px;
 }
 
-.editEmployeeModal .box_State .dropdown,
-.main_newEmployee .box_State .dropdown {
+.formApp .box_State .dropdown {
   z-index: 10;
 }
 
-.editEmployeeModal .dropdown,
-.main_newEmployee .dropdown {
+.formApp .dropdown {
   position: relative;
   display: inline-block;
 }
 
-.editEmployeeModal .dropdownToggle,
-.main_newEmployee .dropdownToggle {
+.formApp .dropdownToggle {
   border: 1px solid #57810b;
   padding: 6px 12px 6px 30px;
   border-radius: 4px;
@@ -888,14 +870,10 @@ fieldset {
   background-color: #ececec;
 }
 
-.editEmployeeModal .arrow,
-.main_newEmployee .arrow {
+.formApp .arrow {
   margin-left: 8px;
   color: #7d7878;
 }
-
-/* .editEmployeeModal .dropdownMenu,
-.main_newEmployee .dropdownMenu { */
 
 .formApp .dropdownMenu {
   position: absolute;
@@ -910,22 +888,13 @@ fieldset {
   border-radius: 4px;
 }
 
-/* .main_newEmployee .box_Department .dropdownMenu,
-.editEmployeeModal .box_Department .dropdownMenu { */
-
 .formApp .box_Department .dropdownMenu {
   background-color: #fff;
 }
 
-/* .main_newEmployee .box_State .dropdownMenu,
-.editEmployeeModal .box_State .dropdownMenu { */
-
 .formApp .box_State .dropdownMenu {
   background: rgb(238 241 241);
 }
-
-/* .editEmployeeModal .dropdownOptionButton,
-.main_newEmployee .dropdownOptionButton { */
 
 .formApp .dropdownOptionButton {
   width: 100%;
@@ -1251,11 +1220,6 @@ form .box_Department .p_label {
     margin-right: 0;
     margin-left: 0;
   }
-}
-
-.main_ListEmployees .selectedBtnSort > svg,
-.main_ListEmployees .selectedBtnFilter > svg {
-  color: #5b752f;
 }
 
 .main_ListEmployees .inputSearchByProperty,

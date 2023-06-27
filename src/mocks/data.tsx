@@ -1,5 +1,16 @@
-import { EmployeeBase } from "../employeeTypes";
+// import { EmployeeBase } from "../employeeTypes";
 
+export interface EmployeeBase {
+  firstname: string;
+  lastname: string;
+  dateOfBirth: string;
+  startDate: string;
+  department: string;
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+}
 export interface Columns {
   label: string;
   property: string;
