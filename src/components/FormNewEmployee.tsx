@@ -188,6 +188,7 @@ export const FormNewEmployee: FC<Props> = () => {
         id="create-employee"
         onSubmit={handleFormSubmit}
         data-testid="form"
+        className='formApp'
       >
         <div className="boxName">
           {inputFieldsName.map((input) => (
@@ -222,7 +223,7 @@ export const FormNewEmployee: FC<Props> = () => {
         </LocalizationProvider>
         <AddressAndDepartmentForm />
         <button
-          className="btnFormSave"
+          className="btnApp btnFormSave"
           type="submit"
           data-testid="btn_form"
           disabled={isLoading}

@@ -32,7 +32,7 @@ const EditEmployeeContent: FC<EditEmployeeContentProps> = ({
   return (
     <>
       <form
-        className="formChangeEmployee"
+        className="formChangeEmployee formApp"
         action="#"
         id="edit-employee"
         onSubmit={handleChangeSubmit(selectedEmployeeId)}
@@ -40,7 +40,7 @@ const EditEmployeeContent: FC<EditEmployeeContentProps> = ({
       >
         <AddressAndDepartmentForm />
         <button
-          className="btnFormEdit"
+          className="btnApp btnFormEdit"
           type="submit"
           data-testid="btn_form"
           disabled={isLoading}

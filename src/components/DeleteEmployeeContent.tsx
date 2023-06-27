@@ -41,14 +41,14 @@ const DeleteEmployeeContent: FC<DeleteEmployeeContentProps> = ({
   return (
     <div className="box_btnsDelete">
       <button
-        className="btnFormDelete"
+        className="btnApp btnFormDelete"
         data-testid="btn_DeleteConfirm"
         onClick={() => handleDeleteSubmit(selectedEmployeeId)}
       >
         Confirm Delete
       </button>
       <button
-        className="btnFormCancel"
+        className="btnApp btnFormCancel"
         data-testid="btn_form"
         onClick={handleCancel}
         disabled={isLoading}

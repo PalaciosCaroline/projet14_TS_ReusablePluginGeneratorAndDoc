@@ -123,6 +123,10 @@ h2 {
   font-weight: bold;
 }
 
+.linkApp > svg {
+  color: #657a1b;
+}
+
 .linkApp:hover > svg {
   color: #728c14;
 }
@@ -133,16 +137,12 @@ h2 {
   margin-bottom: 30px;
 }
 
-.linkApp > svg {
-  color: #657a1b;
+header .linkApp > svg {
+  font-size: 2.8rem;
 }
 
 header .linkApp .br_homeTitle {
   display: none;
-}
-
-header .linkApp > svg {
-  font-size: 2.8rem;
 }
 
 .linkApp:hover {
@@ -195,8 +195,8 @@ header .linkApp {
   transform: rotate(-2deg) skewX(10deg) scale(0.8);
   box-shadow: -40px 40px 40px rgba(0, 0, 0, 0.5);
 }
+
 header .linkApp .textLink {
-  /* color: #607434; */
   color: #5a6e2d;
 }
 
@@ -265,7 +265,6 @@ header .linkApp:after {
   .box_navHome .linkApp:hover {
     box-shadow: -30px 30px 30px rgba(0, 0, 0, 0.5);
   }
-
   header .linkApp {
     margin-right: 10px;
   }
@@ -276,12 +275,12 @@ header .linkApp:after {
     font-size: 3rem;
     height: 25%;
     margin-bottom: 30px;
-    /* color: #5a6e0e; */
   }
 
   .box_navHome .linkApp:hover {
     border-left: 12px solid #7e9b16;
   }
+  
   .box_navHome .linkApp {
     width: 160px;
     height: 240px;
@@ -290,20 +289,19 @@ header .linkApp:after {
     border-left: 12px solid #7e9b16;
     transform: rotate(-2deg) skewX(10deg) scale(0.8);
   }
-
   .box_home .linkApp .textLink {
     font-size: 1.2rem;
     color: #677e11;
-    text-shadow: 1px 1px #799234, 1px 1px 1px #819b39, 1px 2px 1px #4f4f4f,
+    /* text-shadow: 1px 1px #799234, 1px 1px 1px #819b39, 1px 2px 1px #4f4f4f,
+      1px 1px 1px rgba(16, 16, 16, 0.6); */
+    text-shadow: 1px 1px #7b9731, 1px 1px 1px #7b9731, 1px 2px 1px #4f4f4f,
       1px 1px 1px rgba(16, 16, 16, 0.6);
   }
-
   .box_navHome .linkApp:before {
     content: '';
     width: 16px;
     transform: skewY(-45deg) translate(-28px, -20px);
   }
-
   .box_navHome .linkApp:after {
     content: '';
     height: 17px;
@@ -316,7 +314,6 @@ header .linkApp:after {
   header .linkApp .br_homeTitle {
     display: block;
   }
-
   header .linkApp .textLink {
     text-align: center;
   }
@@ -346,8 +343,7 @@ header .linkApp:after {
   }
 }
 
-.formChangeEmployee input,
-.main_newEmployee input {
+.boxDate input {
   border-radius: 10px;
   box-shadow: inset -6px -6px 6px #e1e1e1, inset 6px 6px 6px white;
   outline: 1px solid rgb(220, 239, 232);
@@ -357,7 +353,6 @@ header .linkApp:after {
   .box_home img {
     margin: 20px auto 0;
   }
-
   .main_newEmployee header {
     width: 400px;
   }
@@ -366,7 +361,6 @@ header .linkApp:after {
   .main_newEmployee {
     flex-direction: column;
   }
-
   .main_newEmployee header {
     width: 100%;
   }
@@ -389,8 +383,8 @@ header .linkApp:after {
 .box_dateOfBirth,
 .box_startDate,
 .box_endDate {
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: 30px;
+  margin-left: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -460,11 +454,6 @@ header .linkApp:after {
     margin-right: 0;
     margin-left: 0;
   }
-
-  /* .box_input {
-    margin-right: 0;
-    margin-left: 0;
-  } */
 }
 
 .errorMessage {
@@ -487,8 +476,7 @@ header .linkApp:after {
   margin: 20px auto 10px;
 }
 
-fieldset,
-select {
+fieldset {
   border: 1px solid #57810b;
 }
 
@@ -496,7 +484,7 @@ select {
 .box_Department li.focused,
 .box_State .dropdownMenu li:hover,
 .box_Department .dropdownMenu li:hover {
-  background-color: #cee389;
+  background-color: #bcd178;
 }
 
 @media (max-width: 650px) {
@@ -506,7 +494,9 @@ select {
   }
 }
 
-.address {
+.formApp .address {
+  background: linear-gradient(to bottom, transparent, rgb(245 245 245))
+    rgb(224 228 228);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -663,14 +653,6 @@ select {
   padding-right: 20px;
 }
 
-.editEmployeeModal p {
-  font-size: 1.1rem;
-}
-
-.formAddModal p {
-  font-size: 1.3rem;
-}
-
 @media (max-width: 500px) {
   .iconCheckedModal {
     font-size: 2rem;
@@ -682,19 +664,12 @@ select {
     padding-left: 15px;
     padding-right: 15px;
   }
-
-  .formAddModal p {
-    font-size: 1rem;
-  }
 }
 
 .btn_closeModal {
   position: absolute;
   top: 15px;
   right: 15px;
-  background-color: #677e11;
-  border: none;
-  color: #fff;
   border-radius: 50px;
   width: 40px;
   height: 40px;
@@ -735,15 +710,16 @@ select {
 }
 
 .header_ListEmployees img {
-  height: 90px;
   margin-left: 20px;
+  width: 100px;
+  height: 90px;
 }
 
 @media (max-width: 1000px) {
   .header_ListEmployees img {
     margin: 10px 0 0 0;
     width: 80px;
-    height: 70px;
+    height: 70px; 
   }
   .titleService {
     font-size: 1.5rem;
@@ -763,14 +739,6 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-#create-employee select {
-  margin: 20px 10px 10px;
-}
-
-#create-employee select {
-  height: 30px;
 }
 
 .containerNewEmployee .btnFormSave {
@@ -801,17 +769,17 @@ select {
   margin: 5px 20px;
 }
 
-.btnFormSave,
-.btnFormDelete,
-.btnFormCancel,
-.btnFormArchive,
-.btnFormEdit {
-  text-align: center;
+.btn_closeModal,
+.btnApp{
   color: #fff;
-  border-radius: 15px;
-  border: none;
-  font-size: 1.1rem;
   background-color: #677e11;
+  border: none;
+}
+
+.btnApp{
+  text-align: center;
+  border-radius: 15px;
+  font-size: 1.1rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -819,20 +787,17 @@ select {
   margin: 30px auto 20px;
 }
 
-.btnFormSave:hover,
-.btnFormDelete:hover,
-.btnFormCancel:hover,
-.btnFormArchive:hover,
-.btnFormEdit:hover,
-.btn_closeModal:hover {
-  background-color: #7e9b16;
+.btnApp:hover{
   box-shadow: 1px 1px 2px rgb(0 0 0 / 20%);
 }
 
+.btnApp:hover,
+.btn_closeModal:hover {
+  background-color: #7e9b16;
+}
+
 @media (max-width: 500px) {
-  .btnFormSave,
-  .btnFormArchive,
-  .btnFormEdit {
+  .btnApp{
     width: 250px;
   }
 }
@@ -853,6 +818,7 @@ select {
   input {
   height: 40px;
 }
+
 .formChangeEmployee .box_endDate .box_input #\:rd\: input {
   height: 40px;
 }
@@ -874,22 +840,12 @@ select {
   .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
   height: 40px;
 }
-
+.box_table .editEmployeeModal .box_endDate label,
 .main_newEmployee .box_formEntree .boxDate .box_dateOfBirth label,
 .main_newEmployee .box_formEntree .boxDate .box_startDate label {
   padding-left: 8px;
   padding-right: 10px;
   padding-top: 3px;
-}
-
-.box_table .editEmployeeModal .box_endDate label {
-  padding-left: 8px;
-  padding-right: 10px;
-  padding-top: 3px;
-}
-
-.main_ListEmployees .box_searchGlobal input {
-  height: 45px;
 }
 
 .main_ListEmployees {
@@ -911,32 +867,21 @@ select {
   display: inline-block;
 }
 
-.main_ListEmployees .btn_Reset {
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
-}
-
 .editEmployeeModal .dropdownToggle,
 .main_newEmployee .dropdownToggle {
   border: 1px solid #57810b;
+  padding: 6px 12px 6px 30px;
   border-radius: 4px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 220px;
+  height: 35px;
 }
 
 .box_Department .dropdownToggle {
   background-color: #fff;
-}
-
-.editEmployeeModal .dropdownToggle {
-  height: 35px;
-}
-
-.main_newEmployee .dropdownToggle,
-.editEmployeeModal .dropdownToggle {
-  padding: 9px 12px 9px 30px;
 }
 
 .address .dropdownToggle {
@@ -949,8 +894,10 @@ select {
   color: #7d7878;
 }
 
-.editEmployeeModal .dropdownMenu,
-.main_newEmployee .dropdownMenu {
+/* .editEmployeeModal .dropdownMenu,
+.main_newEmployee .dropdownMenu { */
+
+.formApp .dropdownMenu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -963,21 +910,24 @@ select {
   border-radius: 4px;
 }
 
-.main_newEmployee .box_Department .dropdownMenu,
-.editEmployeeModal .box_Department .dropdownMenu {
+/* .main_newEmployee .box_Department .dropdownMenu,
+.editEmployeeModal .box_Department .dropdownMenu { */
+
+.formApp .box_Department .dropdownMenu {
   background-color: #fff;
 }
-.main_newEmployee .box_State .dropdownMenu,
-.editEmployeeModal .box_State .dropdownMenu {
+
+/* .main_newEmployee .box_State .dropdownMenu,
+.editEmployeeModal .box_State .dropdownMenu { */
+
+.formApp .box_State .dropdownMenu {
   background: rgb(238 241 241);
 }
 
-.box_table .btn_Reset {
-  box-shadow: 1px 2px 6px rgb(0 0 0 / 40%);
-}
+/* .editEmployeeModal .dropdownOptionButton,
+.main_newEmployee .dropdownOptionButton { */
 
-.editEmployeeModal .dropdownOptionButton,
-.main_newEmployee .dropdownOptionButton {
+.formApp .dropdownOptionButton {
   width: 100%;
   height: 100%;
   background-color: transparent;
@@ -1001,16 +951,13 @@ select {
 .box_table .bg_modalConfirm {
   z-index: 998;
 }
+
 .editEmployeeModal .address {
   padding-bottom: 20px;
 }
 
 .editEmployeeModal .formChangeEmployee {
   text-align: center;
-}
-
-.editEmployeeModal .errorMessage {
-  font-size: 0.8rem;
 }
 
 .editEmployeeModal .name {
@@ -1116,7 +1063,7 @@ select {
   }
 }
 
-.dropdownMenu {
+.formApp .dropdownMenu {
   max-height: 200px;
   overflow-y: auto;
 }
@@ -1139,14 +1086,6 @@ select {
   width: 240px;
 }
 
-form .address {
-  background: linear-gradient(to bottom, transparent, rgb(245 245 245))
-    rgb(224 228 228);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .form-item input {
   text-align: center;
   padding: 10px 10px 10px 10px;
@@ -1157,6 +1096,8 @@ form .address {
   border-radius: 4px;
   border: 1px solid #bbb;
   color: #5a5a5a;
+  box-shadow: inset -6px -6px 6px #e1e1e1, inset 6px 6px 6px white;
+  outline: 1px solid rgb(220, 239, 232);
 }
 
 .form-item input:focus {
@@ -1175,7 +1116,7 @@ form .address {
   transition: all 0.3s ease;
 }
 
-.form-item input:focus ~ label {
+.formApp .form-item input:focus ~ label {
   padding: 2px 2px;
   background-color: inherit;
   font-weight: bold;
@@ -1190,7 +1131,7 @@ form .address {
   margin-top: 10px;
 }
 
-form .form-item label.up {
+.formApp .form-item label.up {
   padding: 2px 10px;
   background-color: inherit;
   font-weight: bold;
@@ -1215,7 +1156,6 @@ form .form-item label.up {
 
 @media (max-width: 900px) {
   .address .box_streetCity {
-    display: flex;
     flex-direction: column;
   }
 
@@ -1229,12 +1169,17 @@ form .address input:focus ~ label,
 form .address label.up {
   background: linear-gradient(
     to top,
-    rgb(255 255 255) 25%,
-    rgb(255 255 255) 25%,
-    rgb(228 230 230) 25%,
+    rgb(255 255 255) 30%,
+    rgb(255 255 255) 30%,
+    rgb(228 230 230) 30%,
     rgb(228 230 230) 80%
   );
   border-inline: 1px solid rgb(126, 129, 129);
+}
+
+form .address #zipCode:focus ~ label,
+form .address #zipCode ~ label.up {
+background: linear-gradient( to top, rgb(255 255 255) 30%, rgb(255 255 255) 30%, #f3f4f4 30%, #ececec 80% );
 }
 
 form .form-item input:focus ~ label {
@@ -1310,7 +1255,7 @@ form .box_Department .p_label {
 
 .main_ListEmployees .selectedBtnSort > svg,
 .main_ListEmployees .selectedBtnFilter > svg {
-  color: #597c1d;
+  color: #5b752f;
 }
 
 .main_ListEmployees .inputSearchByProperty,
