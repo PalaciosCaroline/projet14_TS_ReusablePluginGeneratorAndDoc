@@ -39,7 +39,7 @@ import {
   ARCHIVE_MODAL,
   DELETE_MODAL,
   NONE_MODAL,
-  modalEmployeesProperties
+  modalEmployeesProperties,
 } from '../utils/modalConstants';
 
 /**
@@ -114,7 +114,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
     );
     const lastFocusedElementRef = useRef<Element | null>(null);
     const [isFadingOut, setIsFadingOut] = useState(false);
-    const timeoutId = useRef<NodeJS.Timeout | null>(null); 
+    const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
     // const archivedEmployees = useSelector(
     //   (state: RootState) => state.employees.archived,
@@ -143,7 +143,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
 
     const closeModal = () => {
       dispatch(clearInput());
-      setModalProperties({id: null, type: NONE_MODAL, modalOpen: false});
+      setModalProperties({ id: null, type: NONE_MODAL, modalOpen: false });
       if (
         lastFocusedElementRef.current &&
         lastFocusedElementRef.current instanceof HTMLElement
@@ -162,11 +162,11 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
 
     useEffect(() => {
       return () => {
-        if(timeoutId.current) {
-          clearTimeout(timeoutId.current); 
+        if (timeoutId.current) {
+          clearTimeout(timeoutId.current);
         }
       };
-    }, []); 
+    }, []);
 
     const openModal = useCallback(
       async (id: number, type: ModalType) => {
@@ -182,17 +182,24 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
           ...selectedEmployee,
         };
         dispatch(setEmployeeData(employeeData));
-        setModalProperties({id, type, modalOpen: true});
+        setModalProperties({ id, type, modalOpen: true });
       },
       [employees, dispatch],
     );
 
-    const setModalProperties = ({id, type, modalOpen}: {id: number | null, type: ModalType, modalOpen: boolean}) => {
+    const setModalProperties = ({
+      id,
+      type,
+      modalOpen,
+    }: {
+      id: number | null;
+      type: ModalType;
+      modalOpen: boolean;
+    }) => {
       setSelectedEmployeeId(id);
       setModalType(type);
       setIsModalOpen(modalOpen);
-    }
-
+    };
 
     const handleChangeSubmit = useCallback(
       (employeeId: number) => (e: any) => {
