@@ -16,9 +16,13 @@ import 'dayjs/locale/en-gb';
 import { RootState } from '../store/index';
 import DatePickerComponent from './DatePickerComponent';
 import { Employee } from '../store/employeeFormStateSlice';
-import { FaUserCheck } from 'react-icons/fa';
-import { BiErrorAlt } from 'react-icons/bi';
 import { EmployeeFormErrors } from '../store/employeeFormStateSlice';
+import {
+  CONFIRMATION_MODAL,
+  ERRORCONFIRMATION_MODAL,
+  NONE_MODAL,
+  modalAddEmployeeProperties
+} from '../utils/modalConstants';
 
 /**
  * Defines the properties of the FormNewEmployee component.
@@ -33,7 +37,10 @@ interface Props {
   employee?: Employee;
 }
 
-export type ModalType = 'confirmationModal' | 'errorConfirmationModal' | 'none';
+export type ModalType =
+  | typeof CONFIRMATION_MODAL
+  | typeof ERRORCONFIRMATION_MODAL
+  | typeof NONE_MODAL;
 
 /**
  * FormNewEmployee is a functional component that renders a form for creating a new employee.
@@ -47,7 +54,7 @@ export type ModalType = 'confirmationModal' | 'errorConfirmationModal' | 'none';
 export const FormNewEmployee: FC<Props> = () => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<ModalType>('none');
+  const [modalType, setModalType] = useState<ModalType>(NONE_MODAL);
   const [employeeName, setEmployeeName] = useState<{
     firstname: string;
     lastname: string;
@@ -85,9 +92,9 @@ export const FormNewEmployee: FC<Props> = () => {
 
   useEffect(() => {
     if (errorEmployeeExist) {
-      setModalType('errorConfirmationModal');
+      setModalType('ERRORCONFIRMATION_MODAL');
     } else {
-      setModalType('confirmationModal');
+      setModalType('CONFIRMATION_MODAL');
     }
   }, [errorEmployeeExist]);
 
@@ -128,7 +135,6 @@ export const FormNewEmployee: FC<Props> = () => {
       lastFocusedElementRef.current = document.activeElement;
       setIsModalOpen(true);
       dispatch(clearInput());
-      e.target.reset();
       dispatch(setLoading(false));
     }
   };
@@ -143,7 +149,7 @@ export const FormNewEmployee: FC<Props> = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setModalType('none');
+    setModalType(NONE_MODAL);
     if (
       lastFocusedElementRef.current &&
       lastFocusedElementRef.current instanceof HTMLElement
@@ -152,35 +158,8 @@ export const FormNewEmployee: FC<Props> = () => {
     }
   };
 
-  const modalProperties = {
-    confirmationModal: {
-      icon: <FaUserCheck className="iconCheckedModal" />,
-      title: 'Confirmation',
-      modalFormAddContent: (
-        <p tabIndex={0} id="confirmation-text">
-          The new employee, {employeeName.firstname} {employeeName.lastname},
-          has been registered successfully.
-        </p>
-      ),
-    },
-    errorConfirmationModal: {
-      icon: <BiErrorAlt className="iconCheckedModal" />,
-      title: 'Error',
-      modalFormAddContent: (
-        <p tabIndex={0} id="error-text">
-          The employee {employeeName.firstname} {employeeName.lastname}, born on{' '}
-          {employeeName.dateOfBirth}, already exist.
-        </p>
-      ),
-    },
-    none: {
-      icon: null,
-      title: '',
-      modalFormAddContent: null
-    },
-  };
-
-  const { icon, title, modalFormAddContent } = modalProperties[modalType];
+  const { icon, title, modalFormAddContent } =
+    modalAddEmployeeProperties(employeeName)[modalType];
 
   return (
     <div className="box_formEntree">
@@ -189,7 +168,7 @@ export const FormNewEmployee: FC<Props> = () => {
         id="create-employee"
         onSubmit={handleFormSubmit}
         data-testid="form"
-        className='formApp'
+        className="formApp"
       >
         <div className="boxName">
           {inputFieldsName.map((input) => (
@@ -233,21 +212,23 @@ export const FormNewEmployee: FC<Props> = () => {
         </button>
       </form>
       <React.Suspense fallback={<></>}>
-      {isModalOpen && modalType != 'none' && (
-        <Modal
-          isModalOpen={isModalOpen}
-          closeModal={handleCloseModal}
-          className={`formAddModal formAppModal ${
-            errorEmployeeExist ? 'errorConfirmationModal' : 'confirmationModal'
-          }`}
-          dataTestId="modalConfirm"
-          icon={icon}
-          title={title}
-        >
-          {modalFormAddContent}
-        </Modal>
-      )}
-       </React.Suspense>
+        {isModalOpen && modalType != NONE_MODAL && (
+          <Modal
+            isModalOpen={isModalOpen}
+            closeModal={handleCloseModal}
+            className={`formAddModal formAppModal ${
+              errorEmployeeExist
+                ? 'errorConfirmationModal'
+                : 'confirmationModal'
+            }`}
+            dataTestId="modalConfirm"
+            icon={icon}
+            title={title}
+          >
+            {modalFormAddContent}
+          </Modal>
+        )}
+      </React.Suspense>
     </div>
   );
 };

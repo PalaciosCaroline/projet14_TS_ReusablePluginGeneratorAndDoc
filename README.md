@@ -19,7 +19,7 @@
 
 <h2 align="center">Projet dans le cadre de la formation développeur d'application JavaScript React</h2> 
 
-Pour voir le résultat du site web mis en ligne, rendez-vous sur [site HRnet](https://projet11-palcaroline28-gmailcom.vercel.app/projet14)
+Pour voir le résultat du site web mis en ligne, rendez-vous sur [site HRnet](https://projet14-typescript.vercel.app/)
 
 
 ***********************************************************************************************************************************************************************
@@ -28,6 +28,6 @@ Pour voir le résultat du site web mis en ligne, rendez-vous sur [site HRnet](ht
 @@ Exemple: Image of site @@
 ```
 
-![site HRnet](./projet14table.png "site HRnet")
+![site HRnet](./assets/projet14table.png "site HRnet")
 
-![site HRnet](./projet14form1.png "site HRnet")
+![site HRnet](./assets/projet14form1.png "site HRnet")

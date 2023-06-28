@@ -6,7 +6,6 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import ListEmployees from '../pages/ListEmployees';
 import { dataEmployeesMock, dataColumnsMock } from '../mocks/data';
-// import { Employee } from "../../mocks/data";
 import { Employee } from '../store/employeeFormStateSlice';
 import { initialState } from '../store/employeeFormStateSlice';
 import { setError, setField } from '../store/employeeFormStateSlice';

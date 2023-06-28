@@ -4,35 +4,18 @@ import ArchiveEmployeeContent from './ArchiveEmployeeContent';
 import DeleteEmployeeContent from './DeleteEmployeeContent';
 import { ModalType } from './TableEmployees';
 import { EmployeeBase } from './../mocks/data';
-
-const employeeDataConfig = [
-  {
-    label: 'First Name:',
-    dataKey: 'firstname',
-    className: 'box_nameRight',
-  },
-  {
-    label: 'Last Name:',
-    dataKey: 'lastname',
-    className: 'box_nameLeft',
-  },
-  {
-    label: 'Date of Birthday:',
-    dataKey: 'dateOfBirth',
-    className: 'box_nameRight',
-  },
-  {
-    label: 'Start Date:',
-    dataKey: 'startDate',
-    className: 'box_nameLeft',
-  },
-];
+import {
+  ARCHIVE_MODAL,
+  DELETE_MODAL,
+  EDIT_MODAL,
+  employeeDataConfig
+} from '../utils/modalConstants';
 
 
 /**
  * @interface EmployeeDataProps
  * Interface detailing the props for the EmployeeData component.
- * 
+ *
  * @property {string} label - Represents the label of the data.
  * @property {string} data - Represents the data associated with the label.
  * @property {string} className - Represents the CSS class to be applied to the component.
@@ -47,7 +30,7 @@ interface EmployeeDataProps {
  * @function EmployeeData
  * This function component displays label-data pairs about an employee.
  * It takes the EmployeeDataProps as props.
- * 
+ *
  * @param {string} label - The label of the data.
  * @param {string} data - The data associated with the label.
  * @param {string} className - The CSS class to be applied to the component.
@@ -62,13 +45,13 @@ const EmployeeData: FC<EmployeeDataProps> = ({ label, data, className }) => (
 /**
  * @function getContentByModalType
  * This function returns the modal content based on the type of modal.
- * 
+ *
  * @param {ModalType} modalType - The type of modal.
  * @param {any} handleSubmit - The function to be called when the form is submitted.
  * @param {number} selectedEmployeeId - The ID of the selected employee.
  * @param {boolean} isLoading - Indicates if the form is loading.
  * @param {() => void} handleCancel - The function to be called when the form is cancelled.
- * 
+ *
  * @returns {ReactElement} The modal content based on the type of modal.
  */
 const getContentByModalType = (
@@ -79,7 +62,7 @@ const getContentByModalType = (
   handleCancel: () => void,
 ): ReactElement => {
   switch (modalType) {
-    case 'edit':
+    case EDIT_MODAL:
       return (
         <EditEmployeeContent
           handleChangeSubmit={handleSubmit}
@@ -87,7 +70,7 @@ const getContentByModalType = (
           isLoading={isLoading}
         />
       );
-    case 'archive':
+    case ARCHIVE_MODAL:
       return (
         <ArchiveEmployeeContent
           handleArchiveSubmit={handleSubmit}
@@ -95,7 +78,7 @@ const getContentByModalType = (
           isLoading={isLoading}
         />
       );
-    case 'delete':
+    case DELETE_MODAL:
       return (
         <DeleteEmployeeContent
           handleDeleteSubmit={handleSubmit}
@@ -112,7 +95,7 @@ const getContentByModalType = (
 /**
  * @interface ModalContentProps
  * Interface detailing the props for the ModalEmployeesContent component.
- * 
+ *
  * @property {ModalType} modalType - Represents the type of modal.
  * @property {any} handleSubmit - Represents the function to be called when the form is submitted.
  * @property {() => void} handleCancel - Represents the function to be called when the form is cancelled.
@@ -133,7 +116,7 @@ interface ModalContentProps {
  * @function ModalEmployeesContent
  * This function component displays a modal with editable employee information.
  * It takes the ModalContentProps as props.
- * 
+ *
  * @param {ModalType} modalType - The type of modal.
  * @param {any} handleSubmit - The function to be called when the form is submitted.
  * @param {() => void} handleCancel - The function to be called when the form is cancelled.
@@ -159,7 +142,7 @@ const ModalEmployeesContent: FC<ModalContentProps> = ({
 
   const employeeDataComponents = employeeDataConfig.map((config, index) => (
     <EmployeeData
-      key={index} 
+      key={index}
       label={config.label}
       data={employeeFormEntree[config.dataKey as keyof EmployeeBase]}
       className={config.className}
@@ -174,7 +157,7 @@ const ModalEmployeesContent: FC<ModalContentProps> = ({
   return (
     <>
       <div className="box_changeEmployeeData">
-         {chunkedDataComponents.map((chunk, index) => (
+        {chunkedDataComponents.map((chunk, index) => (
           <div key={index} className="box_changeModalName">
             {chunk}
           </div>
