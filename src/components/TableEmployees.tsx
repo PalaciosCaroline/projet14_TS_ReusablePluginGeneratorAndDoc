@@ -10,30 +10,19 @@ import { dataColumnsMock } from '../mocks/data';
 import { Table } from 'typescript-table';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/index';
-// import {
-//   archiveEmployee,
-//   updateEmployee,
-//   deleteEmployee,
-//   setLoading,
-// } from '../store/employeesSlice';
 import { ExportDataComponent } from 'typescript-exportdata';
 import {
   clearInput,
   setEmployeeData,
   setError,
 } from '../store/employeeFormStateSlice';
-// import Modal from './Modal';
 const Modal = React.lazy(() => import('./Modal'));
-// import { FiEdit3, FiArchive } from 'react-icons/fi';
-// import { RiDeleteBin6Line } from 'react-icons/ri';
 import ModalEmployeesContent from './ModalEmployeesContent';
-// import { modalEmployeesProperties } from './ModalEmployeesContent';
 import {
   handleChangeEmployee,
   handleArchiveEmployee,
   handleDeleteEmployee,
 } from '../services/employeeService';
-// import isDate from '../utils/controlDate';
 import {
   EDIT_MODAL,
   ARCHIVE_MODAL,
@@ -248,7 +237,6 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
     return (
       <div className="box_table" data-testid="employee-table">
         <h1 className="pageApp_title">Current employees</h1>
-
         <Table
           data={employees}
           columns={dataColumnsMock}

@@ -27,9 +27,7 @@
   "include": [
     "src",
     "typescript-table.js",
-    "typescript-table.d.ts",
     "typescript-exportdata.js",
-    "typescript-exportdata.d.ts",
     "mui-x-date-pickers.d.ts",
     "typings.d.ts"
   ],
