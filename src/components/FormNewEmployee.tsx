@@ -174,7 +174,6 @@ export const FormNewEmployee: FC<Props> = () => {
           {inputFieldsName.map((input) => (
             <InputField
               key={input.name}
-              isWrapped={true}
               name={input.name}
               label={input.label}
               error={newEmployeeErrors[

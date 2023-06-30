@@ -10,21 +10,18 @@ import { setField, setError } from '../store/employeeFormStateSlice';
  * @property {string} name - The name of the input field.
  * @property {'text' | 'number'} type - The type of the input field.
  * @property {string} error - The error message for the input field.
- * @property {boolean} isWrapped - Whether the input field should be wrapped in a div.
  */
 interface InputFieldProps {
   label?: string;
   name: string;
   type?: 'text' | 'number';
   error?: string;
-  isWrapped?: boolean;
 }
 
 /**
  * `InputField` is a functional React component.
  * It renders an input field with a label and optional error message.
  * @component
- * @param {InputFieldProps} { label, name, error, type = 'text', isWrapped = false } - The properties for the InputField component.
  * @returns {JSX.Element} The rendered InputField component.
  */
 export const InputField: React.FC<InputFieldProps> = ({
@@ -32,7 +29,6 @@ export const InputField: React.FC<InputFieldProps> = ({
   name,
   error,
   type = 'text',
-  isWrapped = false,
 }) => {
   const dispatch = useDispatch();
   const inputValue = useSelector((state: RootState) =>
