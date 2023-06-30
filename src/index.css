@@ -819,12 +819,15 @@ fieldset {
   height: 20px;
 }
 
+.formChangeEmployee .css-1y9arzu .MuiInputBase-input,
 .formChangeEmployee
   .box_endDate
   .MuiInputBase-formControl
   .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
   height: 40px;
 }
+
+
 .box_table .editEmployeeModal .box_endDate label,
 .main_newEmployee .box_formEntree .boxDate .box_dateOfBirth label,
 .main_newEmployee .box_formEntree .boxDate .box_startDate label {
