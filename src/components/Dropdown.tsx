@@ -180,7 +180,7 @@ const Dropdown: FC<DropdownProps> = ({
         <button
           type="button"
           style={{
-            color: selectedOption ? '#5a5a5a' : '#747474', fontWeight: selectedOption ? '600' : ''
+            color: selectedOption ? '#5a5a5a' : '#616060', fontWeight: selectedOption ? '600' : ''
           }}
           className="dropdownToggle form__input"
           onClick={toggleDropdown}

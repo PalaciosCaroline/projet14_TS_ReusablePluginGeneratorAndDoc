@@ -1122,7 +1122,7 @@ fieldset {
 .formApp .form-item input:focus ~ label {
   padding: 2px 2px;
   background-color: inherit;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 12px;
   top: -12px;
   left: 15px;
@@ -1137,11 +1137,11 @@ fieldset {
 .formApp .form-item label.up {
   padding: 2px 10px;
   background-color: inherit;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 0.8rem;
   top: -12px;
   left: 15px;
-  color: #777777;
+  color: #616060;
   border-inline: 1px solid rgb(126, 129, 129);
 }
 
@@ -1209,7 +1209,7 @@ form .box_Department .p_label {
   padding-inline: 0.5em;
   user-select: none;
   cursor: text;
-  color: #777777;
+  color: #616060;
   font-weight: 700;
   letter-spacing: 1px;
 }
