@@ -268,7 +268,7 @@ const TableEmployees: FC<Props<any>> = memo<Props<any>>(
               className={`editEmployeeModal formAppModal ${
                 isFadingOut ? 'fadeOut' : ''
               } ${modalType === DELETE_MODAL ? 'deleteEmployeeModal' : ''}`}
-              dataTestId="modalAction"
+              dataTestId={`modalAction_${modalType}`}
               icon={icon}
               title={title}
             >

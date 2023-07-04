@@ -59,7 +59,7 @@ const ArchiveEmployeeContent: FC<ArchiveEmployeeContentProps> = ({
         <button
           className="btnApp btnFormArchive"
           type="submit"
-          data-testid="btn_form"
+          data-testid="btn_formArchive"
           disabled={isLoading}
         >
           Archive Employee

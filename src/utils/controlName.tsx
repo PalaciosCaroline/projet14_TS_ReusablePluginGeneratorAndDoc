@@ -8,7 +8,7 @@
  * @param {(action: any) => void} dispatch - The dispatch function from Redux.
  * @returns {boolean} - Returns `true` if the name is provided and its format is valid, `false` otherwise.
  */
-function isValidName(
+export function isValidName(
   value: string | null,
   setError: (error: Error) => void,
   nameForError: string,
@@ -25,7 +25,7 @@ function isValidName(
     return false;
   } else if (value.length >= 2 && !regex.test(value)) {
     dispatch(
-      setError({ name: errorName, message: `Invalid ${nameForError}     format` }),
+      setError({ name: errorName, message: `Invalid ${nameForError} format` }),
     );
     return false;
   } else if (regex.test(value) && value.length > 1) {
@@ -51,7 +51,7 @@ export const validateNames = (
   lastname: string,
   setError: (error: Error) => void,
   dispatch: (action: any) => void,
-) => {
+): boolean => {
   let isNameValid = true;
   isNameValid =
     isValidName(firstname, setError, 'first name', dispatch) && isNameValid;

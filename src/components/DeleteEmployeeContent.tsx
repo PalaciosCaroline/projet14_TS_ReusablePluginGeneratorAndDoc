@@ -49,7 +49,7 @@ const DeleteEmployeeContent: FC<DeleteEmployeeContentProps> = ({
       </button>
       <button
         className="btnApp btnFormCancel"
-        data-testid="btn_form"
+        data-testid="btn_formCancel"
         onClick={handleCancel}
         disabled={isLoading}
       >

@@ -3,8 +3,7 @@ import {
   updateEmployee,
   deleteEmployee,
   archiveEmployee,
-  setLoading,
-  
+  setLoading
 } from '../store/employeesSlice';
 
 import { setError } from '../store/employeeFormStateSlice';

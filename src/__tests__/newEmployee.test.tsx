@@ -8,9 +8,12 @@ import ListEmployees from '../pages/ListEmployees';
 import { dataEmployeesMock, dataColumnsMock } from '../mocks/data';
 import { Employee } from '../store/employeeFormStateSlice';
 import { initialState } from '../store/employeeFormStateSlice';
+import { initialState as employeesSliceInitial } from '../store/employeesSlice';
 import { setError, setField } from '../store/employeeFormStateSlice';
-import { addEmployee } from '../store/employeesSlice';
+import employeesSlice, { addEmployee } from '../store/employeesSlice';
 import Modal from '../components/Modal';
+import Dropdown from '../components/Dropdown';
+import { isValidName, validateNames } from '../utils/controlName';
 
 const mockStore = configureStore([]);
 
@@ -126,6 +129,20 @@ describe('FormNewEmployee', () => {
   });
 });
 
+test('isValidName should return false and call setError with the correct argument when name has invalid format', () => {
+  const setError = jest.fn();
+  const dispatch = jest.fn();
+
+  const name = 'David@';
+
+  const result = isValidName(name, setError, 'first name', dispatch);
+
+  expect(setError).toHaveBeenCalledWith({
+    name: 'firstname',
+    message: 'Invalid first name format',
+  });
+});
+
 describe('Modal', () => {
   beforeEach(() => {
     window.HTMLElement.prototype.scrollIntoView = function () {};
@@ -178,4 +195,211 @@ describe('Modal', () => {
 
     expect(button).toHaveFocus();
   });
+});
+
+describe('Dropdown', () => {
+  const options = ['option 1', 'option 2', 'option 3'];
+
+  let getByRole: any, getByText: any;
+  let store: any;
+  beforeEach(() => {
+    store = mockStore({
+      employees: {
+        active: dataEmployeesMock,
+      },
+      employeeFormState: initialState,
+    });
+
+    const renderResult = render(
+      <Provider store={store}>
+        <Dropdown
+          label="State"
+          dropdownLabel="dropdownLabelState"
+          placeholder="select a state"
+          options={options}
+          style={{ margin: '8px', width: '100%' }}
+        />
+      </Provider>,
+    );
+
+    getByRole = renderResult.getByRole;
+    getByText = renderResult.getByText;
+  });
+
+  test('Opens and closes the dropdown menu by clicking the button', () => {
+    const dropdownButton = getByRole('button');
+
+    fireEvent.click(dropdownButton);
+    expect(getByRole('listbox')).toBeVisible();
+
+    fireEvent.click(dropdownButton);
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
+
+  test('Closes the dropdown menu by pressing the Tab key.', () => {
+    const dropdownButton = getByRole('button');
+
+    fireEvent.click(dropdownButton);
+    expect(getByRole('listbox')).toBeVisible();
+
+    fireEvent.keyDown(dropdownButton, { key: 'Tab', code: 'Tab' });
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
+
+  test('Changes the selected option by pressing the Enter key.', () => {
+    const dropdownButton = getByRole('button');
+
+    fireEvent.click(dropdownButton);
+    const option1 = getByText('option 1');
+    fireEvent.keyDown(option1, { key: 'Enter', code: 'Enter' });
+    expect(getByRole('button')).toHaveTextContent('option 1');
+  });
+});
+
+const { reducer, actions } = employeesSlice;
+
+describe('employeesSlice', () => {
+  test('should return the initial state', () => {
+    expect(reducer(undefined, {})).toEqual(employeesSliceInitial);
+  });
+
+  test('should handle setLoading', () => {
+    const action = actions.setLoading(true);
+    const expectedState = { ...employeesSliceInitial, isLoading: true };
+    expect(reducer(employeesSliceInitial, action)).toEqual(expectedState);
+  });
+
+  // Ajoutez plus de tests pour les autres actions ici
+
+  test('should handle addEmployee when employee does not exist', () => {
+    const newEmployee = {
+      firstname: 'John',
+      lastname: 'Dort',
+      dateOfBirth: '15/01/1975',
+      startDate: '01/04/2022',
+      department: 'Sales',
+      street: '123 Main St',
+      city: 'Anytown',
+      state: 'CA',
+      zipCode: '12345',
+    };
+    const action = actions.addEmployee(newEmployee);
+    const expectedState = {
+      ...employeesSliceInitial,
+      active: [...employeesSliceInitial.active, { ...newEmployee, id: 22 }],
+    };
+    expect(reducer(employeesSliceInitial, action)).toEqual(expectedState);
+  });
+
+  test('should handle addEmployee when employee does not exist', () => {
+    const existingEmployee = {
+      id: 1,
+      firstname: 'John',
+      lastname: 'Doe',
+      dateOfBirth: '15/01/1975',
+      startDate: '01/04/2022',
+      department: 'Sales',
+      street: '123 Main St',
+      city: 'Anytown',
+      state: 'CA',
+      zipCode: '12345',
+    };
+
+    const initialStateWithExistingEmployee = {
+      ...employeesSliceInitial,
+      active: [...employeesSliceInitial.active, existingEmployee],
+    };
+
+    const action = actions.addEmployee(existingEmployee);
+    const expectedState = {
+      ...initialStateWithExistingEmployee,
+      errorEmployeeExist: 'Employee already exists',
+    };
+
+    expect(reducer(initialStateWithExistingEmployee, action)).toEqual(
+      expectedState,
+    );
+  });
+});
+
+test('should handle deleteEmployee', () => {
+  const employeeIdToDelete = 0;
+
+  // Ajouter un employé existant à l'état initial
+  const initialStateWithExistingEmployee = {
+    ...employeesSliceInitial,
+    active: [
+      ...employeesSliceInitial.active,
+      {
+        firstname: 'John',
+        lastname: 'Dort',
+        dateOfBirth: '15/01/1975',
+        startDate: '01/04/2022',
+        department: 'Sales',
+        street: '123 Main St',
+        city: 'Anytown',
+        state: 'CA',
+        zipCode: '12345',
+        id: employeeIdToDelete,
+      },
+    ],
+  };
+
+  const action = actions.deleteEmployee(employeeIdToDelete);
+
+  const expectedState = {
+    ...initialStateWithExistingEmployee,
+    active: employeesSliceInitial.active,
+  };
+
+  expect(reducer(initialStateWithExistingEmployee, action)).toEqual(
+    expectedState,
+  );
+});
+
+test('should handle archiveEmployee', () => {
+  const employeeIdToArchive = 0;
+  const endDate = '04/06/2023';
+
+  const initialStateWithExistingEmployee = {
+    ...employeesSliceInitial,
+    active: [
+      ...employeesSliceInitial.active,
+      {
+        firstname: 'John',
+        lastname: 'Dort',
+        dateOfBirth: '15/01/1975',
+        startDate: '01/04/2022',
+        department: 'Sales',
+        street: '123 Main St',
+        city: 'Anytown',
+        state: 'CA',
+        zipCode: '12345',
+        id: employeeIdToArchive,
+      },
+    ],
+  };
+
+  const action = actions.archiveEmployee({
+    id: employeeIdToArchive,
+    endDate: endDate,
+  });
+
+  const expectedState = {
+    ...initialStateWithExistingEmployee,
+    active: employeesSliceInitial.active,
+    archived: [
+      ...employeesSliceInitial.archived,
+      {
+        ...initialStateWithExistingEmployee.active.find(
+          (e) => e.id === employeeIdToArchive,
+        ),
+        endDate: endDate,
+      },
+    ],
+  };
+
+  expect(reducer(initialStateWithExistingEmployee, action)).toEqual(
+    expectedState,
+  );
 });

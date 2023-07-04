@@ -190,6 +190,7 @@ const Dropdown: FC<DropdownProps> = ({
           aria-expanded={isOpen}
           aria-labelledby={dropdownLabel}
           aria-label="Options de la liste déroulante"
+          data-testid='test_btnDropDown'
         >
           {selectedOption || placeholder}
           <span className="arrow" onClick={handleChevronClick}>
@@ -213,9 +214,10 @@ const Dropdown: FC<DropdownProps> = ({
                   onKeyDown={(event) => handleOptionKeyDown2(event, option)}
                   onClick={() => handleSelect(label, option)}
                   onMouseOver={() => setFocusedOptionIndex(index)}
-                  className="dropdownOptionButton" // Ajoutez une classe pour styliser ce bouton comme vous le souhaitez
+                  className="dropdownOptionButton" 
                   tabIndex={0}
                   style={{ width: '100%', height: '100%' }}
+                  data-testid={option}
                 >
                   {option}
                 </button>

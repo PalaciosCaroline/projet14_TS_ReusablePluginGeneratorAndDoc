@@ -42,7 +42,7 @@ const EditEmployeeContent: FC<EditEmployeeContentProps> = ({
         <button
           className="btnApp btnFormEdit"
           type="submit"
-          data-testid="btn_form"
+          data-testid="btn_formUpdate"
           disabled={isLoading}
         >
           Save Changes
