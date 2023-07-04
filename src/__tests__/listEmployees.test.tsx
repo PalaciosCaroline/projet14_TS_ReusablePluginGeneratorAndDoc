@@ -8,15 +8,12 @@ import {
   screen,
   fireEvent,
   waitFor,
-  getByTestId,
-  getAllByTestId,
 } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
 import ListEmployees from '../pages/ListEmployees';
 import {
   dataEmployeesMock,
   dataColumnsMock,
-  EmployeeBase,
 } from '../mocks/data';
 import { Employee } from '../mocks/data';
 import {
@@ -24,15 +21,13 @@ import {
   handleChangeEmployee,
   handleDeleteEmployee,
 } from '../services/employeeService';
-import employeesSlice, {
-  addEmployee,
+import  {
   archiveEmployee,
   deleteEmployee,
-  initialState,
   setLoading,
   updateEmployee,
 } from '../store/employeesSlice';
-import { setError, setEmployeeData } from '../store/employeeFormStateSlice';
+import { setError } from '../store/employeeFormStateSlice';
 import DeleteEmployeeContent from './../components/DeleteEmployeeContent';
 import ArchiveEmployeeContent from '../components/ArchiveEmployeeContent';
 import EditEmployeeContent from '../components/EditEmployeeContent';
@@ -782,8 +777,3 @@ describe('ModalEmployeesContent', () => {
     expect(getByText('Cancel')).toBeInTheDocument();
   });
 });
-
-
-
-
-

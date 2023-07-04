@@ -1,19 +1,17 @@
 import NewEmployee from '../pages/NewEmployee';
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import configureStore from 'redux-mock-store';
-import ListEmployees from '../pages/ListEmployees';
 import { dataEmployeesMock, dataColumnsMock } from '../mocks/data';
-import { Employee } from '../store/employeeFormStateSlice';
 import { initialState } from '../store/employeeFormStateSlice';
 import { initialState as employeesSliceInitial } from '../store/employeesSlice';
 import { setError, setField } from '../store/employeeFormStateSlice';
-import employeesSlice, { addEmployee } from '../store/employeesSlice';
+import employeesSlice from '../store/employeesSlice';
 import Modal from '../components/Modal';
 import Dropdown from '../components/Dropdown';
-import { isValidName, validateNames } from '../utils/controlName';
+import { isValidName } from '../utils/controlName';
 
 const mockStore = configureStore([]);
 
@@ -403,3 +401,5 @@ test('should handle archiveEmployee', () => {
     expectedState,
   );
 });
+
+

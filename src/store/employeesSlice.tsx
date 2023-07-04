@@ -52,7 +52,7 @@ const employeesSlice = createSlice({
           state.errorEmployeeExist = "Employee already exists";
         } else {
           state.active.push(action.payload);
-          state.errorEmployeeExist = null; // réinitialiser l'erreur si l'ajout est réussi
+          state.errorEmployeeExist = null; 
         }
       },
       prepare: (employee: EmployeeBase) => {
