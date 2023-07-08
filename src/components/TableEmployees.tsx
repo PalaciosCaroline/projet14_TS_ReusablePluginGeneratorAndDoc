@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState, useCallback, useRef } from 'react';
 import { Employee, dataColumnsMock } from '../mocks/data';
 import { Table } from 'typescript-table';
 import { useDispatch, useSelector } from 'react-redux';
-import { Dispatch, AnyAction } from 'redux';
 import { RootState } from '../store/index';
 import { ExportDataComponent } from 'typescript-exportdata';
 import { clearInput, setEmployeeData } from '../store/employeeFormStateSlice';
@@ -226,19 +225,19 @@ const TableEmployees: FC = (): JSX.Element => {
             handleArchiveRow={handleArchiveRow}
             deleteRowColumnVisible
             handleDeleteRow={handleDeleteRow}
-            // renderExportDataComponent={(
-            //   filteredData: DataItem<any | undefined>[],
-            //   columnsManaged: ColumnManaged[],
-            // ) => (
-            //   <ExportDataComponent
-            //     filteredData={filteredData}
-            //     columnsManaged={columnsManaged}
-            //     headerProperty="label"
-            //     csvExport={true}
-            //     excelExport={true}
-            //     pdfExport={true}
-            //   />
-            // )}
+            renderExportDataComponent={(
+              filteredData: DataItem<any | undefined>[],
+              columnsManaged: ColumnManaged[],
+            ) => (
+              <ExportDataComponent
+                filteredData={filteredData}
+                columnsManaged={columnsManaged}
+                headerProperty="label"
+                csvExport={true}
+                excelExport={true}
+                pdfExport={true}
+              />
+            )}
           />
           <React.Suspense fallback={<></>}>
             {modalState.isModalOpen && modalState.selectedEmployeeId && (
