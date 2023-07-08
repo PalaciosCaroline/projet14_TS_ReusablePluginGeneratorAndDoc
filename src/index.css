@@ -496,9 +496,9 @@ header .linkApp:after {
   font-size: 0.8rem;
 }
 
-.box_endDate.errorBorder input,
-.box_dateOfBirth.errorBorder input,
-.box_startDate.errorBorder input,
+.box_endDate.errorBorder fieldset,
+.box_dateOfBirth.errorBorder fieldset,
+.box_startDate.errorBorder fieldset,
 .form-item input.errorBorder {
   border: 1px solid #d21f1f;
 }
@@ -559,17 +559,10 @@ fieldset {
   left: 50%;
 }
 
-/* .formAppModal {
-  position: fixed;
-  top: 50%;
-  max-height: 99%;
-  background-color: #fff;
-} */
-
 .editEmployeeModal {
-  z-index: 999;
   right: 100px;
   height: auto;
+  z-index:999;
 }
 
 .editEmployeeModal .box_titleModal,
@@ -582,7 +575,7 @@ fieldset {
 }
 
 .formAppModal .box_titleModal {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .formAppModal {
@@ -598,7 +591,7 @@ fieldset {
   border-radius: 8px;
 }
 
-.formAddModal {
+.formAddModal{
   z-index: 9999;
 }
 
@@ -740,14 +733,14 @@ fieldset {
 .header_ListEmployees img {
   margin-left: 20px;
   width: 100px;
-  height: 90px;
+  height: 92px;
 }
 
 @media (max-width: 1000px) {
   .header_ListEmployees img {
     margin: 10px 0 0 0;
     width: 80px;
-    height: 70px; 
+    height: 74px; 
   }
   .titleService {
     font-size: 1.5rem;

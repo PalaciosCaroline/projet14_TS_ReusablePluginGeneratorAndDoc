@@ -1,21 +1,11 @@
-import React, {
-  FC,
-  memo,
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-} from 'react';
-import { dataColumnsMock } from '../mocks/data';
+import React, { FC, useEffect, useState, useCallback, useRef } from 'react';
+import { Employee, dataColumnsMock } from '../mocks/data';
 import { Table } from 'typescript-table';
 import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, AnyAction } from 'redux';
 import { RootState } from '../store/index';
 import { ExportDataComponent } from 'typescript-exportdata';
-import {
-  clearInput,
-  setEmployeeData,
-  setError,
-} from '../store/employeeFormStateSlice';
+import { clearInput, setEmployeeData } from '../store/employeeFormStateSlice';
 const Modal = React.lazy(() => import('./Modal'));
 import ModalEmployeesContent from './ModalEmployeesContent';
 import {
@@ -30,6 +20,7 @@ import {
   NONE_MODAL,
   modalEmployeesProperties,
 } from '../utils/modalConstants';
+const ErrorLoadingData = React.lazy(() => import('./ErrorLoadingData'));
 
 /**
  * `DataItem<T>` is a generic interface for key-value pairs.
@@ -40,16 +31,6 @@ import {
  */
 interface DataItem<T> {
   [key: string]: T | undefined;
-}
-
-/**
- * `Props<T>` is a generic interface for the TableEmployees component props.
- * @interface
- * @template T
- * @property {DataItem<T | undefined>[]} employees - The employees to be displayed in the table.
- */
-interface Props<T> {
-  employees: DataItem<T | undefined>[];
 }
 
 /**
@@ -77,218 +58,217 @@ export type ModalType =
   | typeof DELETE_MODAL
   | typeof NONE_MODAL;
 
+type ModalState = {
+    modalType: ModalType;
+    isModalOpen: boolean;
+    selectedEmployeeId: number | null;
+};
+
 /**
  * `TableEmployees` is a functional React component. It displays a table of employees,
  * and provides functionalities to edit, archive, and delete employees.
  * @component
- * @template T
- * @param {Props<T>} { employees } - The properties for the TableEmployees.
  * @returns {JSX.Element} The rendered TableEmployees.
  */
-const TableEmployees: FC<Props<any>> = memo<Props<any>>(
-  ({ employees }) => {
-    const dispatch = useDispatch();
-    const isLoading = useSelector(
-      (state: RootState) => state.employees.isLoading,
-    );
-    const [modalType, setModalType] = useState<ModalType>(NONE_MODAL);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const employeeFormState = useSelector(
-      (state: RootState) => state.employeeFormState,
-    );
-    const employeeFormEntree = employeeFormState?.formValues;
-    const employeeEntreeErrors = employeeFormState?.formErrors;
-    const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(
-      null,
-    );
-    const lastFocusedElementRef = useRef<Element | null>(null);
-    const [isFadingOut, setIsFadingOut] = useState(false);
-    const timeoutId = useRef<NodeJS.Timeout | null>(null);
+const TableEmployees: FC = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const { active: employees, isLoading } = useSelector(
+    (state: RootState) => state.employees,
+  );
+  const employeeFormState = useSelector(
+    (state: RootState) => state.employeeFormState,
+  );
+  const employeeFormEntree = employeeFormState?.formValues;
+  const employeeEntreeErrors = employeeFormState?.formErrors;
+  const initialModalState: ModalState = {
+    modalType: NONE_MODAL,
+    isModalOpen: false,
+    selectedEmployeeId: null
+  };
+  const [modalState, setModalState] = useState<ModalState>(initialModalState);
+  const lastFocusedElementRef = useRef<Element | null>(null);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
-    // const archivedEmployees = useSelector(
-    //   (state: RootState) => state.employees.archived,
-    // );
+  // const archivedEmployees = useSelector(
+  //   (state: RootState) => state.employees.archived,
+  // );
 
-    // seulement pour démonstration
-    // useEffect(() => {
-    //   console.log('active employees:', JSON.stringify(employees, null, 2));
-    //   console.log(
-    //     'archived employees:',
-    //     JSON.stringify(archivedEmployees, null, 2),
-    //   );
-    // }, [employees, archivedEmployees]);
+  // seulement pour démonstration
+  // useEffect(() => {
+  //   console.log('active employees:', JSON.stringify(employees, null, 2));
+  //   console.log(
+  //     'archived employees:',
+  //     JSON.stringify(archivedEmployees, null, 2),
+  //   );
+  // }, [employees, archivedEmployees]);
 
-    const handleEditRow = (id: any) => {
-      openModal(id, EDIT_MODAL);
-    };
+  const handleEditRow = (id: any) => {
+    openModal(id, EDIT_MODAL);
+  };
 
-    const handleArchiveRow = (id: any) => {
-      openModal(id, ARCHIVE_MODAL);
-    };
+  const handleArchiveRow = (id: any) => {
+    openModal(id, ARCHIVE_MODAL);
+  };
 
-    const handleDeleteRow = (id: number) => {
-      openModal(id, DELETE_MODAL);
-    };
+  const handleDeleteRow = (id: number) => {
+    openModal(id, DELETE_MODAL);
+  };
 
-    const closeModal = () => {
-      dispatch(clearInput());
-      setModalProperties({ id: null, type: NONE_MODAL, modalOpen: false });
-      if (
-        lastFocusedElementRef.current &&
-        lastFocusedElementRef.current instanceof HTMLElement
-      ) {
-        lastFocusedElementRef.current.focus();
+  const closeModal = () => {
+    dispatch(clearInput());
+    setModalProperties(null, NONE_MODAL, false);
+    if (
+      lastFocusedElementRef.current &&
+      lastFocusedElementRef.current instanceof HTMLElement
+    ) {
+      lastFocusedElementRef.current.focus();
+    }
+  };
+
+  const handleAnimModal = () => {
+    setIsFadingOut(true);
+    timeoutId.current = setTimeout(() => {
+      setIsFadingOut(false);
+      closeModal();
+    }, 300);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current);
       }
     };
+  }, []);
 
-    const handleAnimModal = () => {
-      setIsFadingOut(true);
-      timeoutId.current = setTimeout(() => {
-        setIsFadingOut(false);
-        closeModal();
-      }, 300);
-    };
-
-    useEffect(() => {
-      return () => {
-        if (timeoutId.current) {
-          clearTimeout(timeoutId.current);
-        }
+  const openModal = useCallback(
+    async (id: number, type: ModalType) => {
+      lastFocusedElementRef.current = document.activeElement;
+      const selectedEmployee = employees.find(
+        (employee: Employee) => employee.id === id,
+      );
+      if (!selectedEmployee) {
+        console.error('No employee found with id: ', id);
+        return;
+      }
+      const employeeData: any = {
+        ...selectedEmployee,
       };
-    }, []);
+      dispatch(setEmployeeData(employeeData));
+      setModalProperties(id, type, true);
+    },
+    [employees, dispatch],
+  );
 
-    const openModal = useCallback(
-      async (id: number, type: ModalType) => {
-        lastFocusedElementRef.current = document.activeElement;
-        const selectedEmployee = employees.find(
-          (employee) => employee.id === id,
-        );
-        if (!selectedEmployee) {
-          console.error('No employee found with id: ', id);
-          return;
-        }
-        const employeeData: any = {
-          ...selectedEmployee,
-        };
-        dispatch(setEmployeeData(employeeData));
-        setModalProperties({ id, type, modalOpen: true });
-      },
-      [employees, dispatch],
-    );
+  const setModalProperties = useCallback(
+    (id: number | null, modalType: ModalType, modalOpen: boolean) => {
+      setModalState({ selectedEmployeeId: id, modalType: modalType, isModalOpen: modalOpen });
+    },
+    [],
+  );
 
-    const setModalProperties = ({
-      id,
-      type,
-      modalOpen,
-    }: {
-      id: number | null;
-      type: ModalType;
-      modalOpen: boolean;
-    }) => {
-      setSelectedEmployeeId(id);
-      setModalType(type);
-      setIsModalOpen(modalOpen);
-    };
+  const handleChangeSubmit = useCallback(
+    (employeeId: number) => (e: any) => {
+      e.preventDefault();
+      handleChangeEmployee(
+        dispatch,
+        employeeFormEntree,
+        closeModal,
+        employeeId,
+      );
+    },
+    [employeeFormEntree, dispatch],
+  );
 
-    const handleChangeSubmit = useCallback(
-      (employeeId: number) => (e: any) => {
-        e.preventDefault();
-        handleChangeEmployee(
-          dispatch,
-          employeeFormEntree,
-          closeModal,
-          employeeId,
-        );
-      },
-      [employeeFormEntree, dispatch],
-    );
+  const handleArchiveSubmit = useCallback(
+    (employeeId: number) => (e: any) => {
+      e.preventDefault();
+      handleArchiveEmployee(
+        dispatch,
+        employeeFormEntree,
+        closeModal,
+        employeeEntreeErrors,
+        employeeId,
+      );
+    },
+    [employeeFormEntree, employeeEntreeErrors, dispatch],
+  );
 
-    const handleArchiveSubmit = useCallback(
-      (employeeId: number) => (e: any) => {
-        e.preventDefault();
-        handleArchiveEmployee(
-          dispatch,
-          employeeFormEntree,
-          closeModal,
-          employeeEntreeErrors,
-          employeeId,
-        );
-      },
-      [employeeFormEntree, employeeEntreeErrors, dispatch],
-    );
+  const handleDeleteSubmit = useCallback(
+    (employeeId: number) => {
+      handleDeleteEmployee(dispatch, closeModal, employeeId);
+    },
+    [dispatch],
+  );
 
-    const handleDeleteSubmit = useCallback(
-      (employeeId: number) => {
-        handleDeleteEmployee(dispatch, closeModal, employeeId);
-      },
-      [dispatch],
-    );
+  const handleCancel = () => {
+    closeModal();
+  };
 
-    const handleCancel = () => {
-      closeModal();
-    };
+  const { icon, title, handleSubmit } = modalEmployeesProperties(
+    handleChangeSubmit,
+    handleArchiveSubmit,
+    handleDeleteSubmit,
+)[modalState.modalType];
 
-    const { icon, title, handleSubmit } = modalEmployeesProperties(
-      handleChangeSubmit,
-      handleArchiveSubmit,
-      handleDeleteSubmit,
-    )[modalType];
-
-    return (
-      <div className="box_table" data-testid="employee-table">
-        <h1 className="pageApp_title">Current employees</h1>
-        <Table
-          data={employees}
-          columns={dataColumnsMock}
-          editRowColumnVisible
-          handleEditRow={handleEditRow}
-          archiveRowColumnVisible
-          handleArchiveRow={handleArchiveRow}
-          deleteRowColumnVisible
-          handleDeleteRow={handleDeleteRow}
-          renderExportDataComponent={(
-            filteredData: DataItem<any | undefined>[],
-            columnsManaged: ColumnManaged[],
-          ) => (
-            <ExportDataComponent
-              filteredData={filteredData}
-              columnsManaged={columnsManaged}
-              headerProperty="label"
-              csvExport={true}
-              excelExport={true}
-              pdfExport={true}
-            />
-          )}
-        />
-        <React.Suspense fallback={<></>}>
-          {isModalOpen && selectedEmployeeId && (
-            <Modal
-              isModalOpen={isModalOpen}
-              closeModal={handleAnimModal}
-              className={`editEmployeeModal formAppModal ${
-                isFadingOut ? 'fadeOut' : ''
-              } ${modalType === DELETE_MODAL ? 'deleteEmployeeModal' : ''}`}
-              dataTestId={`modalAction_${modalType}`}
-              icon={icon}
-              title={title}
-            >
-              <ModalEmployeesContent
-                modalType={modalType}
-                handleSubmit={handleSubmit}
-                handleCancel={handleCancel}
-                selectedEmployeeId={selectedEmployeeId}
-                isLoading={isLoading}
-                employeeFormEntree={employeeFormEntree}
-              />
-            </Modal>
-          )}
-        </React.Suspense>
-      </div>
-    );
-  },
-  (prevProps, nextProps) => {
-    return prevProps.employees === nextProps.employees;
-  },
-);
+  return (
+    <div className="box_table" data-testid="employee-table">
+      <h1 className="pageApp_title">Current employees</h1>
+      {employees !== undefined ? (
+        <>
+          <Table
+            data={employees}
+            columns={dataColumnsMock}
+            editRowColumnVisible
+            handleEditRow={handleEditRow}
+            archiveRowColumnVisible
+            handleArchiveRow={handleArchiveRow}
+            deleteRowColumnVisible
+            handleDeleteRow={handleDeleteRow}
+            // renderExportDataComponent={(
+            //   filteredData: DataItem<any | undefined>[],
+            //   columnsManaged: ColumnManaged[],
+            // ) => (
+            //   <ExportDataComponent
+            //     filteredData={filteredData}
+            //     columnsManaged={columnsManaged}
+            //     headerProperty="label"
+            //     csvExport={true}
+            //     excelExport={true}
+            //     pdfExport={true}
+            //   />
+            // )}
+          />
+          <React.Suspense fallback={<></>}>
+            {modalState.isModalOpen && modalState.selectedEmployeeId && (
+              <Modal
+                isModalOpen={modalState.isModalOpen}
+                closeModal={handleAnimModal}
+                className={`editEmployeeModal formAppModal ${
+                  isFadingOut ? 'fadeOut' : ''
+                } ${modalState.modalType === DELETE_MODAL ? 'deleteEmployeeModal' : ''}`}
+                dataTestId={`modalAction_${modalState.modalType}`}
+                icon={icon}
+                title={title}
+              >
+                <ModalEmployeesContent
+                  modalType={modalState.modalType}
+                  handleSubmit={handleSubmit}
+                  handleCancel={handleCancel}
+                  selectedEmployeeId={modalState.selectedEmployeeId}
+                  isLoading={isLoading}
+                  employeeFormEntree={employeeFormEntree}
+                />
+              </Modal>
+            )}
+          </React.Suspense>
+        </>
+      ) : (
+        <ErrorLoadingData />
+      )}
+    </div>
+  );
+};
 
 export default TableEmployees;
