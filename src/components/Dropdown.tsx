@@ -181,7 +181,7 @@ const Dropdown: FC<DropdownProps> = ({
   const handleMouseEnter = (): void => {
     setIsMouseActive(true);
   };
-  
+
   const handleMouseLeave = (): void => {
     setIsMouseActive(false);
   };
@@ -193,7 +193,7 @@ const Dropdown: FC<DropdownProps> = ({
         ref={dropdownRef}
         style={{ position: 'relative' }}
         onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+        onMouseLeave={handleMouseLeave}
       >
         <p className="p_label form__label">{label}</p>
         <button
