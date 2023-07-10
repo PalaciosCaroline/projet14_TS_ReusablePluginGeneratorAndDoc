@@ -7,7 +7,7 @@ import { NavLinkProps, NavLinkComponent } from './NavLinkComponent';
  * @interface
  * @property {NavLinkProps} linkProps - The properties for the NavLinkComponent.
  */
-interface HeaderProps {
+export interface HeaderProps {
   linkProps: NavLinkProps;
 }
 

@@ -21,7 +21,7 @@ import {
   CONFIRMATION_MODAL,
   ERRORCONFIRMATION_MODAL,
   NONE_MODAL,
-  modalAddEmployeeProperties
+  modalAddEmployeeProperties,
 } from '../utils/modalConstants';
 
 /**
@@ -32,7 +32,7 @@ import {
  * @property {number} [employeeId] - The ID of the employee being edited, if applicable.
  * @property {Employee} [employee] - The employee object, if applicable.
  */
-interface Props {
+export interface Props {
   employeeId?: number;
   employee?: Employee;
 }
@@ -47,11 +47,11 @@ export type ModalType =
  * It provides fields for an employee's name, date of birth, start date, and address information.
  * On form submission, it validates the provided data, and if valid, adds a new employee to the store.
  * If the operation is successful, it opens a modal with a success message.
- * @component
  *
- * @returns {React.FC}
+ * @component
+ * @returns {React.FC} A React functional component.
  */
-export const FormNewEmployee: FC<Props> = () => {
+export const FormNewEmployee: FC<Props> = (): JSX.Element => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<ModalType>(NONE_MODAL);

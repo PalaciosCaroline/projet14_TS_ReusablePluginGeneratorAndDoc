@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { RootState } from './../store/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -7,16 +7,16 @@ import { setField, setError } from '../store/employeeFormStateSlice';
 
 /**
  * Defines the properties of the DatePickerComponent.
- * 
+ *
  * @interface
- * 
+ *
  * @property {string} nameDate - The name of the date field.
  * @property {string} label - The label to be displayed above the DatePicker input.
  * @property {number} minDate - The minimum selectable date, calculated as the current date subtracted by this value (in years).
  * @property {number} maxDate - The maximum selectable date, calculated as the current date added or subtracted by this value (in years), based on the dateOperation prop.
  * @property {'add' | 'subtract'} dateOperation - A string that defines whether the maxDate should be calculated by adding or subtracting years to/from the current date.
  */
-interface DatePickerProps {
+export interface DatePickerProps {
   nameDate: string;
   label: string;
   minDate: number;
@@ -28,9 +28,9 @@ interface DatePickerProps {
  * This is a functional component that renders a DatePicker input.
  * The user can select a date within a specified range, defined by the minDate and maxDate props.
  * The selected date is validated and dispatched to the redux store.
- * 
+ *
  * @component
- * 
+ *
  * @param {DatePickerProps} props - The props that are passed to this component
  * @returns {JSX.Element}
  */
@@ -41,15 +41,13 @@ export default function DatePickerComponent({
   maxDate,
   dateOperation,
 }: DatePickerProps): JSX.Element {
- 
   const dateInput = useSelector(
-    (state: RootState) =>
-      state.employeeFormState.formValues[nameDate],
+    (state: RootState) => state.employeeFormState.formValues[nameDate],
   );
-      const errorKey = `error${nameDate}`;
-const errorDate = useSelector(
-  (state: RootState) => state.employeeFormState.formErrors[errorKey],
-);
+  const errorKey = `error${nameDate}`;
+  const errorDate = useSelector(
+    (state: RootState) => state.employeeFormState.formErrors[errorKey],
+  );
   const dispatch = useDispatch();
   const noBeforeDay = dayjs().subtract(minDate, 'year');
   const noAfterDay =
@@ -85,14 +83,14 @@ const errorDate = useSelector(
   };
 
   return (
-    <div className={`form-group box_${nameDate} ${errorDate ? 'errorBorder' : ''}`}>
+    <div
+      className={`form-group box_${nameDate} ${errorDate ? 'errorBorder' : ''}`}
+    >
       <div
         className="box_Input "
         style={{ display: 'flex', position: 'relative' }}
-        
       >
         <DatePicker
-          
           label={`${label} Select`}
           minDate={noBeforeDay}
           maxDate={noAfterDay}
@@ -110,7 +108,7 @@ const errorDate = useSelector(
               height: '20px',
               width: '180px',
               margin: '8px',
-              padding:'8px 10px'
+              padding: '8px 10px',
             },
           }}
         />

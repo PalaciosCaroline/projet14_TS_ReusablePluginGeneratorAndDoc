@@ -16,7 +16,7 @@ import { RootState } from './../store/index';
  * @property {string} dropdownLabel - The aria-labelledby for the dropdown.
  * @property {React.CSSProperties} [style] - The style properties of the dropdown.
  */
-interface DropdownProps {
+export interface DropdownProps {
   label: string;
   options: string[];
   placeholder?: string;
@@ -92,11 +92,11 @@ const Dropdown: FC<DropdownProps> = ({
   const handleChevronClick = (
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
   ): void => {
-    event.stopPropagation(); 
+    event.stopPropagation();
     toggleDropdown();
   };
 
-  const handleTriggerKeyDown1 = (event: React.KeyboardEvent): void => {
+  const handleTriggerKeyDownApp = (event: React.KeyboardEvent): void => {
     if (event.currentTarget !== event.target) {
       return;
     }
@@ -137,7 +137,7 @@ const Dropdown: FC<DropdownProps> = ({
       isOpen &&
       focusedOptionIndex >= 0 &&
       focusedOptionIndex < options.length &&
-      dropdownRef.current 
+      dropdownRef.current
     ) {
       const optionElement = dropdownRef.current.querySelector(
         `li:nth-child(${focusedOptionIndex + 1})`,
@@ -150,7 +150,7 @@ const Dropdown: FC<DropdownProps> = ({
     }
   }, [focusedOptionIndex, isOpen, options.length]);
 
-  const handleOptionKeyDown2 = (
+  const handleOptionKeyDownApp = (
     event: React.KeyboardEvent,
     option: string,
   ): void => {
@@ -161,8 +161,8 @@ const Dropdown: FC<DropdownProps> = ({
       case 'Enter':
       case ' ':
         if (isOpen) {
-        event.preventDefault();
-        handleSelect(label, option);
+          event.preventDefault();
+          handleSelect(label, option);
         }
         break;
       case 'Tab':
@@ -175,22 +175,27 @@ const Dropdown: FC<DropdownProps> = ({
 
   return (
     <div className={`box_${label}`}>
-      <div className="dropdown dropdownNewEmployee" ref={dropdownRef} style={{position:'relative'}}>
-      <p className="p_label form__label">{label}</p> 
+      <div
+        className="dropdown dropdownNewEmployee"
+        ref={dropdownRef}
+        style={{ position: 'relative' }}
+      >
+        <p className="p_label form__label">{label}</p>
         <button
           type="button"
           style={{
-            color: selectedOption ? '#5a5a5a' : '#616060', fontWeight: selectedOption ? '600' : ''
+            color: selectedOption ? '#5a5a5a' : '#616060',
+            fontWeight: selectedOption ? '600' : '',
           }}
           className="dropdownToggle form__input"
           onClick={toggleDropdown}
-          onKeyDown={handleTriggerKeyDown1}
+          onKeyDown={handleTriggerKeyDownApp}
           value={selectedOption}
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           aria-labelledby={dropdownLabel}
           aria-label="Options de la liste déroulante"
-          data-testid='test_btnDropDown'
+          data-testid="test_btnDropDown"
         >
           {selectedOption || placeholder}
           <span className="arrow" onClick={handleChevronClick}>
@@ -211,10 +216,10 @@ const Dropdown: FC<DropdownProps> = ({
                 aria-selected={option === selectedOption}
               >
                 <button
-                  onKeyDown={(event) => handleOptionKeyDown2(event, option)}
+                  onKeyDown={(event) => handleOptionKeyDownApp(event, option)}
                   onClick={() => handleSelect(label, option)}
                   onMouseOver={() => setFocusedOptionIndex(index)}
-                  className="dropdownOptionButton" 
+                  className="dropdownOptionButton"
                   tabIndex={0}
                   style={{ width: '100%', height: '100%' }}
                   data-testid={option}
@@ -226,7 +231,9 @@ const Dropdown: FC<DropdownProps> = ({
           </ul>
         )}
         <span id={dropdownLabel} className="sr-only">
-          Options de la liste déroulante
+          {isOpen
+            ? `Dropdown options for ${label} are now visible`
+            : `Dropdown options for ${label} are hidden. Press Enter to view`}
         </span>
       </div>
     </div>

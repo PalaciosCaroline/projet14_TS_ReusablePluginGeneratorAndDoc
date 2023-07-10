@@ -10,7 +10,7 @@ import AddressAndDepartmentForm from './AddressAndDepartmentForm';
  * @property {number} selectedEmployeeId - The ID of the employee being edited.
  * @property {boolean} isLoading - A boolean flag indicating whether data is currently being loaded. If true, the save changes button will be disabled.
  */
-interface EditEmployeeContentProps {
+export interface EditEmployeeContentProps {
   handleChangeSubmit: (employeeId: number) => (e: any) => void;
   selectedEmployeeId: number;
   isLoading: boolean;

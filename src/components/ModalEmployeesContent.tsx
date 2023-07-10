@@ -8,9 +8,8 @@ import {
   ARCHIVE_MODAL,
   DELETE_MODAL,
   EDIT_MODAL,
-  employeeDataConfig
+  employeeDataConfig,
 } from '../utils/modalConstants';
-
 
 /**
  * @interface EmployeeDataProps
@@ -20,7 +19,7 @@ import {
  * @property {string} data - Represents the data associated with the label.
  * @property {string} className - Represents the CSS class to be applied to the component.
  */
-interface EmployeeDataProps {
+export interface EmployeeDataProps {
   label: string;
   data: string;
   className: string;
@@ -103,7 +102,7 @@ const getContentByModalType = (
  * @property {boolean} isLoading - Indicates if the form is loading.
  * @property {EmployeeBase} employeeFormEntree - Represents the data of the employee that is being edited.
  */
-interface ModalContentProps {
+export interface ModalContentProps {
   modalType: ModalType;
   handleSubmit: any;
   handleCancel: () => void;

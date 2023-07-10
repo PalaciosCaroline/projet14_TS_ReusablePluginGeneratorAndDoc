@@ -24,9 +24,9 @@ export default function AddressAndDepartmentForm(): JSX.Element {
     <>
       <fieldset className="address">
         <legend>Address</legend>
-        <div className='box_streetCity'>
-        <InputField name="street" />
-        <InputField name="city" />
+        <div className="box_streetCity">
+          <InputField name="street" />
+          <InputField name="city" />
         </div>
         <Dropdown
           label="State"

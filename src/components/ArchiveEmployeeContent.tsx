@@ -16,7 +16,7 @@ import 'dayjs/locale/en-gb';
  * @property {number} selectedEmployeeId - The id of the selected employee.
  * @property {boolean} isLoading - A boolean flag indicating whether data is currently being loaded. If true, the save changes button will be disabled.
  */
-interface ArchiveEmployeeContentProps {
+export interface ArchiveEmployeeContentProps {
   handleArchiveSubmit: (employeeId: number) => (e: any) => void;
   selectedEmployeeId: number;
   isLoading: boolean;

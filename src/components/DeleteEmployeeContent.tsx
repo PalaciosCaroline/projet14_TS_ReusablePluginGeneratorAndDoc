@@ -10,7 +10,7 @@ import React, { FC } from 'react';
  * @property {Function} handleCancel - The function to call when the "Cancel" button is clicked.
  * @property {boolean} isLoading - A boolean flag indicating whether data is currently being loaded. If true, the save changes button will be disabled.
  */
-interface DeleteEmployeeContentProps {
+export interface DeleteEmployeeContentProps {
   handleDeleteSubmit: (employeeId: number) => void;
   selectedEmployeeId: number;
   handleCancel: () => void;

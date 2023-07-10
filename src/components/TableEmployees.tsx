@@ -42,7 +42,7 @@ interface DataItem<T> {
  * @property {boolean} [disableSort] - Optional. Indicates whether the sorting functionality for the column is disabled.
  * @property {boolean} [disableFilter] - Optional. Indicates whether the filtering functionality for the column is disabled.
  */
-interface ColumnManaged {
+export interface ColumnManaged {
   label: string;
   property: string;
   isVisible?: boolean;
@@ -57,10 +57,10 @@ export type ModalType =
   | typeof DELETE_MODAL
   | typeof NONE_MODAL;
 
-type ModalState = {
-    modalType: ModalType;
-    isModalOpen: boolean;
-    selectedEmployeeId: number | null;
+export type ModalState = {
+  modalType: ModalType;
+  isModalOpen: boolean;
+  selectedEmployeeId: number | null;
 };
 
 /**
@@ -82,7 +82,7 @@ const TableEmployees: FC = (): JSX.Element => {
   const initialModalState: ModalState = {
     modalType: NONE_MODAL,
     isModalOpen: false,
-    selectedEmployeeId: null
+    selectedEmployeeId: null,
   };
   const [modalState, setModalState] = useState<ModalState>(initialModalState);
   const lastFocusedElementRef = useRef<Element | null>(null);
@@ -162,7 +162,11 @@ const TableEmployees: FC = (): JSX.Element => {
 
   const setModalProperties = useCallback(
     (id: number | null, modalType: ModalType, modalOpen: boolean) => {
-      setModalState({ selectedEmployeeId: id, modalType: modalType, isModalOpen: modalOpen });
+      setModalState({
+        selectedEmployeeId: id,
+        modalType: modalType,
+        isModalOpen: modalOpen,
+      });
     },
     [],
   );
@@ -209,7 +213,7 @@ const TableEmployees: FC = (): JSX.Element => {
     handleChangeSubmit,
     handleArchiveSubmit,
     handleDeleteSubmit,
-)[modalState.modalType];
+  )[modalState.modalType];
 
   return (
     <div className="box_table" data-testid="employee-table">
@@ -246,7 +250,11 @@ const TableEmployees: FC = (): JSX.Element => {
                 closeModal={handleAnimModal}
                 className={`editEmployeeModal formAppModal ${
                   isFadingOut ? 'fadeOut' : ''
-                } ${modalState.modalType === DELETE_MODAL ? 'deleteEmployeeModal' : ''}`}
+                } ${
+                  modalState.modalType === DELETE_MODAL
+                    ? 'deleteEmployeeModal'
+                    : ''
+                }`}
                 dataTestId={`modalAction_${modalState.modalType}`}
                 icon={icon}
                 title={title}

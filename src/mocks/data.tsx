@@ -14,9 +14,9 @@ export interface EmployeeBase {
 export interface Columns {
   label: string;
   property: string;
-  dateFormat?:string;
-  disableSort?:boolean;
-  disableFilter?:boolean;
+  dateFormat?: string;
+  disableSort?: boolean;
+  disableFilter?: boolean;
 }
 
 export interface Employee extends EmployeeBase {
@@ -26,21 +26,31 @@ export interface Employee extends EmployeeBase {
 export const dataColumnsMock: Columns[] = [
   { label: 'First Name', property: 'firstname' },
   { label: 'Last Name', property: 'lastname' },
-  { label: 'Start Date', property: 'startDate', dateFormat:'DD/MM/YYYY' },
+  { label: 'Start Date', property: 'startDate', dateFormat: 'DD/MM/YYYY' },
   { label: 'Department', property: 'department' },
-  { label: 'Date of Birth', property: 'dateOfBirth', dateFormat:'DD/MM/YYYY' },
-  { label: 'Street', property: 'street', disableSort: true,disableFilter: true},
+  { label: 'Date of Birth', property: 'dateOfBirth', dateFormat: 'DD/MM/YYYY' },
+  {
+    label: 'Street',
+    property: 'street',
+    disableSort: true,
+    disableFilter: true,
+  },
   { label: 'City', property: 'city', disableSort: true },
-  { label: 'State', property: 'state',disableSort: true },
-  { label: 'Zip Code', property: 'zipCode',disableSort: true,disableFilter: true },
+  { label: 'State', property: 'state', disableSort: true },
+  {
+    label: 'Zip Code',
+    property: 'zipCode',
+    disableSort: true,
+    disableFilter: true,
+  },
 ];
 
 export const dataEmployeesMock: Employee[] = [
   {
-    id:1,
+    id: 1,
     firstname: 'John',
     lastname: 'Doe',
-    dateOfBirth: "15/01/1975",
+    dateOfBirth: '15/01/1975',
     startDate: '01/04/2022',
     department: 'Sales',
     street: '123 Main St',
@@ -49,7 +59,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '12345',
   },
   {
-    id:2,
+    id: 2,
     firstname: 'Jane',
     lastname: 'Smith',
     dateOfBirth: '17/05/1985',
@@ -61,7 +71,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '67890',
   },
   {
-    id:3,
+    id: 3,
     firstname: 'Bob',
     lastname: 'Johnson',
     dateOfBirth: '30/09/1978',
@@ -73,7 +83,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '54321',
   },
   {
-    id:4,
+    id: 4,
     firstname: 'William',
     lastname: 'Smith',
     dateOfBirth: '10/03/1978',
@@ -85,7 +95,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '67890',
   },
   {
-    id:5,
+    id: 5,
     firstname: 'Sarah',
     lastname: 'Taylor',
     dateOfBirth: '12/12/1985',
@@ -97,7 +107,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '23456',
   },
   {
-    id:6,
+    id: 6,
     firstname: 'Michael',
     lastname: 'Brown',
     dateOfBirth: '01/05/1976',
@@ -109,7 +119,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '87654',
   },
   {
-    id:7,
+    id: 7,
     firstname: 'Emily',
     lastname: 'Wilson',
     dateOfBirth: '20/11/1990',
@@ -121,7 +131,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '34567',
   },
   {
-    id:8,
+    id: 8,
     firstname: 'David',
     lastname: 'Lee',
     dateOfBirth: '05/07/1979',
@@ -133,7 +143,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '45678',
   },
   {
-    id:9,
+    id: 9,
     firstname: 'Maria',
     lastname: 'Garcia',
     dateOfBirth: '30/04/1983',
@@ -145,7 +155,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '56789',
   },
   {
-    id:10,
+    id: 10,
     firstname: 'Christopher',
     lastname: 'Davis',
     dateOfBirth: '14/02/1981',
@@ -158,7 +168,7 @@ export const dataEmployeesMock: Employee[] = [
   },
 
   {
-    id:11,
+    id: 11,
     firstname: 'Joce',
     lastname: 'Pietr',
     dateOfBirth: '30/04/1983',
@@ -169,7 +179,8 @@ export const dataEmployeesMock: Employee[] = [
     state: 'TX',
     zipCode: '56789',
   },
-  {id:12,
+  {
+    id: 12,
     firstname: 'hyrte',
     lastname: 'Porie',
     dateOfBirth: '14/02/1981',
@@ -181,7 +192,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '12589',
   },
   {
-    id:13,
+    id: 13,
     firstname: 'Samantha',
     lastname: 'Brown',
     dateOfBirth: '05/03/1984',
@@ -193,7 +204,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '12345',
   },
   {
-    id:14,
+    id: 14,
     firstname: 'Robert',
     lastname: 'Gonzalez',
     dateOfBirth: '18/06/1979',
@@ -205,7 +216,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '54321',
   },
   {
-    id:15,
+    id: 15,
     firstname: 'Olivia',
     lastname: 'Lee',
     dateOfBirth: '22/11/1992',
@@ -217,7 +228,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '67890',
   },
   {
-    id:16,
+    id: 16,
     firstname: 'Daniel',
     lastname: 'Nguyen',
     dateOfBirth: '10/10/1980',
@@ -229,7 +240,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '23456',
   },
   {
-    id:17,
+    id: 17,
     firstname: 'Avery',
     lastname: 'Taylor',
     dateOfBirth: '28/09/1988',
@@ -241,7 +252,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '87654',
   },
   {
-    id:18,
+    id: 18,
     firstname: 'Landon',
     lastname: 'margot',
     dateOfBirth: '14/07/1981',
@@ -253,7 +264,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '34567',
   },
   {
-    id:19,
+    id: 19,
     firstname: 'Sophia',
     lastname: 'Chen',
     dateOfBirth: '23/04/1995',
@@ -265,7 +276,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '45678',
   },
   {
-    id:20,
+    id: 20,
     firstname: 'Noah',
     lastname: 'Wilson',
     dateOfBirth: '01/12/1985',
@@ -277,7 +288,7 @@ export const dataEmployeesMock: Employee[] = [
     zipCode: '56789',
   },
   {
-    id:21,
+    id: 21,
     firstname: 'Mia',
     lastname: 'Robinson',
     dateOfBirth: '19/02/1998',

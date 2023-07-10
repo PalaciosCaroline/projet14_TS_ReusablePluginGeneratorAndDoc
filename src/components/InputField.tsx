@@ -11,7 +11,7 @@ import { setField, setError } from '../store/employeeFormStateSlice';
  * @property {'text' | 'number'} type - The type of the input field.
  * @property {string} error - The error message for the input field.
  */
-interface InputFieldProps {
+export interface InputFieldProps {
   label?: string;
   name: string;
   type?: 'text' | 'number';
@@ -57,20 +57,20 @@ export const InputField: React.FC<InputFieldProps> = ({
     />
   );
   const inputElement = (
-      <div className="form-item">
-        {inputComponent}
-        <label className={inputValue ? 'up' : ''} htmlFor={name}>
-          {' '}
-          {label ? label : name.charAt(0).toUpperCase() + name.slice(1)}
-        </label>
-        {error ? (
-          <p className="errorMessage" data-testid={`error-${name}`}>
-            {error}
-          </p>
-        ) : (
-          ''
-        )}
-      </div>
+    <div className="form-item">
+      {inputComponent}
+      <label className={inputValue ? 'up' : ''} htmlFor={name}>
+        {' '}
+        {label ? label : name.charAt(0).toUpperCase() + name.slice(1)}
+      </label>
+      {error ? (
+        <p className="errorMessage" data-testid={`error-${name}`}>
+          {error}
+        </p>
+      ) : (
+        ''
+      )}
+    </div>
   );
 
   return isFirstNameOrLastName ? (

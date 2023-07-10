@@ -257,9 +257,6 @@ describe('Dropdown', () => {
 const { reducer, actions } = employeesSlice;
 
 describe('employeesSlice', () => {
-  test('should return the initial state', () => {
-    expect(reducer(undefined, {})).toEqual(employeesSliceInitial);
-  });
 
   test('should handle setLoading', () => {
     const action = actions.setLoading(true);

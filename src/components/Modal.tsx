@@ -13,7 +13,7 @@ import { FaTimes } from 'react-icons/fa';
  * @property {ReactNode} icon - The icon node that appears in the title bar of the modal.
  * @property {string} title - The title text that appears in the title bar of the modal.
  */
-interface ModalProps {
+export interface ModalProps {
   isModalOpen: boolean;
   closeModal: () => void;
   children: ReactNode;

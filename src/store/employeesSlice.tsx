@@ -4,7 +4,7 @@ import { EmployeeBase } from './../mocks/data';
 
 export interface Employee extends EmployeeBase {
   id: number;
-  endDate?: string; 
+  endDate?: string;
 }
 
 let nextId = 22;
@@ -20,7 +20,7 @@ export const initialState: EmployeesState = {
   active: dataEmployeesMock,
   archived: [],
   isLoading: false,
-  errorEmployeeExist: null, 
+  errorEmployeeExist: null,
 };
 
 interface UpdateEmployeePayload {
@@ -39,20 +39,19 @@ const employeesSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
-    // sécurité: enregistrement de l'idUser à faire et Date d'enregistrement
     addEmployee: {
       reducer: (state, action: PayloadAction<Employee>) => {
         const existingEmployee = state.active.find(
-          (employee) => 
+          (employee) =>
             employee.firstname === action.payload.firstname &&
             employee.lastname === action.payload.lastname &&
-            employee.dateOfBirth === action.payload.dateOfBirth
+            employee.dateOfBirth === action.payload.dateOfBirth,
         );
         if (existingEmployee) {
-          state.errorEmployeeExist = "Employee already exists";
+          state.errorEmployeeExist = 'Employee already exists';
         } else {
           state.active.push(action.payload);
-          state.errorEmployeeExist = null; 
+          state.errorEmployeeExist = null;
         }
       },
       prepare: (employee: EmployeeBase) => {
@@ -60,7 +59,14 @@ const employeesSlice = createSlice({
       },
     },
     updateEmployee: (state, action: PayloadAction<UpdateEmployeePayload>) => {
-      const { id, department, street, city, state: employeeState, zipCode } = action.payload;
+      const {
+        id,
+        department,
+        street,
+        city,
+        state: employeeState,
+        zipCode,
+      } = action.payload;
       const index = state.active.findIndex((employee) => employee.id === id);
       if (index !== -1) {
         state.active[index].department = department;
@@ -70,19 +76,18 @@ const employeesSlice = createSlice({
         state.active[index].zipCode = zipCode;
       }
     },
-    // sécurité: enregistrement de l'idUser à faire et Date d'effacement
-    archiveEmployee: (state, action: PayloadAction<{id: number, endDate: string}>) => {
+    archiveEmployee: (
+      state,
+      action: PayloadAction<{ id: number; endDate: string }>,
+    ) => {
       const { id, endDate } = action.payload;
-      const index = state.active.findIndex(
-        (employee) => employee.id === id,
-      );
+      const index = state.active.findIndex((employee) => employee.id === id);
       if (index !== -1) {
         const [employee] = state.active.splice(index, 1);
         employee.endDate = endDate;
         state.archived.push(employee);
       }
     },
-    // sécurité: enregistrement de l'idUser à faire et Date d'effacement
     deleteEmployee: (state, action: PayloadAction<number>) => {
       state.active = state.active.filter(
         (employee) => employee.id !== action.payload,
@@ -91,6 +96,11 @@ const employeesSlice = createSlice({
   },
 });
 
-export const { setLoading, addEmployee, updateEmployee, deleteEmployee, archiveEmployee } =
-  employeesSlice.actions;
+export const {
+  setLoading,
+  addEmployee,
+  updateEmployee,
+  deleteEmployee,
+  archiveEmployee,
+} = employeesSlice.actions;
 export default employeesSlice;

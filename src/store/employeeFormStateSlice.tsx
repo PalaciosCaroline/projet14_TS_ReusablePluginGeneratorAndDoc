@@ -59,14 +59,20 @@ const employeeFormStateSlice = createSlice({
   name: 'employeeFormState',
   initialState,
   reducers: {
-    setField: (state, action: PayloadAction<{ name: keyof EmployeeFormValues; value: string }>) => {
+    setField: (
+      state,
+      action: PayloadAction<{ name: keyof EmployeeFormValues; value: string }>,
+    ) => {
       state.formValues[action.payload.name] = action.payload.value;
     },
     clearInput: (state) => {
       state.formValues = initialState.formValues;
       state.formErrors = initialState.formErrors;
     },
-    setError: (state, action: PayloadAction<{ name: string; message: string }>) => {
+    setError: (
+      state,
+      action: PayloadAction<{ name: string; message: string }>,
+    ) => {
       state.formErrors[`error${action.payload.name}`] = action.payload.message;
     },
     setEmployeeData: (state, action: PayloadAction<EmployeeFormValues>) => {
@@ -75,6 +81,7 @@ const employeeFormStateSlice = createSlice({
   },
 });
 
-export const { setField, clearInput, setError, setEmployeeData } = employeeFormStateSlice.actions;
+export const { setField, clearInput, setError, setEmployeeData } =
+  employeeFormStateSlice.actions;
 
 export default employeeFormStateSlice;
