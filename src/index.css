@@ -664,6 +664,7 @@ fieldset {
 
 .editEmployeeModal {
   overflow-y: auto;
+  padding-right: 45px; 
 }
 
 .formAppModal .iconCheckedModal {
@@ -1061,6 +1062,11 @@ fieldset {
 
 .formApp .dropdownMenu {
   max-height: 200px;
+  overflow-y: auto;
+}
+
+.editEmployeeModal .box_Department .dropdownMenu {
+  max-height: 100px;
   overflow-y: auto;
 }
 

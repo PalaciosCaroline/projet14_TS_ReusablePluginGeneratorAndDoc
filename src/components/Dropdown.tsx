@@ -46,6 +46,8 @@ const Dropdown: FC<DropdownProps> = ({
   const newEmployeeEntree = useSelector(
     (state: RootState) => state.employeeFormState.formValues,
   );
+  const dropdownContainerRef = useRef<HTMLUListElement>(null);
+  const [isMouseActive, setIsMouseActive] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -139,13 +141,16 @@ const Dropdown: FC<DropdownProps> = ({
       focusedOptionIndex < options.length &&
       dropdownRef.current
     ) {
+      if (isMouseActive) {
+        return; // Ignore scroll when mouse is active
+      }
       const optionElement = dropdownRef.current.querySelector(
         `li:nth-child(${focusedOptionIndex + 1})`,
       );
       const htmlElement = optionElement as HTMLElement;
 
       if (htmlElement) {
-        htmlElement.focus();
+        htmlElement.scrollIntoView({ behavior: 'smooth' });
       }
     }
   }, [focusedOptionIndex, isOpen, options.length]);
@@ -173,12 +178,22 @@ const Dropdown: FC<DropdownProps> = ({
     }
   };
 
+  const handleMouseEnter = (): void => {
+    setIsMouseActive(true);
+  };
+  
+  const handleMouseLeave = (): void => {
+    setIsMouseActive(false);
+  };
+
   return (
     <div className={`box_${label}`}>
       <div
         className="dropdown dropdownNewEmployee"
         ref={dropdownRef}
         style={{ position: 'relative' }}
+        onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       >
         <p className="p_label form__label">{label}</p>
         <button
@@ -203,7 +218,11 @@ const Dropdown: FC<DropdownProps> = ({
           </span>
         </button>
         {isOpen && (
-          <ul className="dropdownMenu" role="listbox">
+          <ul
+            className="dropdownMenu"
+            role="listbox"
+            ref={dropdownContainerRef}
+          >
             {options.map((option, index) => (
               <li
                 key={option}
