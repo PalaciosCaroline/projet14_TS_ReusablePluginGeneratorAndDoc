@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState, useCallback, useRef } from 'react';
 import { Employee, dataColumnsMock } from '../mocks/data';
 import { Table } from 'typescript-table';
+import { ExportDataComponent } from 'typescript-exportdata';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/index';
-import { ExportDataComponent } from 'typescript-exportdata';
 import { clearInput, setEmployeeData } from '../store/employeeFormStateSlice';
 const Modal = React.lazy(() => import('./Modal'));
 import ModalEmployeesContent from './ModalEmployeesContent';
